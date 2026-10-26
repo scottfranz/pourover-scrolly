@@ -163,7 +163,8 @@ function Radar(svg, tipEl, { morphFrom = BED_R / SCENE_R } = {}) {
 
   function showTip(ev, p) {
     const [x, y] = d3.pointer(ev, tipEl.parentElement);
-    tipEl.innerHTML = `<strong>${p.s.name}</strong>${p.a.label}: <span class="v">${p.v == null ? 'not logged' : p.a.fmt(p.v)}</span>`;
+    tipEl.innerHTML = `<div class="tip-name"><span class="swatch s-${p.s.slot}"></span><strong>${p.s.name}</strong></div>` +
+      `<div class="tip-row"><span>${p.a.label}</span><span class="v">${p.v == null ? 'not logged' : p.a.fmt(p.v)}</span></div>`;
     tipEl.style.left = `${x}px`; tipEl.style.top = `${y}px`;
     tipEl.hidden = false;
   }
@@ -307,14 +308,19 @@ function Scene(svg) {
 }
 
 // ---------- brew timer (15 g coffee, 250 g water) ----------
+const mmss = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 const WATER_G = 250;
+const PHASES = [['Bloom', 0, 45], ['Main pour', 45, 120], ['Drawdown', 120, 180]]; // seconds, matches brewAt
+document.querySelectorAll('[data-phase]').forEach(el => {
+  const [name, from, to] = PHASES[+el.dataset.phase];
+  el.textContent = `${mmss(from)}–${mmss(to)} · ${name}`;
+});
 function brewAt(g) {
   if (g < 1) return [0, 0];
   if (g < 2) { const p = g - 1; return [45 * p, 45 * clamp(p / 0.5)]; }
   if (g < 3) { const p = g - 2; return [45 + 75 * p, 45 + (WATER_G - 45) * p]; }
   return [120 + 60 * clamp((g - 3) / 0.4), WATER_G];
 }
-const mmss = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
 // ---------- legend ----------
 function renderLegend(el, series) {
@@ -404,6 +410,25 @@ addEventListener('scroll', () => {
 }, { passive: true });
 g = scrollG(); draw();
 
+// ---------- tasting notes ----------
+// Roasters word notes differently ("strawberries", "strawberry jam"), so compare bags by flavor family.
+const FAMILIES = [
+  ['Berry', /berr|fruits? rouge|red fruit|currant|jam/i],
+  ['Stone fruit', /peach|apricot|plum|nectarine|cherr|stone ?fruit|prune/i],
+  ['Citrus', /lemon|lime|orange|tangerine|mandarin|grapefruit|citrus|bergamot|yuzu|clementine|kumquat/i],
+  ['Tropical', /mango|pineapple|passion|guava|lychee|papaya|tropical|starfruit|banana|coconut|melon|cantaloupe|kiwi/i],
+  ['Floral', /floral|flower|blossom|jasmine|rose\b|lavender|lily|violet|hibiscus|honeysuckle|perfum|chamomile|elderflower/i],
+  ['Grape & wine', /grape|wine|raisin|pomegranate|fig/i],
+  ['Apple & pear', /apple|pear/i],
+  ['Sugar & caramel', /honey|caramel|toffee|sugar|candy|vanilla|syrup|molasses|maple|sherbe|marshmallow|butterscotch/i],
+  ['Chocolate & nut', /chocola|cocoa|cacao|nut|almond|peanut|praline|marzipan/i],
+  ['Tea & spice', /\btea\b|lemongrass|herb|mint|spic|cinnamon|clove|ginger|cardamom/i],
+];
+const families = note => FAMILIES.filter(([, re]) => re.test(note)).map(([f]) => f);
+const splitNotes = s => (s ?? '').split(/\s*(?:,|;|\n|&|\band\b)\s*/i)
+  .map(t => t.trim().replace(/[.!]+$/, '')).filter(Boolean)
+  .map(t => t[0].toUpperCase() + t.slice(1));
+
 // ---------- explore ----------
 const exploreStage = document.getElementById('explore-stage');
 const exploreSvg = d3.select('#explore-viz');
@@ -457,9 +482,11 @@ function updateExplore(duration) {
   exploreRadar.set(series, { duration });
   renderLegend(document.getElementById('explore-legend'), series);
 
+  renderCards(picks);
+
   const cols = [
     ['Bag', null], ...AXES.map(a => [a.label, a]),
-    ['Roast', 'roast_level'], ['Process', 'process'], ['Origin', 'country_primary'], ['Opened', 'opened_date'],
+    ['Variety', 'variety'], ['Roast', 'roast_level'], ['Process', 'process'], ['Origin', 'country_primary'], ['Opened', 'opened_date'],
   ];
   const rows = [...picks.map(p => ({ slot: p.s.slot, name: p.s.name, values: p.s.values, b: p.b })), { slot: 'avg', name: `${ref.name} (${ref.sub})`, values: ref.values }];
   const table = d3.select('#explore-table');
@@ -471,7 +498,44 @@ function updateExplore(duration) {
     .html(({ r, c }) => {
       if (!c[1]) return `<span class="swatch ${r.slot === 'avg' ? 'ghost' : 's-' + r.slot}"></span>${r.name}`;
       if (typeof c[1] === 'object') { const v = r.values[c[1].key]; return v == null ? '—' : c[1].fmt(v); }
+      if (c[1] === 'variety') return r.b?.varieties?.length ? r.b.varieties.join(', ') : '—';
       return r.b?.[c[1]] ?? '—';
+    });
+}
+
+function renderCards(picks) {
+  const cards = picks.map(p => {
+    const notes = splitNotes(p.b.roaster_notes).map(text => ({ text, fams: families(text) }));
+    return { ...p, notes, fams: new Set(notes.flatMap(n => n.fams)) };
+  });
+  // A family is "shared" when at least two of the selected bags have it.
+  const shared = new Map();
+  for (const [f] of FAMILIES) {
+    const who = cards.filter(c => c.fams.has(f)).map(c => c.s.slot);
+    if (who.length >= 2) shared.set(f, who);
+  }
+  const common = d3.select('#in-common');
+  if (cards.length < 2) common.html('');
+  else if (!shared.size) common.html('<span class="label">In common</span><span class="muted">No flavor family shows up in more than one of these bags.</span>');
+  else common.html('<span class="label">In common</span>' + [...shared].map(([f, who]) =>
+    `<span class="family">${f} <span class="who">${who.map(w => `<span class="swatch s-${w}"></span>`).join('')}</span></span>`).join(''));
+
+  const line = (k, v) => v ? `<div><dt>${k}</dt><dd>${v}</dd></div>` : '';
+  d3.select('#bag-cards').selectAll('.bag-card').data(cards, c => c.s.slot + c.b.bag_id).join('article')
+    .attr('class', 'bag-card')
+    .html(c => {
+      const b = c.b;
+      const origin = [b.countries.join(', '), b.region].filter(Boolean).join(' · ');
+      const chips = c.notes.length
+        ? `<ul class="notes">${c.notes.map(n => {
+            const sharedFams = n.fams.filter(f => shared.has(f));
+            return `<li class="note${sharedFams.length ? ' shared' : ''}" title="${n.fams.length ? n.fams.join(', ') : 'No flavor family'}">${n.text}</li>`;
+          }).join('')}</ul>`
+        : '<p class="muted">No roaster notes logged.</p>';
+      return `<header><span class="swatch s-${c.s.slot}"></span><span class="slot">Bag ${c.s.slot}</span><span class="score">${b.rating ?? '–'}<small> / 10</small></span></header>
+        <h3>${b.name ?? 'Unnamed bag'}</h3><p class="roaster">${b.roaster}</p>
+        <p class="label">Roaster's notes</p>${chips}
+        <dl>${line('Origin', origin)}${line('Variety', b.varieties.join(', '))}${line('Process', b.process)}${line('Producer', b.producer)}${line('Altitude', b.altitude_m && `${d3.format(',')(b.altitude_m)} m`)}</dl>`;
     });
 }
 function resizeExplore() {

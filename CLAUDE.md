@@ -66,6 +66,10 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
 - Ends with a "compare any three bags" explorer: origin chips (n < 3 → Other) pick that origin's
   top 3 and swap the dashed reference to the origin's average; table below.
 - Bags are labelled "Name (Roaster)", never with a dash between them.
+- Explorer bag cards: roaster's notes as chips, plus origin, variety, process, producer and altitude.
+  Notes are grouped into flavor families (`FAMILIES` in story.js); chips whose family appears in
+  another selected bag are highlighted, and "In common" lists the shared families.
+- Pour step labels (e.g. "2:00–3:00 · Drawdown") come from `PHASES`, the same timings as the brew timer.
 
 ## Next step
 
