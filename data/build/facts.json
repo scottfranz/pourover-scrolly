@@ -1,0 +1,401 @@
+{
+  "generated_at": "2026-10-26T20:18:46.838Z",
+  "source": "data/raw/bags.csv",
+  "dose_g": 15,
+  "n_bags": 122,
+  "n_rated": 120,
+  "n_roasters": 34,
+  "n_home_roasts": 7,
+  "n_countries": 14,
+  "n_varieties": 58,
+  "first_opened": "2024-07-13",
+  "last_opened": "2026-10-14",
+  "rating": {
+    "mean": 7.5,
+    "median": 7.7,
+    "q1": 7.28,
+    "q3": 8.1,
+    "min": 3,
+    "max": 8.9
+  },
+  "rest_days": {
+    "median": 14
+  },
+  "price_per_cup": {
+    "median": 1.02
+  },
+  "by_process": {
+    "Washed": {
+      "n": 77,
+      "mean": 7.71,
+      "median": 7.8
+    },
+    "Experimental": {
+      "n": 21,
+      "mean": 6.98,
+      "median": 7.7
+    },
+    "Natural": {
+      "n": 17,
+      "mean": 7.18,
+      "median": 7.2
+    },
+    "Honey": {
+      "n": 5,
+      "mean": 7.58,
+      "median": 7.7
+    }
+  },
+  "by_country": {
+    "Blend": {
+      "n": 1,
+      "mean": 5,
+      "median": 5
+    },
+    "Ethiopia": {
+      "n": 36,
+      "mean": 7.58,
+      "median": 7.7
+    },
+    "Colombia": {
+      "n": 38,
+      "mean": 7.48,
+      "median": 7.7
+    },
+    "Kenya": {
+      "n": 14,
+      "mean": 7.59,
+      "median": 7.8
+    },
+    "Costa Rica": {
+      "n": 2,
+      "mean": 7.15,
+      "median": 7.15
+    },
+    "Nicaragua": {
+      "n": 2,
+      "mean": 5.35,
+      "median": 5.35
+    },
+    "Guatemala": {
+      "n": 6,
+      "mean": 7.65,
+      "median": 7.7
+    },
+    "Ecuador": {
+      "n": 8,
+      "mean": 7.9,
+      "median": 7.85
+    },
+    "Rwanda": {
+      "n": 3,
+      "mean": 7.27,
+      "median": 7.1
+    },
+    "East Timor": {
+      "n": 1,
+      "mean": 7.1,
+      "median": 7.1
+    },
+    "Peru": {
+      "n": 2,
+      "mean": 6.9,
+      "median": 6.9
+    },
+    "Burundi": {
+      "n": 5,
+      "mean": 7.7,
+      "median": 7.7
+    },
+    "India": {
+      "n": 1,
+      "mean": 8,
+      "median": 8
+    },
+    "Mexico": {
+      "n": 1,
+      "mean": 8,
+      "median": 8
+    }
+  },
+  "by_roaster": {
+    "Hyperion": {
+      "n": 1,
+      "mean": 5,
+      "median": 5
+    },
+    "September": {
+      "n": 2,
+      "mean": 6.75,
+      "median": 6.75
+    },
+    "Black & White": {
+      "n": 2,
+      "mean": 8.15,
+      "median": 8.15
+    },
+    "Regalia": {
+      "n": 17,
+      "mean": 7.6,
+      "median": 7.6
+    },
+    "Loveless": {
+      "n": 1,
+      "mean": 6.5,
+      "median": 6.5
+    },
+    "Pine": {
+      "n": 1,
+      "mean": 7.1,
+      "median": 7.1
+    },
+    "Mythical": {
+      "n": 1,
+      "mean": 6.5,
+      "median": 6.5
+    },
+    "SEY": {
+      "n": 4,
+      "mean": 7.8,
+      "median": 7.8
+    },
+    "Standout": {
+      "n": 3,
+      "mean": 4.67,
+      "median": 5
+    },
+    "Glitch": {
+      "n": 1,
+      "mean": 8.5,
+      "median": 8.5
+    },
+    "Subtext": {
+      "n": 13,
+      "mean": 8.09,
+      "median": 8.1
+    },
+    "Little Wolf": {
+      "n": 1,
+      "mean": 8.3,
+      "median": 8.3
+    },
+    "Rogue Wave": {
+      "n": 11,
+      "mean": 7.42,
+      "median": 7.5
+    },
+    "Passenger": {
+      "n": 1,
+      "mean": 8,
+      "median": 8
+    },
+    "Kawa": {
+      "n": 1,
+      "mean": 7.3,
+      "median": 7.3
+    },
+    "S&W": {
+      "n": 3,
+      "mean": 6.07,
+      "median": 7.1
+    },
+    "Ilse": {
+      "n": 1,
+      "mean": 8.4,
+      "median": 8.4
+    },
+    "Curious Coffee": {
+      "n": 1,
+      "mean": 4,
+      "median": 4
+    },
+    "Roos Roast": {
+      "n": 1,
+      "mean": 7.7,
+      "median": 7.7
+    },
+    "Dak": {
+      "n": 7,
+      "mean": 7.76,
+      "median": 7.7
+    },
+    "Tandem": {
+      "n": 6,
+      "mean": 7.85,
+      "median": 7.7
+    },
+    "Home roast": {
+      "n": 7,
+      "mean": 6.97,
+      "median": 7.7
+    },
+    "Heart": {
+      "n": 2,
+      "mean": 7.65,
+      "median": 7.65
+    },
+    "Flower Child": {
+      "n": 4,
+      "mean": 7.33,
+      "median": 7.3
+    },
+    "Sweet Bloom": {
+      "n": 3,
+      "mean": 8.27,
+      "median": 8.1
+    },
+    "Brandywine": {
+      "n": 1,
+      "mean": 7.1,
+      "median": 7.1
+    },
+    "CETO": {
+      "n": 2,
+      "mean": 7.7,
+      "median": 7.7
+    },
+    "Loquat": {
+      "n": 1,
+      "mean": 7.2,
+      "median": 7.2
+    },
+    "Color": {
+      "n": 10,
+      "mean": 7.56,
+      "median": 7.65
+    },
+    "Hydrangea": {
+      "n": 2,
+      "mean": 8.15,
+      "median": 8.15
+    },
+    "Prodigal": {
+      "n": 2,
+      "mean": 7.8,
+      "median": 7.8
+    },
+    "Sweet Maria's": {
+      "n": 2,
+      "mean": 7.5,
+      "median": 7.5
+    },
+    "HEX": {
+      "n": 3,
+      "mean": 8.33,
+      "median": 8.4
+    },
+    "Field Day": {
+      "n": 2,
+      "mean": 8.3,
+      "median": 8.3
+    }
+  },
+  "by_quarter": {
+    "2024-Q3": {
+      "n": 7,
+      "mean": 6.96,
+      "median": 7
+    },
+    "2024-Q4": {
+      "n": 14,
+      "mean": 7.08,
+      "median": 7.55
+    },
+    "2025-Q1": {
+      "n": 15,
+      "mean": 7.29,
+      "median": 7.6
+    },
+    "2025-Q2": {
+      "n": 13,
+      "mean": 7.65,
+      "median": 7.7
+    },
+    "2025-Q3": {
+      "n": 14,
+      "mean": 7.68,
+      "median": 7.55
+    },
+    "2025-Q4": {
+      "n": 21,
+      "mean": 7.44,
+      "median": 7.7
+    },
+    "2026-Q1": {
+      "n": 8,
+      "mean": 7.73,
+      "median": 7.7
+    },
+    "2026-Q2": {
+      "n": 13,
+      "mean": 7.71,
+      "median": 7.7
+    },
+    "2026-Q3": {
+      "n": 11,
+      "mean": 7.71,
+      "median": 7.8
+    },
+    "2026-Q4": {
+      "n": 4,
+      "mean": 8.18,
+      "median": 8.15
+    }
+  },
+  "funk_cliff": {
+    "low": {
+      "n": 108,
+      "mean": 7.66,
+      "median": 7.7
+    },
+    "high": {
+      "n": 6,
+      "mean": 4.58,
+      "median": 4.5
+    }
+  },
+  "correlations": {
+    "price_per_g_vs_rating": {
+      "rho": 0.339,
+      "n": 114
+    },
+    "rest_days_vs_rating": {
+      "rho": -0.12,
+      "n": 120
+    },
+    "funk_vs_rating": {
+      "rho": -0.253,
+      "n": 114
+    },
+    "development_vs_rating": {
+      "rho": -0.203,
+      "n": 114
+    },
+    "altitude_vs_rating": {
+      "rho": 0.15,
+      "n": 103
+    }
+  },
+  "claims": [
+    {
+      "id": "washed-beats-natural",
+      "text": "Washed coffees rate higher on average than naturals.",
+      "holds": true
+    },
+    {
+      "id": "funk-cliff",
+      "text": "Ratings hold steady through moderate funk, then fall off at clean/funk 8+.",
+      "holds": true
+    },
+    {
+      "id": "price-weak-positive",
+      "text": "Paying more per gram is only weakly associated with higher ratings.",
+      "holds": true
+    },
+    {
+      "id": "rest-no-effect",
+      "text": "Rest time before opening has little relationship to rating.",
+      "holds": true
+    }
+  ]
+}

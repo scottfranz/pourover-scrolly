@@ -1,0 +1,5 @@
+node_modules/
+_site/
+coffee-story.zip
+# Sheet link lives in the SHEET_URL repository secret on GitHub, not in the public repo.
+sheet.config.json

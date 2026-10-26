@@ -1,0 +1,16 @@
+{
+  "name": "coffee-story",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "fetch": "node fetch.js",
+    "build:data": "node build.js data/raw/bags.csv",
+    "build:data:lenient": "node build.js data/raw/bags.csv --lenient",
+    "update": "npm run fetch && npm run build:data",
+    "update:lenient": "npm run fetch && npm run build:data:lenient",
+    "dev": "npx serve ."
+  },
+  "dependencies": {
+    "csv-parse": "5.5.6"
+  }
+}
