@@ -102,7 +102,8 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
 
 ## Next step
 
-Maybe a timeline of bags opened. Region spellings vary in the sheet ("San Agustin"/"San Augustin", "Quindio"/"Quindío").
+Maybe a timeline of bags opened. build.js merges producer/farm/region spellings that differ only in case, spacing or accents
+(most common spelling wins). Real misspellings like "San Agustin"/"San Augustin" still need fixing in the sheet.
 
 ## Preview and monthly refresh
 
