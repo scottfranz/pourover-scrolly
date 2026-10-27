@@ -395,7 +395,11 @@ function Intro(svg, tipEl) {
   cup.append('line').attr('class', 'seam').attr('x1', -58).attr('x2', 58).attr('y1', CUP_TOP + 1).attr('y2', CUP_TOP + 1);
   const crank = [crankBack, crankFront].map(gEl => {
     const arm = gEl.append('line').attr('class', 'crank-arm').attr('y1', -196).attr('y2', -196);
-    const knob = gEl.append('rect').attr('class', 'knob').attr('width', 24).attr('height', 52).attr('rx', 11).attr('y', -250);
+    // ZP6 knob: a round wooden ball on a short stem at the end of the arm
+    const knob = gEl.append('g');
+    knob.append('rect').attr('class', 'steel-dark').attr('x', -4).attr('y', -212).attr('width', 8).attr('height', 16).attr('rx', 2);
+    knob.append('circle').attr('class', 'knob').attr('cy', -228).attr('r', 19);
+    knob.append('circle').attr('class', 'knob-shine').attr('cx', -6).attr('cy', -235).attr('r', 6);
     return { gEl, arm, knob };
   });
   const shaft = upper.append('g');
@@ -533,7 +537,7 @@ function Intro(svg, tipEl) {
     crank.forEach((c, i) => {
       c.gEl.style('opacity', ((i === 0) === behind) ? crankOn : 0);
       c.arm.attr('x1', 0).attr('x2', lx);
-      c.knob.attr('x', lx - 12);
+      c.knob.attr('transform', `translate(${lx},0)`);
     });
     shaft.style('opacity', crankOn);
 
