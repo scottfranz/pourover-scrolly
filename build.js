@@ -225,6 +225,24 @@ const errors = issues.filter(i => i.level === 'error');
 const kept = lenient ? bags.filter(b => !badLines.has(b._line)) : bags;
 kept.forEach(b => delete b._line);
 
+// Producer, farm and region are typed by hand, so the same name shows up as "Juan Diego De La Cerda" and
+// "Juan Diego de la Cerda", or "Quindio" and "Quindío". Group spellings that differ only in case, spacing
+// or accents, and use the most common one (ties: the one with accents, then more capitals).
+const nameKey = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
+const marks = s => (s.normalize('NFD').match(/[\u0300-\u036f]/g) ?? []).length;
+const caps = s => (s.match(/[A-Z]/g) ?? []).length;
+for (const field of ['producer', 'farm', 'region']) {
+  const variants = new Map();
+  for (const b of kept) if (b[field]) {
+    const k = nameKey(b[field]), v = variants.get(k) ?? new Map();
+    v.set(b[field], (v.get(b[field]) ?? 0) + 1); variants.set(k, v);
+  }
+  for (const b of kept) if (b[field]) {
+    const v = variants.get(nameKey(b[field]));
+    if (v.size > 1) b[field] = [...v].sort((x, y) => y[1] - x[1] || marks(y[0]) - marks(x[0]) || caps(y[0]) - caps(x[0]))[0][0];
+  }
+}
+
 const rated = kept.filter(b => b.rating != null);
 const ratings = rated.map(b => b.rating);
 const funkLow = rated.filter(b => b.funk != null && b.funk <= 6);
