@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-26T20:18:46.838Z",
+  "generated_at": "2026-10-27T16:22:15.745Z",
   "source": "data/raw/bags.csv",
   "dose_g": 15,
   "n_bags": 122,
@@ -7,7 +7,7 @@
   "n_roasters": 34,
   "n_home_roasts": 7,
   "n_countries": 14,
-  "n_varieties": 58,
+  "n_varieties": 48,
   "first_opened": "2024-07-13",
   "last_opened": "2026-10-14",
   "rating": {
@@ -290,6 +290,244 @@
       "median": 8.3
     }
   },
+  "by_variety": {
+    "74110": {
+      "n": 5,
+      "mean": 7.42,
+      "median": 7.3
+    },
+    "74112": {
+      "n": 3,
+      "mean": 7.5,
+      "median": 7.3
+    },
+    "74158": {
+      "n": 6,
+      "mean": 7.23,
+      "median": 7.4
+    },
+    "74165": {
+      "n": 1,
+      "mean": 7.1,
+      "median": 7.1
+    },
+    "Tabi": {
+      "n": 1,
+      "mean": 6.5,
+      "median": 6.5
+    },
+    "Pink Bourbon": {
+      "n": 16,
+      "mean": 7.27,
+      "median": 7.55
+    },
+    "Pacamara": {
+      "n": 2,
+      "mean": 7.95,
+      "median": 7.95
+    },
+    "SL28": {
+      "n": 11,
+      "mean": 7.55,
+      "median": 7.8
+    },
+    "SL34": {
+      "n": 10,
+      "mean": 7.49,
+      "median": 7.8
+    },
+    "Caturra": {
+      "n": 10,
+      "mean": 7.35,
+      "median": 7.5
+    },
+    "Catuai": {
+      "n": 2,
+      "mean": 7.4,
+      "median": 7.4
+    },
+    "Heirloom Landraces": {
+      "n": 5,
+      "mean": 7.84,
+      "median": 8
+    },
+    "Castillo": {
+      "n": 4,
+      "mean": 6.53,
+      "median": 7.25
+    },
+    "V. Colombia": {
+      "n": 1,
+      "mean": 7.4,
+      "median": 7.4
+    },
+    "Guji Landrace": {
+      "n": 2,
+      "mean": 4.5,
+      "median": 4.5
+    },
+    "Purple Caturra": {
+      "n": 1,
+      "mean": 8.5,
+      "median": 8.5
+    },
+    "Maracaturra": {
+      "n": 1,
+      "mean": 7.7,
+      "median": 7.7
+    },
+    "Yellow Bourbon": {
+      "n": 1,
+      "mean": 7.3,
+      "median": 7.3
+    },
+    "Typica Mejorado": {
+      "n": 2,
+      "mean": 7.75,
+      "median": 7.75
+    },
+    "Gesha": {
+      "n": 8,
+      "mean": 7.76,
+      "median": 8.1
+    },
+    "Bourbon": {
+      "n": 5,
+      "mean": 7.32,
+      "median": 7.1
+    },
+    "Hybrido de Timor": {
+      "n": 1,
+      "mean": 7.1,
+      "median": 7.1
+    },
+    "Mejorado": {
+      "n": 4,
+      "mean": 8.13,
+      "median": 8.25
+    },
+    "Chiroso": {
+      "n": 6,
+      "mean": 7.95,
+      "median": 7.95
+    },
+    "Enepei": {
+      "n": 1,
+      "mean": 7.6,
+      "median": 7.6
+    },
+    "Batian": {
+      "n": 4,
+      "mean": 7.75,
+      "median": 7.75
+    },
+    "Red Catui": {
+      "n": 1,
+      "mean": 7.2,
+      "median": 7.2
+    },
+    "Mikicho": {
+      "n": 1,
+      "mean": 7.3,
+      "median": 7.3
+    },
+    "Ruiru 11": {
+      "n": 5,
+      "mean": 7.56,
+      "median": 7.6
+    },
+    "Red Bourbon": {
+      "n": 3,
+      "mean": 7.77,
+      "median": 7.8
+    },
+    "Sidra": {
+      "n": 1,
+      "mean": 8.1,
+      "median": 8.1
+    },
+    "Kurume": {
+      "n": 2,
+      "mean": 8.15,
+      "median": 8.15
+    },
+    "Wolisho": {
+      "n": 1,
+      "mean": 7.7,
+      "median": 7.7
+    },
+    "Heirloom Varieties": {
+      "n": 1,
+      "mean": 7.7,
+      "median": 7.7
+    },
+    "Ethiopian Landraces": {
+      "n": 14,
+      "mean": 7.76,
+      "median": 7.8
+    },
+    "Dega": {
+      "n": 1,
+      "mean": 8.6,
+      "median": 8.6
+    },
+    "Laurina": {
+      "n": 1,
+      "mean": 7.7,
+      "median": 7.7
+    },
+    "SL9": {
+      "n": 2,
+      "mean": 8.4,
+      "median": 8.4
+    },
+    "Maragogype": {
+      "n": 1,
+      "mean": 7.7,
+      "median": 7.7
+    },
+    "Typica": {
+      "n": 1,
+      "mean": 7.6,
+      "median": 7.6
+    },
+    "Catucai": {
+      "n": 1,
+      "mean": 7.6,
+      "median": 7.6
+    },
+    "Papayo Amarillo": {
+      "n": 1,
+      "mean": 7,
+      "median": 7
+    },
+    "Bourbon Aji": {
+      "n": 1,
+      "mean": 8.7,
+      "median": 8.7
+    },
+    "Heirloom Bourbon": {
+      "n": 1,
+      "mean": 7.9,
+      "median": 7.9
+    },
+    "Java": {
+      "n": 1,
+      "mean": 7.2,
+      "median": 7.2
+    },
+    "Wush Wush": {
+      "n": 1,
+      "mean": 6,
+      "median": 6
+    },
+    "Walega": {
+      "n": 2,
+      "mean": 8.2,
+      "median": 8.2
+    }
+  },
+  "n_repeat_roasters": 21,
   "by_quarter": {
     "2024-Q3": {
       "n": 7,

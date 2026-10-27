@@ -31,6 +31,7 @@
   --water-hi: #eef5fb;
   --steel-hi: #f4f5f7; --steel: #bcc1c8; --steel-lo: #7e858e; --steel-dark: #2e3236; --handle: #26282b;
   --shadow: rgba(40, 30, 20, 0.22);
+  --wood: #9a6a3e; --bean: #4a2c19; --bean-crease: #24130a; --grip: #2b2d30;
 
   --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
 
@@ -50,6 +51,7 @@
     --water-hi: #dfe9f2;
     --steel-hi: #dfe2e6; --steel: #a3a9b1; --steel-lo: #69707a; --steel-dark: #1b1d20; --handle: #111214;
     --shadow: rgba(0, 0, 0, 0.5);
+    --wood: #8a5c34; --bean: #5c3820; --bean-crease: #24130a; --grip: #1f2124;
     --s1: #3987e5; --s2: #d95926; --s3: #199e70;
     color-scheme: dark;
   }
@@ -65,6 +67,7 @@
   --water-hi: #dfe9f2;
   --steel-hi: #dfe2e6; --steel: #a3a9b1; --steel-lo: #69707a; --steel-dark: #1b1d20; --handle: #111214;
   --shadow: rgba(0, 0, 0, 0.5);
+  --wood: #8a5c34; --bean: #5c3820; --bean-crease: #24130a; --grip: #1f2124;
   --s1: #3987e5; --s2: #d95926; --s3: #199e70;
   color-scheme: dark;
 }
@@ -180,6 +183,20 @@ p { margin: 0; }
 .steel-dark { fill: var(--steel-dark); }
 .handle { fill: var(--handle); }
 .shadow { fill: var(--shadow); }
+.bar { fill: var(--coffee); }
+.bar-name { fill: var(--fg); font: 500 12.5px var(--font-body); }
+.bar-val { fill: var(--muted); font: 400 11px var(--font-data); }
+.bar-n { fill: var(--fg); font-weight: 500; }
+.grip { fill: var(--grip); }
+.knurl { stroke: var(--steel-lo); stroke-opacity: 0.45; stroke-width: 1.5; }
+.tick-mark { stroke: var(--steel-dark); stroke-width: 1.2; }
+.seam { stroke: var(--steel-dark); stroke-opacity: 0.6; stroke-width: 1.5; }
+.crank-arm { stroke: var(--steel-lo); stroke-width: 9; stroke-linecap: round; }
+.knob { fill: var(--wood); }
+.bean { fill: var(--bean); }
+.bean-crease { fill: none; stroke: var(--bean-crease); stroke-width: 1.4; }
+.fine { fill: var(--coffee); stroke: var(--bg); stroke-width: 1.5; }
+.caption { font: 400 0.8rem var(--font-data); color: var(--muted); text-align: center; letter-spacing: 0.02em; }
 
 /* ---------- explore ---------- */
 .explore { max-width: 70rem; margin: 0 auto; padding-block: 10vh 6rem; display: grid; gap: 1.5rem; border-top: 1px solid var(--rule); }
@@ -271,15 +288,53 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
   </div>
 
   <div class="steps">
-    <div class="step" data-step="0">
+    <div class="step">
       <div class="card">
         <span class="kicker">A pour-over log</span>
         <h1><span data-fact="n_bags">122</span> bags through a V60</h1>
         <p>Since <span data-fact="first_opened" data-fmt="month">July 2024</span> I've logged every bag of filter coffee I've brewed: roaster, origin, process, how funky it tasted, and a rating out of ten.</p>
-        <p class="aside">Scroll to brew.</p>
+        <p id="roaster-text">I've bought from many roasters.</p>
+        <p class="aside">Each bar is a roaster, sized by how many bags I've rated. Scroll to brew.</p>
       </div>
     </div>
-    <div class="step" data-step="1">
+    <div class="step">
+      <div class="card">
+        <span class="kicker">Varieties</span>
+        <h2>The plants behind the beans</h2>
+        <p id="variety-text">Varieties I've bought most.</p>
+        <p class="aside">A bag with two varieties counts toward both. Varieties with fewer than three bags are grouped as Other.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="card">
+        <span class="kicker">Grind</span>
+        <h2>Stack the bars and you get a grinder</h2>
+        <p>Mine is a 1Zpresso ZP6, a hand grinder made for pour-over. <span class="num" data-fact="dose_g">15</span> g of beans go in for one cup. Each bean here stands for one bag in the log.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="card">
+        <span class="kicker">Grind</span>
+        <h2>Turn the crank</h2>
+        <p>Pour-over wants a medium-fine grind: coarser than espresso, finer than a French press.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="card">
+        <span class="kicker">The fines</span>
+        <h2>Every dot is a bag</h2>
+        <p data-claim="price-weak-positive">Paying more is only weakly linked to a higher rating. Across <span data-fact="correlations.price_per_g_vs_rating.n">114</span> bags with a price and a rating, Spearman's ρ is <span class="num" data-fact="correlations.price_per_g_vs_rating.rho" data-fmt="2">0.34</span>.</p>
+        <p class="aside">My median bag cost $<span class="num" data-fact="price_per_cup.median" data-fmt="2">1.02</span> a cup. Gifts and bags with no price are left out.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="card">
+        <span class="kicker">Into the V60</span>
+        <h2>Grounds in, kettle ready</h2>
+        <p>The grounds settle into a paper filter, and the gooseneck kettle comes in.</p>
+      </div>
+    </div>
+    <div class="step">
       <div class="card">
         <span class="kicker" data-phase="0">0:00–0:45 · Bloom</span>
         <h2>Wet the grounds first</h2>
@@ -287,21 +342,21 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
         <p>My median bag rested <span class="num" data-fact="rest_days.median">14</span> days after roasting before I opened it.</p>
       </div>
     </div>
-    <div class="step" data-step="2">
+    <div class="step">
       <div class="card">
         <span class="kicker" data-phase="1">0:45–2:00 · Main pour</span>
         <h2>Slow spirals, out and back</h2>
         <p>Every bag got a rating once it was finished. The median is <span class="num" data-fact="rating.median" data-fmt="1">7.7</span>, and half of all ratings land between <span class="num" data-fact="rating.q1" data-fmt="1">7.3</span> and <span class="num" data-fact="rating.q3" data-fmt="1">8.1</span>.</p>
       </div>
     </div>
-    <div class="step" data-step="3">
+    <div class="step">
       <div class="card">
         <span class="kicker" data-phase="2">2:00–3:00 · Drawdown</span>
         <h2>What's left is a flat bed</h2>
         <p>Now turn that bed into a shape. Five things I logged about each bag each get their own spoke, from zero at the center to the top of the scale at the rim.</p>
       </div>
     </div>
-    <div class="step" data-step="4">
+    <div class="step">
       <div class="card">
         <span class="kicker">The average bag</span>
         <h2>All <span data-fact="n_rated">120</span> rated bags at once</h2>
@@ -309,7 +364,7 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
         <p class="aside">Price per cup assumes <span class="num" data-fact="dose_g">15</span> g of coffee. Bags I was given are left out of price.</p>
       </div>
     </div>
-    <div class="step" data-step="5">
+    <div class="step">
       <div class="card">
         <span class="kicker">The best three</span>
         <h2>My top-rated bags</h2>
@@ -317,7 +372,7 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
         <p class="aside">The dashed outline is the average bag, for reference.</p>
       </div>
     </div>
-    <div class="step" data-step="6">
+    <div class="step">
       <div class="card">
         <span class="kicker">By process</span>
         <h2>How the cherry was processed</h2>
@@ -325,7 +380,7 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
         <p class="aside">Honey (<span class="num" data-fact="by_process.Honey.mean">7.58</span>, n=<span data-fact="by_process.Honey.n">5</span>) is left off so the chart stays readable with three shapes.</p>
       </div>
     </div>
-    <div class="step" data-step="7">
+    <div class="step">
       <div class="card">
         <span class="kicker">The funk cliff</span>
         <h2>Funky is fine, until it isn't</h2>

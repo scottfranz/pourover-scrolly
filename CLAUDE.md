@@ -53,7 +53,15 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
 - `index.html` + `story.js` at the project root; D3 7.9.0 from CDN. Scroll progress is computed
   from step positions each frame (Scrollama dropped: its events arrive out of order on fast jumps).
   Reads `data/build/bags.json` and `facts.json`, so serve the folder (`npm run dev`), don't open the file.
-- Opening: scroll-scrubbed top view of a gooseneck kettle pouring over a V60
+- Intro (5 steps, `Intro()` in story.js; the pour scene runs on g − INTRO):
+  roasters bar chart (hero) → varieties bar chart (same bars re-sort) → bars stack into a
+  1Zpresso ZP6 (side view) and one bean per bag pours in → crank turns → catch cup tips, coarse
+  grounds fall away and the fines become a price-per-cup vs rating scatter (one dot per bag)
+  → dots drop into the V60 as the coffee bed. Bar rows: groups with n ≥ 3, the rest lumped into Other (last).
+  Roaster/variety sentences are generated from facts (`by_roaster`, `by_variety`, `n_repeat_roasters`).
+- Varieties are cleaned in schema.js (`VARIETY_ALIASES`, `NOT_A_VARIETY`); split on "," and "&";
+  raw text kept in `variety_raw`.
+- Then: scroll-scrubbed top view of a gooseneck kettle pouring over a V60
   (approach → bloom → spiral main pour → drawdown) with a brew timer (`facts.dose_g` g coffee, 250 g water).
   The wet bed then morphs into the radar's "average bag" shape.
 - Radar: five spokes (rating, clean→funk, development, altitude, price/cup), each from 0 at
@@ -74,7 +82,7 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
 
 ## Next step
 
-Later scroll steps from the plan: timeline, by country, price vs rating, which could use one dot per bag keyed by `bag_id`.
+Map of origins at the bottom (regions sized by bag count, colored by average rating). Then maybe a timeline of bags opened.
 
 ## Preview and monthly refresh
 

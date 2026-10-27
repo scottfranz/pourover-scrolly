@@ -74,3 +74,18 @@ export const PROCESS_GROUPS = ['Washed', 'Natural', 'Honey', 'Experimental'];
 
 // Roaster values beginning with "Me" are home roasts ("Me - Roastmasters").
 export const HOME_ROAST = /^me\b/i;
+
+// Variety spellings drift between roasters; map them to one name. Keys are lowercase.
+export const VARIETY_ALIASES = {
+  'ethiopian landrace': 'Ethiopian Landraces',
+  'sl-28': 'SL28',
+  'sl-34': 'SL34',
+  'ruiru11': 'Ruiru 11',
+  'and other heirloom varieties': 'Heirloom Varieties',
+};
+// Values that say "several/unknown" rather than naming a variety. Kept in variety_raw, left out of variety stats.
+export const NOT_A_VARIETY = /^(various|blend|field blend|typica varietals)$/i;
+export function canonicalVariety(v) {
+  if (NOT_A_VARIETY.test(v)) return null;
+  return VARIETY_ALIASES[v.toLowerCase()] ?? v;
+}

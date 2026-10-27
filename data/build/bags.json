@@ -16,9 +16,8 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
-  "varieties": [
-   "Various"
-  ],
+  "variety_raw": "Various",
+  "varieties": [],
   "altitude_m": 1500,
   "process": "Washed",
   "process_group": "Washed",
@@ -54,6 +53,7 @@
   "farm": "Weessi",
   "harvest_raw": "01/24",
   "harvest_year": 2024,
+  "variety_raw": "74110, 74112",
   "varieties": [
    "74110",
    "74112"
@@ -93,6 +93,7 @@
   "farm": "El Naranjo",
   "harvest_raw": "Late 2023",
   "harvest_year": 2023,
+  "variety_raw": "Tabi, Pink Bourbon",
   "varieties": [
    "Tabi",
    "Pink Bourbon"
@@ -132,6 +133,7 @@
   "farm": "Zarza",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Pacamara",
   "varieties": [
    "Pacamara"
   ],
@@ -170,6 +172,7 @@
   "farm": "Gakuyu-ini",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL28, SL34",
   "varieties": [
    "SL28",
    "SL34"
@@ -209,6 +212,7 @@
   "farm": null,
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "74158",
   "varieties": [
    "74158"
   ],
@@ -247,6 +251,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Caturra, Catuai",
   "varieties": [
    "Caturra",
    "Catuai"
@@ -286,6 +291,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Heirloom Landraces",
   "varieties": [
    "Heirloom Landraces"
   ],
@@ -324,6 +330,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "74158",
   "varieties": [
    "74158"
   ],
@@ -362,6 +369,7 @@
   "farm": "EL CASINO - NEW SEASON, 1ST HARVEST",
   "harvest_raw": "July, 2024",
   "harvest_year": 2024,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -400,6 +408,7 @@
   "farm": null,
   "harvest_raw": "July, 2024",
   "harvest_year": 2024,
+  "variety_raw": "Castillo, V. Colombia, Caturra, Pink Bourbon",
   "varieties": [
    "Castillo",
    "V. Colombia",
@@ -441,6 +450,7 @@
   "farm": "Sookoo Coffee",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Guji Landrace",
   "varieties": [
    "Guji Landrace"
   ],
@@ -479,6 +489,7 @@
   "farm": "Lord Voldemort",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -517,6 +528,7 @@
   "farm": "El Arbol",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Guji Landrace",
   "varieties": [
    "Guji Landrace"
   ],
@@ -555,6 +567,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Purple Caturra",
   "varieties": [
    "Purple Caturra"
   ],
@@ -593,6 +606,7 @@
   "farm": "Finca Un Regalo de Dios",
   "harvest_raw": "Spring 2024",
   "harvest_year": 2024,
+  "variety_raw": "Maracaturra",
   "varieties": [
    "Maracaturra"
   ],
@@ -631,6 +645,7 @@
   "farm": "Finca El Aguacate",
   "harvest_raw": "Spring 2024",
   "harvest_year": 2024,
+  "variety_raw": "Caturra, Yellow Bourbon",
   "varieties": [
    "Caturra",
    "Yellow Bourbon"
@@ -670,6 +685,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Typica Mejorado",
   "varieties": [
    "Typica Mejorado"
   ],
@@ -708,6 +724,7 @@
   "farm": null,
   "harvest_raw": "June, 2024",
   "harvest_year": 2024,
+  "variety_raw": "Gesha",
   "varieties": [
    "Gesha"
   ],
@@ -746,6 +763,7 @@
   "farm": "Granja Paraiso 92",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -784,6 +802,7 @@
   "farm": "Buenos Aires",
   "harvest_raw": "May, 2024",
   "harvest_year": 2024,
+  "variety_raw": "Gesha",
   "varieties": [
    "Gesha"
   ],
@@ -822,6 +841,7 @@
   "farm": "El Placer",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Caturra",
   "varieties": [
    "Caturra"
   ],
@@ -860,6 +880,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Bourbon",
   "varieties": [
    "Bourbon"
   ],
@@ -898,10 +919,10 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Bourbon, Hybrido de Timor, Typica Varietals",
   "varieties": [
    "Bourbon",
-   "Hybrido de Timor",
-   "Typica Varietals"
+   "Hybrido de Timor"
   ],
   "altitude_m": 1650,
   "process": "Natural",
@@ -938,6 +959,7 @@
   "farm": "Santa Monica",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Castillo",
   "varieties": [
    "Castillo"
   ],
@@ -976,6 +998,7 @@
   "farm": "Lugmapata",
   "harvest_raw": "6/26/24",
   "harvest_year": 2024,
+  "variety_raw": "Mejorado",
   "varieties": [
    "Mejorado"
   ],
@@ -1014,6 +1037,7 @@
   "farm": "Finca Nueva Esperanza",
   "harvest_raw": "Summer-Fall 2024",
   "harvest_year": 2024,
+  "variety_raw": "Mejorado",
   "varieties": [
    "Mejorado"
   ],
@@ -1052,6 +1076,7 @@
   "farm": "Finca Arashi",
   "harvest_raw": "Summer-Fall 2024",
   "harvest_year": 2024,
+  "variety_raw": "Mejorado",
   "varieties": [
    "Mejorado"
   ],
@@ -1090,6 +1115,7 @@
   "farm": "Santa Monica",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -1128,6 +1154,7 @@
   "farm": "Setame",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "74158",
   "varieties": [
    "74158"
   ],
@@ -1166,6 +1193,7 @@
   "farm": "Bona Zuria",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "74110",
   "varieties": [
    "74110"
   ],
@@ -1204,6 +1232,7 @@
   "farm": "Las Palmas",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "Caturra",
   "varieties": [
    "Caturra"
   ],
@@ -1242,6 +1271,7 @@
   "farm": "Daniel Caro's Farm",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "Chiroso",
   "varieties": [
    "Chiroso"
   ],
@@ -1280,6 +1310,7 @@
   "farm": "Finca Terrazas del Pisque",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "Enepei",
   "varieties": [
    "Enepei"
   ],
@@ -1318,6 +1349,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Heirloom Landraces",
   "varieties": [
    "Heirloom Landraces"
   ],
@@ -1356,6 +1388,7 @@
   "farm": "Finca La Bohemia",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "Gesha",
   "varieties": [
    "Gesha"
   ],
@@ -1394,6 +1427,7 @@
   "farm": "Kamwangi Factory",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Batian, SL34, SL28",
   "varieties": [
    "Batian",
    "SL34",
@@ -1434,6 +1468,7 @@
   "farm": "Gasharu Farms",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Bourbon",
   "varieties": [
    "Bourbon"
   ],
@@ -1472,9 +1507,8 @@
   "farm": "Cata Reserva",
   "harvest_raw": null,
   "harvest_year": null,
-  "varieties": [
-   "Blend"
-  ],
+  "variety_raw": "Blend",
+  "varieties": [],
   "altitude_m": 1700,
   "process": "Natural",
   "process_group": "Natural",
@@ -1510,6 +1544,7 @@
   "farm": "Finca Voo",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Red Catui",
   "varieties": [
    "Red Catui"
   ],
@@ -1548,6 +1583,7 @@
   "farm": "Finca El Paraiso",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Castillo",
   "varieties": [
    "Castillo"
   ],
@@ -1586,6 +1622,7 @@
   "farm": "Banko Gotti Washing Station",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Heirloom Landraces",
   "varieties": [
    "Heirloom Landraces"
   ],
@@ -1624,6 +1661,7 @@
   "farm": "Shantawene",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "74112, 74158, Mikicho",
   "varieties": [
    "74112",
    "74158",
@@ -1664,9 +1702,10 @@
   "farm": "Mukunga Factory",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "SL28, Ruiru11",
   "varieties": [
    "SL28",
-   "Ruiru11"
+   "Ruiru 11"
   ],
   "altitude_m": 1900,
   "process": "Washed",
@@ -1703,6 +1742,7 @@
   "farm": "Granja Paraiso 92",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "Red Bourbon",
   "varieties": [
    "Red Bourbon"
   ],
@@ -1741,6 +1781,7 @@
   "farm": "Granja Paraiso 92",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "Caturra",
   "varieties": [
    "Caturra"
   ],
@@ -1779,6 +1820,7 @@
   "farm": "El Paraiso",
   "harvest_raw": "December 2024",
   "harvest_year": 2024,
+  "variety_raw": "Chiroso",
   "varieties": [
    "Chiroso"
   ],
@@ -1817,10 +1859,12 @@
   "farm": "El Uberrimo",
   "harvest_raw": "Summer 2024",
   "harvest_year": 2024,
+  "variety_raw": "Pink Bourbon, Sidra, Caturra & Gesha",
   "varieties": [
    "Pink Bourbon",
    "Sidra",
-   "Caturra & Gesha"
+   "Caturra",
+   "Gesha"
   ],
   "altitude_m": 2148,
   "process": "Washed",
@@ -1857,6 +1901,7 @@
   "farm": "Finca La Indonesia",
   "harvest_raw": "Summer 2024",
   "harvest_year": 2024,
+  "variety_raw": "Gesha",
   "varieties": [
    "Gesha"
   ],
@@ -1895,6 +1940,7 @@
   "farm": "Gititu Farmers Cooperative Society",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL28, SL34, Ruiru 11, Batian",
   "varieties": [
    "SL28",
    "SL34",
@@ -1936,6 +1982,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Heirloom Landraces",
   "varieties": [
    "Heirloom Landraces"
   ],
@@ -1974,6 +2021,7 @@
   "farm": "Finca El Rosal",
   "harvest_raw": "2025",
   "harvest_year": 2025,
+  "variety_raw": "Chiroso",
   "varieties": [
    "Chiroso"
   ],
@@ -2012,6 +2060,7 @@
   "farm": "Weessi Washing Station",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "74110, 74112",
   "varieties": [
    "74110",
    "74112"
@@ -2051,6 +2100,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL28, SL34",
   "varieties": [
    "SL28",
    "SL34"
@@ -2090,6 +2140,7 @@
   "farm": "Layo Teraga",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "74110",
   "varieties": [
    "74110"
   ],
@@ -2128,6 +2179,7 @@
   "farm": "Finca El Rosal",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Chiroso",
   "varieties": [
    "Chiroso"
   ],
@@ -2166,10 +2218,11 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Kurume, Wolisho, and other Heirloom Varieties",
   "varieties": [
    "Kurume",
    "Wolisho",
-   "and other Heirloom Varieties"
+   "Heirloom Varieties"
   ],
   "altitude_m": 2050,
   "process": "Yellow Honey",
@@ -2206,6 +2259,7 @@
   "farm": "Finca El Cedro",
   "harvest_raw": "January 2025",
   "harvest_year": 2025,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -2244,10 +2298,12 @@
   "farm": "Kathakwa Factory",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL-28, SL-34, Batian & Ruiru 11",
   "varieties": [
-   "SL-28",
-   "SL-34",
-   "Batian & Ruiru 11"
+   "SL28",
+   "SL34",
+   "Batian",
+   "Ruiru 11"
   ],
   "altitude_m": 1600,
   "process": "Washed",
@@ -2284,6 +2340,7 @@
   "farm": "Finca La Falda",
   "harvest_raw": "Dec. 2024 - Feb. 2025",
   "harvest_year": 2025,
+  "variety_raw": "Chiroso",
   "varieties": [
    "Chiroso"
   ],
@@ -2322,6 +2379,7 @@
   "farm": "Gogogu",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Heirloom Landraces",
   "varieties": [
    "Heirloom Landraces"
   ],
@@ -2360,8 +2418,9 @@
   "farm": "Elora",
   "harvest_raw": "January 2025",
   "harvest_year": 2025,
+  "variety_raw": "Ethiopian Landrace",
   "varieties": [
-   "Ethiopian Landrace"
+   "Ethiopian Landraces"
   ],
   "altitude_m": 2375,
   "process": "Washed",
@@ -2398,6 +2457,7 @@
   "farm": "Habtamu Fikadu Aga",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Dega, Kurume",
   "varieties": [
    "Dega",
    "Kurume"
@@ -2437,6 +2497,7 @@
   "farm": "El Soccoro",
   "harvest_raw": "Spring 2025",
   "harvest_year": 2025,
+  "variety_raw": "Laurina",
   "varieties": [
    "Laurina"
   ],
@@ -2475,8 +2536,9 @@
   "farm": "Daye Bensa Station",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landrace",
   "varieties": [
-   "Ethiopian Landrace"
+   "Ethiopian Landraces"
   ],
   "altitude_m": 2300,
   "process": "Natural",
@@ -2513,6 +2575,7 @@
   "farm": "Finca Lote B",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -2551,6 +2614,7 @@
   "farm": "Gathaithi",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL28, SL34",
   "varieties": [
    "SL28",
    "SL34"
@@ -2590,6 +2654,7 @@
   "farm": "Finca La Suegra",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Gesha",
   "varieties": [
    "Gesha"
   ],
@@ -2628,6 +2693,7 @@
   "farm": "Shantawane",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "74110, 74165",
   "varieties": [
    "74110",
    "74165"
@@ -2667,6 +2733,7 @@
   "farm": "La Primaveria",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Caturra, Castillo, Pink Bourbon, Pacamara",
   "varieties": [
    "Caturra",
    "Castillo",
@@ -2708,6 +2775,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -2746,6 +2814,7 @@
   "farm": "Masha Washing Station",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Red Bourbon",
   "varieties": [
    "Red Bourbon"
   ],
@@ -2784,6 +2853,7 @@
   "farm": "Lugmapata",
   "harvest_raw": "2025",
   "harvest_year": 2025,
+  "variety_raw": "Typica Mejorado",
   "varieties": [
    "Typica Mejorado"
   ],
@@ -2822,8 +2892,9 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landrace",
   "varieties": [
-   "Ethiopian Landrace"
+   "Ethiopian Landraces"
   ],
   "altitude_m": null,
   "process": "Washed",
@@ -2860,6 +2931,7 @@
   "farm": "Finca Las Flores",
   "harvest_raw": "2024",
   "harvest_year": 2024,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -2898,6 +2970,7 @@
   "farm": "Morkie Village",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "74158",
   "varieties": [
    "74158"
   ],
@@ -2936,6 +3009,7 @@
   "farm": "Ratnagiri Estate",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL9",
   "varieties": [
    "SL9"
   ],
@@ -2974,6 +3048,7 @@
   "farm": null,
   "harvest_raw": "2025",
   "harvest_year": 2025,
+  "variety_raw": "74158",
   "varieties": [
    "74158"
   ],
@@ -3012,6 +3087,7 @@
   "farm": "Little Swamps",
   "harvest_raw": "2025",
   "harvest_year": 2025,
+  "variety_raw": "Batian",
   "varieties": [
    "Batian"
   ],
@@ -3050,6 +3126,7 @@
   "farm": "Finca La Serrania",
   "harvest_raw": "2025",
   "harvest_year": 2025,
+  "variety_raw": "Maragogype",
   "varieties": [
    "Maragogype"
   ],
@@ -3088,6 +3165,7 @@
   "farm": "Tero Farm",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -3126,6 +3204,7 @@
   "farm": "Buenos Aires",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Caturra",
   "varieties": [
    "Caturra"
   ],
@@ -3164,6 +3243,7 @@
   "farm": "Granja El Tempixque",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Catuai",
   "varieties": [
    "Catuai"
   ],
@@ -3202,6 +3282,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Chiroso",
   "varieties": [
    "Chiroso"
   ],
@@ -3240,6 +3321,7 @@
   "farm": "Hamasho",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -3278,6 +3360,7 @@
   "farm": "Nano Challa",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -3316,6 +3399,7 @@
   "farm": "Raro Boda",
   "harvest_raw": "2025",
   "harvest_year": 2025,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -3354,6 +3438,7 @@
   "farm": "Hambela",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -3392,6 +3477,7 @@
   "farm": "Ccoripaccha",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL9",
   "varieties": [
    "SL9"
   ],
@@ -3430,6 +3516,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -3468,9 +3555,8 @@
   "farm": "Umoco Washing Station",
   "harvest_raw": null,
   "harvest_year": null,
-  "varieties": [
-   "Field Blend"
-  ],
+  "variety_raw": "Field Blend",
+  "varieties": [],
   "altitude_m": 2000,
   "process": "Washed",
   "process_group": "Washed",
@@ -3506,6 +3592,7 @@
   "farm": "Finca Los Pinos",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Mejorado",
   "varieties": [
    "Mejorado"
   ],
@@ -3544,6 +3631,7 @@
   "farm": "Finca Las Guas",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Typica, Caturra, Catucai",
   "varieties": [
    "Typica",
    "Caturra",
@@ -3584,6 +3672,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Red Bourbon",
   "varieties": [
    "Red Bourbon"
   ],
@@ -3622,6 +3711,7 @@
   "farm": "Gatare",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Bourbon",
   "varieties": [
    "Bourbon"
   ],
@@ -3660,6 +3750,7 @@
   "farm": "Buenos Aires",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Papayo Amarillo",
   "varieties": [
    "Papayo Amarillo"
   ],
@@ -3698,6 +3789,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Bourbon",
   "varieties": [
    "Bourbon"
   ],
@@ -3736,6 +3828,7 @@
   "farm": "Finca Los Jazmines",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -3774,6 +3867,7 @@
   "farm": "Finca El Jardin",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -3812,6 +3906,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Bourbon Aji",
   "varieties": [
    "Bourbon Aji"
   ],
@@ -3850,6 +3945,7 @@
   "farm": "La Plata",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Gesha",
   "varieties": [
    "Gesha"
   ],
@@ -3888,6 +3984,7 @@
   "farm": "Ninga Washing Station",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Heirloom Bourbon",
   "varieties": [
    "Heirloom Bourbon"
   ],
@@ -3926,6 +4023,7 @@
   "farm": "Ibonia Estate",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL34, Ruiru 11",
   "varieties": [
    "SL34",
    "Ruiru 11"
@@ -3965,6 +4063,7 @@
   "farm": "Lalesa Washing Station",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -4003,6 +4102,7 @@
   "farm": "Kayon Mountain",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -4041,6 +4141,7 @@
   "farm": "Goro Site Washing Station",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -4079,6 +4180,7 @@
   "farm": "El Morito",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Gesha",
   "varieties": [
    "Gesha"
   ],
@@ -4117,6 +4219,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": null,
   "varieties": [],
   "altitude_m": null,
   "process": "Washed",
@@ -4153,6 +4256,7 @@
   "farm": "El Socorro",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Java",
   "varieties": [
    "Java"
   ],
@@ -4191,6 +4295,7 @@
   "farm": "Danche",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -4229,6 +4334,7 @@
   "farm": "Kivanga Estate",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL28, SL34",
   "varieties": [
    "SL28",
    "SL34"
@@ -4268,6 +4374,7 @@
   "farm": "Karindunda",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL28, SL34",
   "varieties": [
    "SL28",
    "SL34"
@@ -4307,6 +4414,7 @@
   "farm": "Chelbesa",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -4345,6 +4453,7 @@
   "farm": "Buncho",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Ethiopian Landraces",
   "varieties": [
    "Ethiopian Landraces"
   ],
@@ -4383,6 +4492,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "Wush Wush",
   "varieties": [
    "Wush Wush"
   ],
@@ -4421,6 +4531,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL28, SL34, Ruiru 11",
   "varieties": [
    "SL28",
    "SL34",
@@ -4461,6 +4572,7 @@
   "farm": "Kambarare",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL28",
   "varieties": [
    "SL28"
   ],
@@ -4499,6 +4611,7 @@
   "farm": null,
   "harvest_raw": "Spring 2026",
   "harvest_year": 2026,
+  "variety_raw": "Pink Bourbon",
   "varieties": [
    "Pink Bourbon"
   ],
@@ -4537,6 +4650,7 @@
   "farm": "Arbegona",
   "harvest_raw": "January 2026",
   "harvest_year": 2026,
+  "variety_raw": "Walega",
   "varieties": [
    "Walega"
   ],
@@ -4575,6 +4689,7 @@
   "farm": "Rumudamo Station",
   "harvest_raw": "January 2026",
   "harvest_year": 2026,
+  "variety_raw": "Walega",
   "varieties": [
    "Walega"
   ],
@@ -4613,6 +4728,7 @@
   "farm": null,
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "S-795",
   "varieties": [
    "S-795"
   ],
@@ -4651,6 +4767,7 @@
   "farm": "Gachatha Coffee Factory",
   "harvest_raw": null,
   "harvest_year": null,
+  "variety_raw": "SL28, SL34, Ruiru 11, Batian",
   "varieties": [
    "SL28",
    "SL34",

@@ -8,7 +8,7 @@ import { join } from 'node:path';
 import { parse } from 'csv-parse/sync';
 import {
   COLUMNS, REQUIRED_COLUMNS, IGNORED_COLUMNS, DOSE_G, MIN_DATE, RANGES,
-  ROAST_LEVELS, ROAST_ORDER, processGroup, PROCESS_GROUPS, HOME_ROAST,
+  ROAST_LEVELS, ROAST_ORDER, processGroup, PROCESS_GROUPS, HOME_ROAST, canonicalVariety,
 } from './schema.js';
 import claims from './claims.js';
 
@@ -163,7 +163,8 @@ for (const { record, info } of records) {
     country_primary: countries.length === 1 ? countries[0] : countries.length ? 'Blend' : null,
     region: r.region, producer: r.producer, farm: r.farm,
     harvest_raw: r.harvest, harvest_year,
-    varieties: splitList(r.variety, /\s*,\s*/),
+    variety_raw: r.variety,
+    varieties: [...new Set(splitList(r.variety, /\s*[,&]\s*/).map(canonicalVariety).filter(Boolean))],
     altitude_m: nums.altitude_m,
     process: r.process, process_group: process_group ?? null,
     roast_level, roast_rank: roast_level ? ROAST_ORDER.indexOf(roast_level) : null,
@@ -249,6 +250,9 @@ const facts = {
   by_process: groupBy(rated, 'process_group'),
   by_country: groupBy(rated, 'country_primary'),
   by_roaster: groupBy(rated, 'roaster'),
+  // A bag with two varieties counts toward both.
+  by_variety: groupBy(rated.flatMap(b => b.varieties.map(v => ({ ...b, variety: v }))), 'variety'),
+  n_repeat_roasters: Object.entries(Object.groupBy(kept.filter(b => !b.home_roast), b => b.roaster)).filter(([, v]) => v.length >= 2).length,
   by_quarter: groupBy(rated, 'opened_quarter'),
   funk_cliff: { low: summarize(funkLow), high: summarize(funkHigh) },
   correlations: {
