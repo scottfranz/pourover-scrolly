@@ -46,6 +46,7 @@ jobs:
           mkdir -p _site/data/build
           cp index.html story.js _site/
           cp data/build/bags.json data/build/facts.json _site/data/build/
+          cp -r data/geo _site/data/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

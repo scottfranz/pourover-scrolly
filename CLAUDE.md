@@ -80,9 +80,16 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
   another selected bag are highlighted, and "In common" lists the shared families.
 - Pour step labels (e.g. "2:00–3:00 · Drawdown") come from `PHASES`, the same timings as the brew timer.
 
+- Origins map (bottom): country bubbles at centroids (Natural Earth 110m via world-atlas, shipped in
+  `data/geo/` because the preview can't fetch from CDNs; topojson-client from jsDelivr). Size = bags rated,
+  color = average rating (sequential ramp, `--seq-lo`/`--seq-hi`), n < 3 shown dashed with no average.
+  Click/Enter selects a country → panel with best bag and regions (n ≥ 2 listed, singles collapsed).
+  `COUNTRY_ALIASES` maps log names to map names (East Timor → Timor-Leste).
+- Watch for CSS class collisions between sections (`.origins` chips vs the map, `.bubble` foam vs map dots).
+
 ## Next step
 
-Map of origins at the bottom (regions sized by bag count, colored by average rating). Then maybe a timeline of bags opened.
+Maybe a timeline of bags opened. Region spellings vary in the sheet ("San Agustin"/"San Augustin", "Quindio"/"Quindío").
 
 ## Preview and monthly refresh
 

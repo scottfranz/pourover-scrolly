@@ -31,6 +31,7 @@
   --water-hi: #eef5fb;
   --steel-hi: #f4f5f7; --steel: #bcc1c8; --steel-lo: #7e858e; --steel-dark: #2e3236; --handle: #26282b;
   --shadow: rgba(40, 30, 20, 0.22);
+  --land: #e7e3dc; --land-origin: #d6cfc4; --seq-lo: #86b6ef; --seq-hi: #104281;
   --wood: #9a6a3e; --bean: #4a2c19; --bean-crease: #24130a; --grip: #2b2d30;
 
   --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
@@ -51,6 +52,7 @@
     --water-hi: #dfe9f2;
     --steel-hi: #dfe2e6; --steel: #a3a9b1; --steel-lo: #69707a; --steel-dark: #1b1d20; --handle: #111214;
     --shadow: rgba(0, 0, 0, 0.5);
+    --land: #2a2622; --land-origin: #3d3731; --seq-lo: #184f95; --seq-hi: #9ec5f4;
     --wood: #8a5c34; --bean: #5c3820; --bean-crease: #24130a; --grip: #1f2124;
     --s1: #3987e5; --s2: #d95926; --s3: #199e70;
     color-scheme: dark;
@@ -67,6 +69,7 @@
   --water-hi: #dfe9f2;
   --steel-hi: #dfe2e6; --steel: #a3a9b1; --steel-lo: #69707a; --steel-dark: #1b1d20; --handle: #111214;
   --shadow: rgba(0, 0, 0, 0.5);
+  --land: #2a2622; --land-origin: #3d3731; --seq-lo: #184f95; --seq-hi: #9ec5f4;
   --wood: #8a5c34; --bean: #5c3820; --bean-crease: #24130a; --grip: #1f2124;
   --s1: #3987e5; --s2: #d95926; --s3: #199e70;
   color-scheme: dark;
@@ -248,6 +251,31 @@ p { margin: 0; }
 .bag-card dt { color: var(--muted); }
 .bag-card dd { margin: 0; overflow-wrap: anywhere; }
 .table-wrap { overflow-x: auto; }
+.map-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 18rem; gap: 1.5rem; align-items: start; }
+.map-stage { position: relative; min-width: 0; }
+.map-stage svg { display: block; width: 100%; height: auto; overflow: hidden; }
+.land { fill: var(--land); stroke: var(--bg); stroke-width: 0.6; }
+.land.origin { fill: var(--land-origin); cursor: pointer; }
+.land.selected { stroke: var(--fg); stroke-width: 1.2; }
+.origin-dot { stroke: var(--bg); stroke-width: 2; cursor: pointer; }
+.origin-dot.few { fill: var(--grid); stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 3 2; }
+.origin-dot.selected { stroke: var(--fg); stroke-width: 2.5; }
+.origin-dot:focus { outline: none; }
+.origin-dot:focus-visible { outline: none; stroke: var(--s1); stroke-width: 3; }
+.map-label { fill: var(--fg); font: 600 12px var(--font-body); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round; pointer-events: none; }
+.map-label .n { fill: var(--muted); font: 400 11px var(--font-data); }
+.map-panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 1rem 1.1rem; display: grid; gap: 0.6rem; min-width: 0; }
+.map-panel h3 { margin: 0; font: 400 1.4rem/1.2 var(--font-display); }
+.map-panel .stat { font-family: var(--font-data); font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.85rem; }
+.map-panel .stat b { color: var(--fg); font-weight: 500; font-size: 1.05rem; }
+.map-panel table { min-width: 0; font-size: 0.85rem; }
+.map-panel th, .map-panel td { padding: 0.35rem 0.4rem; }
+.map-panel .best { font-size: 0.88rem; }
+.map-legend { display: flex; flex-wrap: wrap; gap: 0.75rem 2rem; align-items: center; font-size: 0.8rem; color: var(--muted); }
+.map-legend .ramp { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-data); }
+.map-legend .bar { width: 120px; height: 10px; border-radius: 3px; background: linear-gradient(90deg, var(--seq-lo), var(--seq-hi)); }
+.map-legend svg { vertical-align: middle; }
+.map-legend .few-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--grid); border: 1.2px dashed var(--muted); vertical-align: -2px; margin-right: 0.35rem; }
 table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 46rem; }
 th, td { text-align: left; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
 th { font: 500 0.72rem var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
@@ -267,7 +295,7 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
   .step, .step:first-child { align-items: flex-end; padding-block: 0 5vh; }
   .card { pointer-events: auto; background: var(--card); padding: 1.1rem 1.2rem; border-radius: 10px; border: 1px solid var(--rule); }
   .step:first-child .card { margin-top: 0; }
-  .pickers, .bag-cards { grid-template-columns: minmax(0, 1fr); }
+  .pickers, .bag-cards, .map-wrap { grid-template-columns: minmax(0, 1fr); }
   .timer { gap: 1rem; }
   .timer b { font-size: 1.1rem; }
 }
@@ -409,9 +437,26 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
   <div class="table-wrap"><table id="explore-table"></table></div>
 </section>
 
+<section class="explore origin-map" aria-labelledby="map-title">
+  <div class="explore-head">
+    <span class="kicker">Where it grew</span>
+    <h2 id="map-title">Origins</h2>
+    <p id="map-text">Countries my coffee came from.</p>
+  </div>
+  <div class="map-wrap">
+    <div class="map-stage" id="map-stage">
+      <svg id="map" role="img" aria-label="Map of coffee origin countries, sized by bags and colored by average rating"></svg>
+      <div class="tip" id="map-tip" hidden></div>
+    </div>
+    <aside class="map-panel" id="map-panel" aria-live="polite"></aside>
+  </div>
+  <div class="map-legend" id="map-legend"></div>
+</section>
+
 <footer id="footer">Data: my coffee log.</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 <script type="module" src="story.js"></script>
 </body>
 </html>

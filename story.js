@@ -35,7 +35,7 @@ document.querySelectorAll('[data-claim]').forEach(el => {
   }
 });
 document.getElementById('footer').textContent =
-  `Data: my coffee log, ${facts.n_bags} bags from ${facts.n_roasters} roasters, opened ${fmtFact(facts.first_opened, 'month')} – ${fmtFact(facts.last_opened, 'month')}. Built ${d3.utcFormat('%b %-d, %Y')(new Date(facts.generated_at))}.`;
+  `Data: my coffee log, ${facts.n_bags} bags from ${facts.n_roasters} roasters, opened ${fmtFact(facts.first_opened, 'month')} – ${fmtFact(facts.last_opened, 'month')}. Built ${d3.utcFormat('%b %-d, %Y')(new Date(facts.generated_at))} Map outlines: Natural Earth via world-atlas.`;
 
 // ---------- facets ----------
 const niceMax = k => d3.nice(0, d3.max(bags, b => b[k]) ?? 1, 4)[1];
@@ -803,3 +803,127 @@ function resizeExplore() {
   updateExplore(0);
 }
 new ResizeObserver(resizeExplore).observe(exploreStage);
+
+// ---------- origins map ----------
+// Country bubbles at each country's centroid: size = bags rated, color = average rating.
+// Countries with fewer than 3 bags show their count but no average (same n < 3 rule as the charts).
+const COUNTRY_ALIASES = { 'East Timor': 'Timor-Leste' }; // log name → map name
+const mapSection = document.querySelector('.origin-map');
+let world;
+try { world = await d3.json('data/geo/countries-110m.json'); } catch { mapSection.hidden = true; }
+if (world) {
+  const land = topojson.feature(world, world.objects.countries).features;
+  const byName = new Map(land.map(f => [f.properties.name, f]));
+  const groups = d3.groups(rated.flatMap(b => b.countries.map(c => ({ c, b }))), d => d.c)
+    .map(([name, rows]) => ({ name, n: rows.length, mean: d3.mean(rows, d => d.b.rating), bags: rows.map(d => d.b),
+      feature: byName.get(COUNTRY_ALIASES[name] ?? name) }))
+    .sort((a, b) => b.n - a.n);
+  const origins = groups.filter(o => o.feature);
+  const unmapped = groups.filter(o => !o.feature).map(o => o.name);
+  const originFeatures = new Set(origins.map(o => o.feature));
+  const colored = origins.filter(o => o.n >= 3);
+  const ratingDomain = d3.extent(colored, o => o.mean);
+
+  // prose from the data
+  const [first, second] = origins;
+  const bestCountry = d3.greatest(origins.filter(o => o.n >= 5), o => o.mean);
+  document.getElementById('map-text').innerHTML =
+    `My rated bags came from <span class="num">${groups.length}</span> countries. ${first.name} (${first.n} bags) and ${second.name} (${second.n}) account for most of them.` +
+    (bestCountry ? ` ${bestCountry.name} has my best average of any country with at least five bags: <span class="num">${f2(bestCountry.mean)}</span>.` : '') +
+    ' Select a country to see its regions.';
+
+  const mapSvg = d3.select('#map');
+  const mapTip = document.getElementById('map-tip');
+  const panel = d3.select('#map-panel');
+  let selected = first;
+
+  function renderPanel(o) {
+    const regions = d3.groups(o.bags, b => b.region ?? 'Region not logged')
+      .map(([r, bs]) => ({ r, n: bs.length, mean: d3.mean(bs, b => b.rating) }))
+      .sort((a, b) => b.n - a.n || b.mean - a.mean);
+    const best = d3.greatest(o.bags, b => b.rating);
+    const singles = regions.filter(r => r.n === 1);
+    panel.html(`<span class="kicker">Selected</span><h3>${o.name}</h3>
+      <div class="stat"><b>${o.n}</b> bags · avg <b>${o.n >= 3 ? f2(o.mean) : '—'}</b></div>
+      <p class="best">Best bag: <strong>${bagName(best)}</strong>, rated <span class="num">${best.rating}</span></p>
+      <table><thead><tr><th>Region</th><th class="n">Bags</th><th class="n">Avg</th></tr></thead><tbody>${
+        regions.filter(r => r.n >= 2).map(r => `<tr><td>${r.r}</td><td class="n">${r.n}</td><td class="n">${r.n >= 3 ? f2(r.mean) : '—'}</td></tr>`).join('')
+      }${singles.length ? `<tr><td colspan="3" class="muted" title="${singles.map(r => r.r).join(', ')}">${singles.length === 1 ? singles[0].r : `${singles.length} more regions`} with 1 bag${singles.length === 1 ? '' : ' each'}</td></tr>` : ''}</tbody></table>
+      ${unmapped.length ? `<p class="muted">Not on the map: ${unmapped.join(', ')}</p>` : ''}`);
+  }
+
+  function select(o) {
+    selected = o;
+    mapSvg.selectAll('.land').classed('selected', f => f === o.feature);
+    mapSvg.selectAll('.origin-dot').classed('selected', d => d === o);
+    renderPanel(o);
+  }
+
+  function drawMap() {
+    const W = document.getElementById('map-stage').getBoundingClientRect().width;
+    if (!W) return;
+    const narrow = W < 560;
+    const fc = { type: 'FeatureCollection', features: [...originFeatures] };
+    const projection = d3.geoEqualEarth().fitWidth(W - 60, fc);
+    const path = d3.geoPath(projection);
+    const [[x0, y0], [x1, y1]] = path.bounds(fc);
+    const [tx, ty] = projection.translate();
+    projection.translate([tx + 30 - x0, ty + 40 - y0]);
+    const H = Math.round(y1 - y0 + 80);
+    mapSvg.attr('viewBox', `0 0 ${W} ${H}`).attr('height', H).selectAll('*').remove();
+
+    const css = getComputedStyle(document.documentElement);
+    const color = d3.scaleLinear().domain(ratingDomain)
+      .range([css.getPropertyValue('--seq-lo').trim(), css.getPropertyValue('--seq-hi').trim()]).interpolate(d3.interpolateLab);
+    const size = d3.scaleSqrt().domain([0, d3.max(origins, o => o.n)]).range([0, narrow ? 20 : 30]);
+
+    mapSvg.append('g').selectAll('path').data(land).join('path')
+      .attr('class', f => `land${originFeatures.has(f) ? ' origin' : ''}`).attr('d', path)
+      .on('click', (ev, f) => { const o = origins.find(o => o.feature === f); if (o) select(o); });
+
+    // bubbles start at centroids, then get nudged apart where countries are close (Rwanda/Burundi)
+    const nodes = origins.map(o => { const [cx, cy] = path.centroid(o.feature); return { o, x: cx, y: cy, cx, cy, r: Math.max(5, size(o.n)) }; });
+    const sim = d3.forceSimulation(nodes).force('x', d3.forceX(d => d.cx).strength(0.4)).force('y', d3.forceY(d => d.cy).strength(0.4))
+      .force('collide', d3.forceCollide(d => d.r + 2)).stop();
+    for (let i = 0; i < 160; i++) sim.tick();
+
+    mapSvg.append('g').selectAll('circle').data(nodes.sort((a, b) => b.r - a.r)).join('circle')
+      .attr('class', d => `origin-dot${d.o.n < 3 ? ' few' : ''}`)
+      .attr('cx', d => d.x).attr('cy', d => d.y).attr('r', d => d.r)
+      .attr('fill', d => d.o.n >= 3 ? color(d.o.mean) : null)
+      .attr('tabindex', 0).attr('role', 'button')
+      .attr('aria-label', d => `${d.o.name}: ${d.o.n} bags${d.o.n >= 3 ? `, average ${f2(d.o.mean)}` : ''}`)
+      .datum(d => d.o).each(function (o, i, els) { this.__node = nodes.find(n => n.o === o); })
+      .on('click', (ev, o) => select(o))
+      .on('keydown', (ev, o) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); select(o); } })
+      .on('pointerenter', (ev, o) => {
+        const [px, py] = d3.pointer(ev, mapTip.parentElement);
+        mapTip.innerHTML = `<div class="tip-name"><strong>${o.name}</strong></div>` +
+          `<div class="tip-row"><span>Bags rated</span><span class="v">${o.n}</span></div>` +
+          `<div class="tip-row"><span>Average rating</span><span class="v">${o.n >= 3 ? f2(o.mean) : 'fewer than 3 bags'}</span></div>`;
+        mapTip.style.left = `${px}px`; mapTip.style.top = `${py}px`; mapTip.hidden = false;
+      })
+      .on('pointerleave', () => { mapTip.hidden = true; });
+
+    // direct labels for the bigger origins
+    const labeled = nodes.filter(d => d.o.n >= (narrow ? 10 : 5));
+    const lab = mapSvg.append('g').selectAll('text').data(labeled).join('text').attr('class', 'map-label')
+      .attr('x', d => d.x + d.r + 5).attr('y', d => d.y).attr('dy', '0.35em');
+    lab.append('tspan').text(d => d.o.name);
+    lab.append('tspan').attr('class', 'n').attr('dx', 4).text(d => d.o.n);
+
+    // legend: color ramp, size key, and the n < 3 marker
+    const sizeKey = [5, d3.max(origins, o => o.n)];
+    document.getElementById('map-legend').innerHTML =
+      `<span class="ramp">Average rating ${f2(ratingDomain[0])}<span class="bar"></span>${f2(ratingDomain[1])}</span>` +
+      `<span>Bags rated <svg width="${size(sizeKey[1]) * 2 + size(sizeKey[0]) * 2 + 12}" height="${size(sizeKey[1]) * 2 + 2}">` +
+      sizeKey.map((v, i) => `<circle cx="${i ? size(sizeKey[0]) * 2 + 8 + size(v) : size(v) + 1}" cy="${size(sizeKey[1]) + 1}" r="${size(v)}" fill="none" stroke="currentColor"></circle>`).join('') +
+      `</svg> ${sizeKey.join(' and ')}</span>` +
+      `<span><span class="few-dot"></span>Fewer than 3 bags: count only, no average</span>`;
+    select(selected);
+  }
+  new ResizeObserver(drawMap).observe(document.getElementById('map-stage'));
+  // redraw when the theme flips, since the ramp colors are read from CSS
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', drawMap);
+  new MutationObserver(drawMap).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+}
