@@ -564,7 +564,7 @@ function Intro(svg, tipEl) {
       d3.select(this).style('opacity', op * gone)
         .attr('transform', `translate(${lerp(x0, d.bx, drop)},${lerp(y0, d.by, drop)})`)
         .style('pointer-events', g > 2.45 && g < INTRO && op > 0.5 ? null : 'none')
-        .select('.fine').attr('r', lerp(lerp(2, 4.5, fly), 2, drop));
+        .select('.fine').attr('r', lerp(lerp(2, 3.5, fly), 2, drop));
     });
   }
 
