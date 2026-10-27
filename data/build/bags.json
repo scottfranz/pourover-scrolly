@@ -293,7 +293,7 @@
   "harvest_year": null,
   "variety_raw": "Heirloom Landraces",
   "varieties": [
-   "Heirloom Landraces"
+   "Ethiopian Landraces"
   ],
   "altitude_m": null,
   "process": "Washed",
@@ -1351,7 +1351,7 @@
   "harvest_year": null,
   "variety_raw": "Heirloom Landraces",
   "varieties": [
-   "Heirloom Landraces"
+   "Ethiopian Landraces"
   ],
   "altitude_m": null,
   "process": "Anaerobic Natural",
@@ -1624,7 +1624,7 @@
   "harvest_year": null,
   "variety_raw": "Heirloom Landraces",
   "varieties": [
-   "Heirloom Landraces"
+   "Ethiopian Landraces"
   ],
   "altitude_m": 2000,
   "process": "Washed",
@@ -1984,7 +1984,7 @@
   "harvest_year": null,
   "variety_raw": "Heirloom Landraces",
   "varieties": [
-   "Heirloom Landraces"
+   "Ethiopian Landraces"
   ],
   "altitude_m": 1850,
   "process": "Washed",
@@ -2222,7 +2222,7 @@
   "varieties": [
    "Kurume",
    "Wolisho",
-   "Heirloom Varieties"
+   "Ethiopian Landraces"
   ],
   "altitude_m": 2050,
   "process": "Yellow Honey",
@@ -2381,7 +2381,7 @@
   "harvest_year": null,
   "variety_raw": "Heirloom Landraces",
   "varieties": [
-   "Heirloom Landraces"
+   "Ethiopian Landraces"
   ],
   "altitude_m": 2340,
   "process": "Washed",
@@ -4652,7 +4652,7 @@
   "harvest_year": 2026,
   "variety_raw": "Walega",
   "varieties": [
-   "Walega"
+   "74158"
   ],
   "altitude_m": 2230,
   "process": "Anaerobic Natural",
@@ -4691,7 +4691,7 @@
   "harvest_year": 2026,
   "variety_raw": "Walega",
   "varieties": [
-   "Walega"
+   "74158"
   ],
   "altitude_m": 2200,
   "process": "Anaerobic Washed",

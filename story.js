@@ -317,6 +317,13 @@ function Scene(svg) {
 // Five scroll steps before the pour. The pour scene runs on g - INTRO.
 const INTRO = 5;
 
+// Dots are colored by process, with the same colors as the radar's process step (Washed, Natural, Experimental).
+// Honey and unknown stay neutral gray: three hues is the most the palette supports for overlapping dots.
+const PROCESS_SLOTS = ['Washed', 'Natural', 'Experimental'];
+const processSlot = b => PROCESS_SLOTS.indexOf(b.process_group) + 1; // 0 = gray
+const MULTI = 'Multiple varieties';
+const GRIND = '4.0–5.5'; // Scott's usual ZP6 dial range for pour-over
+
 function lumpGroups(groups, otherLabel) { // { name: {n, mean} } → rows; n < 3 lumped into one Other row, kept last
   const rows = Object.entries(groups).map(([name, v]) => ({ name, n: v.n, mean: v.mean }));
   const big = rows.filter(r => r.n >= 3).sort((a, b) => b.n - a.n || b.mean - a.mean);
@@ -339,26 +346,13 @@ const f2 = v => v.toFixed(2);
     `I've bought from <span class="num">${facts.n_roasters}</span> roasters and gone back to <span class="num">${facts.n_repeat_roasters}</span> of them for another bag.` +
     (best ? ` ${best.name} has my best average among roasters I've bought from at least five times: <span class="num">${f2(best.mean)}</span> over ${best.n} bags.` : '') +
     (home ? ` My own home roasts average <span class="num">${f2(home.mean)}</span> (n=${home.n}).` : '');
-  const named = varietyRows.filter(r => !r.other);
+  const named = varietyRows.filter(r => !r.other && r.name !== MULTI);
   const most = named[0];
   const top = d3.greatest(named.filter(r => r.n >= 4), r => r.mean);
   document.getElementById('variety-text').innerHTML =
     `The variety I've bought most is ${most.name} (${most.n} bags). It averages <span class="num">${f2(most.mean)}</span>, ${most.mean < facts.rating.mean ? 'below' : 'above'} my overall average of <span class="num">${f2(facts.rating.mean)}</span>.` +
     (top && top !== most ? ` ${top.name} has the highest average of any variety I've had at least four times: <span class="num">${f2(top.mean)}</span> (n=${top.n}).` : '');
 }
-
-// Dots are colored by where the coffee grew (3 categories: the most the palette supports for overlapping dots).
-const CONTINENT = {
-  Americas: ['Colombia', 'Ecuador', 'Guatemala', 'Costa Rica', 'Nicaragua', 'Peru', 'Mexico', 'Honduras', 'El Salvador', 'Panama', 'Brazil', 'Bolivia'],
-  Africa: ['Ethiopia', 'Kenya', 'Burundi', 'Rwanda', 'Uganda', 'Tanzania', 'Malawi', 'Zambia', 'Congo', 'DR Congo'],
-  'Asia & Pacific': ['India', 'East Timor', 'Indonesia', 'Yemen', 'China', 'Papua New Guinea', 'Vietnam', 'Thailand', 'Myanmar', 'Laos'],
-};
-const CONT_ORDER = Object.keys(CONTINENT);
-const continentOf = b => {
-  const cs = [...new Set(b.countries.map(c => CONT_ORDER.find(k => CONTINENT[k].includes(c)) ?? 'Unknown'))];
-  return cs.length === 1 && cs[0] !== 'Unknown' ? cs[0] : cs.length ? 'Blend or unknown' : 'Blend or unknown';
-};
-const contSlot = c => CONT_ORDER.indexOf(c) + 1; // 0 = neutral gray
 
 function Intro(svg, tipEl) {
   const defs = svg.select('defs');
@@ -420,27 +414,24 @@ function Intro(svg, tipEl) {
       .sort((a, b) => a.other - b.other || b.mean - a.mean);
     return { rows, rowName };
   };
-  const fines = rated.map(b => ({ b, u: r1(), j: r1() - 0.5, br: Math.sqrt(r1()) * 135, bth: r1() * TAU, slot: contSlot(continentOf(b)) }));
+  const fines = rated.map(b => ({ b, u: r1(), j: r1() - 0.5, br: Math.sqrt(r1()) * 135, bth: r1() * TAU, slot: processSlot(b) }));
   const roasterRowsP = rowsOf(fines, f => f.b.roaster, 'Other roasters');
   fines.forEach(f => { f.rRow = roasterRowsP.rowName(f); });
-  // a bag with two varieties gets a second dot in the variety view
-  const placements = fines.flatMap(f => f.b.varieties.map(v => ({ b: f.b, f, v })));
-  const varietyRowsP = rowsOf(placements, p => p.v, 'Other varieties');
-  const seen = new Set();
-  placements.forEach(p => { p.vRow = varietyRowsP.rowName(p); });
-  const vPlace = placements.filter(p => { const k = p.f.b.bag_id + '|' + p.vRow; if (seen.has(k)) return false; seen.add(k); return true; });
-  fines.forEach(f => { f.vPlace = vPlace.find(p => p.f === f) ?? null; });
-  const copies = vPlace.filter(p => p.f.vPlace !== p).map(p => ({ ...p, j: r1() - 0.5, copy: true, slot: p.f.slot }));
-  fines.forEach(f => { if (f.vPlace) f.vRow = f.vPlace.vRow; });
+  // a bag that lists several varieties can't be split between them; it goes in the Multiple varieties row
+  const withVariety = fines.filter(f => f.b.varieties.length);
+  withVariety.forEach(f => { f.v = f.b.varieties.length > 1 ? MULTI : f.b.varieties[0]; });
+  const varietyRowsP = rowsOf(withVariety, f => f.v, 'Other varieties');
+  varietyRowsP.rows.sort((a, b) => (a.other || a.name === MULTI) - (b.other || b.name === MULTI) || (a.name === MULTI) - (b.name === MULTI) || b.mean - a.mean);
+  withVariety.forEach(f => { f.vRow = varietyRowsP.rowName(f); });
 
-  const dots = [...fines, ...copies];
+  const dots = fines;
   const dotSel = dotsG.selectAll('g').data(dots).join('g').style('opacity', 0);
   dotSel.append('circle').attr('class', 'hit').attr('r', 9);
   dotSel.append('circle').attr('class', d => `fine c-${d.slot}`);
   dotSel.on('pointerenter pointerdown', (ev, d) => {
     const b = d.b;
     tip(ev, bagName(b), d.slot, [['Rating', b.rating], ['Price per cup', b.price_per_cup == null ? '—' : d3.format('$.2f')(b.price_per_cup)],
-      ['Origin', b.countries.join(', ') || '—'], ['Variety', b.varieties.join(', ') || '—']]);
+      ['Process', b.process ?? '—'], ['Variety', b.varieties.join(', ') || '—']]);
   }).on('pointerleave', () => { tipEl.hidden = true; });
 
   const priceMax = AXES.find(a => a.key === 'price_per_cup').max;
@@ -512,12 +503,10 @@ function Intro(svg, tipEl) {
 
     const place = (lay, name, j) => [0, lay.yOf(name) + j * lay.rowH * 0.56];
     dots.forEach(d => {
-      const f = d.copy ? d.f : d;
-      d.sx = f.b.price_per_cup != null ? x(f.b.price_per_cup) : null; d.sy = y(f.b.rating);
-      d.rx = rate(f.b.rating); d.ry = place(lr, f.rRow, f.j)[1];
-      const vRow = d.copy ? d.vRow : f.vRow;
-      d.vx = rate(f.b.rating); d.vy = vRow ? place(lv, vRow, d.j)[1] : null;
-      [d.bx, d.by] = toPx(f.br * Math.cos(f.bth), f.br * Math.sin(f.bth));
+      d.sx = d.b.price_per_cup != null ? x(d.b.price_per_cup) : null; d.sy = y(d.b.rating);
+      d.rx = rate(d.b.rating); d.ry = place(lr, d.rRow, d.j)[1];
+      d.vx = rate(d.b.rating); d.vy = d.vRow ? place(lv, d.vRow, d.j)[1] : null;
+      [d.bx, d.by] = toPx(d.br * Math.cos(d.bth), d.br * Math.sin(d.bth));
     });
   }
 
@@ -558,20 +547,13 @@ function Intro(svg, tipEl) {
     rowsV.style('opacity', t4 * (1 - clamp(q / 0.15)));
 
     dotSel.each(function (d) {
-      const f = d.copy ? d.f : d;
-      const fly = clamp((p - 0.15 - 0.2 * f.u) / 0.25), flyE = d3.easeCubicOut(fly);
-      let x0, y0, op;
-      if (d.copy) { // appears out of its bag's roaster dot
-        x0 = lerp(f.rx, d.vx, t4); y0 = lerp(f.ry, d.vy, t4);
-        op = t4 * (1 - clamp(drop * 3));
-      } else {
-        const sx = d.sx ?? d.rx, sy = d.sx != null ? d.sy : d.ry;
-        const ax = lerp(P[0], sx, flyE), ay = lerp(P[1], sy, flyE);
-        const bx = lerp(ax, d.rx, t3), by = lerp(ay, d.ry, t3);
-        x0 = d.vy != null ? lerp(bx, d.vx, t4) : bx; y0 = d.vy != null ? lerp(by, d.vy, t4) : by;
-        op = p < 0 || fly <= 0 ? 0 : (d.sx != null ? 1 : t3);
-        if (d.vy == null) op *= 1 - t4;
-      }
+      const fly = clamp((p - 0.15 - 0.2 * d.u) / 0.25), flyE = d3.easeCubicOut(fly);
+      const sx = d.sx ?? d.rx, sy = d.sx != null ? d.sy : d.ry;
+      const ax = lerp(P[0], sx, flyE), ay = lerp(P[1], sy, flyE);
+      const bx = lerp(ax, d.rx, t3), by = lerp(ay, d.ry, t3);
+      const x0 = d.vy != null ? lerp(bx, d.vx, t4) : bx, y0 = d.vy != null ? lerp(by, d.vy, t4) : by;
+      let op = p < 0 || fly <= 0 ? 0 : (d.sx != null ? 1 : t3);
+      if (d.vy == null) op *= 1 - t4;
       d3.select(this).style('opacity', op * gone)
         .attr('transform', `translate(${lerp(x0, d.bx, drop)},${lerp(y0, d.by, drop)})`)
         .style('pointer-events', g > 2.45 && g < INTRO && op > 0.5 ? null : 'none')
@@ -580,9 +562,9 @@ function Intro(svg, tipEl) {
   }
 
   function readout(g) {
-    if (g < 2) return `<div class="timer"><span>Coffee<b>${facts.dose_g} g</b></span><span>Grinder<b>1Zpresso ZP6</b></span></div>`;
+    if (g < 2) return `<div class="timer"><span>Coffee<b>${facts.dose_g} g</b></span><span>Grinder<b>1Zpresso ZP6</b></span><span>Dial<b>${GRIND}</b></span></div>`;
     const present = [...new Set(fines.map(f => f.slot))].sort((a, b) => (a || 9) - (b || 9)); // neutral gray last
-    return `<div class="legend">${present.map(s => `<span class="legend-item"><span class="swatch dot c-${s}"></span><span class="label">${s ? CONT_ORDER[s - 1] : 'Blend or unknown'}</span></span>`).join('')}</div>`;
+    return `<div class="legend">${present.map(s => `<span class="legend-item"><span class="swatch dot c-${s}"></span><span class="label">${s ? PROCESS_SLOTS[s - 1] : 'Honey or other'}</span></span>`).join('')}</div>`;
   }
 
   return { update, resize, readout };

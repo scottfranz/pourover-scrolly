@@ -81,7 +81,9 @@ export const VARIETY_ALIASES = {
   'sl-28': 'SL28',
   'sl-34': 'SL34',
   'ruiru11': 'Ruiru 11',
-  'and other heirloom varieties': 'Heirloom Varieties',
+  'heirloom landraces': 'Ethiopian Landraces', // Scott: same thing
+  'and other heirloom varieties': 'Ethiopian Landraces',
+  'walega': '74158', // Scott: same selection
 };
 // Values that say "several/unknown" rather than naming a variety. Kept in variety_raw, left out of variety stats.
 export const NOT_A_VARIETY = /^(various|blend|field blend|typica varietals)$/i;
@@ -89,3 +91,4 @@ export function canonicalVariety(v) {
   if (NOT_A_VARIETY.test(v)) return null;
   return VARIETY_ALIASES[v.toLowerCase()] ?? v;
 }
+export const MULTI_VARIETY = 'Multiple varieties';

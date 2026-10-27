@@ -32,7 +32,7 @@
   --steel-hi: #f4f5f7; --steel: #bcc1c8; --steel-lo: #7e858e; --steel-dark: #2e3236; --handle: #26282b;
   --shadow: rgba(40, 30, 20, 0.22);
   --land: #e7e3dc; --land-origin: #d6cfc4; --seq-lo: #86b6ef; --seq-hi: #104281;
-  --wood: #9a6a3e; --bean: #4a2c19; --bean-crease: #24130a; --grip: #2b2d30;
+  --wood: #9a6a3e; --bean: #9a6740; --bean-crease: #5a3a20; --grip: #2b2d30;
 
   --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a;
 
@@ -53,7 +53,7 @@
     --steel-hi: #dfe2e6; --steel: #a3a9b1; --steel-lo: #69707a; --steel-dark: #1b1d20; --handle: #111214;
     --shadow: rgba(0, 0, 0, 0.5);
     --land: #2a2622; --land-origin: #3d3731; --seq-lo: #184f95; --seq-hi: #9ec5f4;
-    --wood: #8a5c34; --bean: #5c3820; --bean-crease: #24130a; --grip: #1f2124;
+    --wood: #8a5c34; --bean: #8d5e39; --bean-crease: #4f321b; --grip: #1f2124;
     --s1: #3987e5; --s2: #d95926; --s3: #199e70;
     color-scheme: dark;
   }
@@ -70,7 +70,7 @@
   --steel-hi: #dfe2e6; --steel: #a3a9b1; --steel-lo: #69707a; --steel-dark: #1b1d20; --handle: #111214;
   --shadow: rgba(0, 0, 0, 0.5);
   --land: #2a2622; --land-origin: #3d3731; --seq-lo: #184f95; --seq-hi: #9ec5f4;
-  --wood: #8a5c34; --bean: #5c3820; --bean-crease: #24130a; --grip: #1f2124;
+  --wood: #8a5c34; --bean: #8d5e39; --bean-crease: #4f321b; --grip: #1f2124;
   --s1: #3987e5; --s2: #d95926; --s3: #199e70;
   color-scheme: dark;
 }
@@ -335,14 +335,14 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
       <div class="card">
         <span class="kicker">Grind</span>
         <h2>Turn the crank</h2>
-        <p>Pour-over wants a medium-fine grind: coarser than espresso, finer than a French press.</p>
+        <p>Pour-over wants a medium-fine grind: coarser than espresso, finer than a French press. On my ZP6 that's usually between 4.0 and 5.5 on the dial.</p>
       </div>
     </div>
     <div class="step">
       <div class="card">
         <span class="kicker">The fines</span>
         <h2>Every dot is a bag</h2>
-        <p>The color shows where the coffee grew.</p>
+        <p>The color shows how the coffee was processed, in the same colors as the process chart further down.</p>
         <p data-claim="price-weak-positive">Paying more is only weakly linked to a higher rating. Across <span data-fact="correlations.price_per_g_vs_rating.n">114</span> bags with a price and a rating, Spearman's ρ is <span class="num" data-fact="correlations.price_per_g_vs_rating.rho" data-fmt="2">0.34</span>.</p>
         <p class="aside">My median bag cost $<span class="num" data-fact="price_per_cup.median" data-fmt="2">1.02</span> a cup. Gifts and bags with no price are left out of this view.</p>
       </div>
@@ -360,7 +360,7 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
         <span class="kicker">Varieties</span>
         <h2>The plants behind the beans</h2>
         <p id="variety-text">Varieties I've bought most.</p>
-        <p class="aside">A bag with two varieties shows up in both rows. Varieties with fewer than three bags share the Other row.</p>
+        <p class="aside">A bag that lists more than one variety can't be split between them, so those bags share the Multiple varieties row. Varieties with fewer than three bags share the Other row.</p>
       </div>
     </div>
     <div class="step">

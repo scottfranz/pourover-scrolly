@@ -56,12 +56,15 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
 - Intro (5 steps, `Intro()` in story.js; the pour scene runs on g − INTRO): the ZP6 grinder is the hero
   (side view, tall catch cup) and one bean per bag pours in → crank turns → catch cup tips, coarse grounds
   fall away and the fines become one dot per rated bag: price-per-cup × rating scatter → the same dots
-  re-sort into roaster rows (dot plot, rating on x, tick = row average) → variety rows (a bag with two
-  varieties gets a second dot) → dots drop into the V60 as the coffee bed.
-  Dots are colored by continent (Americas / Africa / Asia & Pacific = s1–s3; blends/unknown gray), the
-  3-series cap for overlapping marks. Rows: n ≥ 3, sorted by average, the rest in Other (last).
+  re-sort into roaster rows (rating on x, tick = row average) → variety rows → dots drop into the V60.
+  Bags listing several varieties can't be credited to one (Scott), so they form a "Multiple varieties"
+  row/group (`MULTI_VARIETY`, also in facts.by_variety). Grind text: ZP6 dial 4.0–5.5 (`GRIND`, Scott's range).
+  Dots are colored by process with the radar's process-step colors (Washed s1, Natural s2,
+  Experimental s3; Honey/unknown gray), the 3-series cap for overlapping marks. The roaster/variety
+  views are jittered strip plots (dot plots), not true beeswarms. Rows: n ≥ 3, sorted by average, the rest in Other (last).
   Roaster/variety sentences are generated from facts (`by_roaster`, `by_variety`, `n_repeat_roasters`).
-- Varieties are cleaned in schema.js (`VARIETY_ALIASES`, `NOT_A_VARIETY`); split on "," and "&";
+- Varieties are cleaned in schema.js (`VARIETY_ALIASES`, `NOT_A_VARIETY`; Heirloom Landraces → Ethiopian Landraces,
+  Walega → 74158, per Scott); split on "," and "&";
   raw text kept in `variety_raw`.
 - Then: scroll-scrubbed top view of a gooseneck kettle pouring over a V60
   (approach → bloom → spiral main pour → drawdown) with a brew timer (`facts.dose_g` g coffee, 250 g water).
