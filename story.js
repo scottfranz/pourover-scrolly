@@ -377,7 +377,7 @@ function Intro(svg, tipEl) {
   const dotsG = px.append('g');
 
   // --- the ZP6, side view, scene units: upper body −150..80, catch cup 80..172
-  const CUP_TOP = 80;
+  const CUP_TOP = 80, GRINDER_DROP = 60;
   const grinder = sceneG.append('g');
   const upper = grinder.append('g');
   const crankBack = upper.append('g');
@@ -395,11 +395,11 @@ function Intro(svg, tipEl) {
   cup.append('line').attr('class', 'seam').attr('x1', -58).attr('x2', 58).attr('y1', CUP_TOP + 1).attr('y2', CUP_TOP + 1);
   const crank = [crankBack, crankFront].map(gEl => {
     const arm = gEl.append('line').attr('class', 'crank-arm').attr('y1', -196).attr('y2', -196);
-    // ZP6 knob: a round wooden ball on a short stem at the end of the arm
+    // ZP6 knob: a wooden bell (wide dome on a narrowing neck), nearly as wide as the grinder body
     const knob = gEl.append('g');
-    knob.append('rect').attr('class', 'steel-dark').attr('x', -5).attr('y', -216).attr('width', 10).attr('height', 20).attr('rx', 2);
-    knob.append('circle').attr('class', 'knob').attr('cy', -242).attr('r', 28);
-    knob.append('circle').attr('class', 'knob-shine').attr('cx', -9).attr('cy', -252).attr('r', 8);
+    knob.append('path').attr('class', 'knob')
+      .attr('d', 'M-11,-198 C-12,-216 -30,-230 -46,-244 C-62,-258 -58,-292 -30,-300 Q0,-308 30,-300 C58,-292 62,-258 46,-244 C30,-230 12,-216 11,-198 Z');
+    knob.append('ellipse').attr('class', 'knob-shine').attr('cx', -22).attr('cy', -280).attr('rx', 14).attr('ry', 8).attr('transform', 'rotate(-20,-22,-280)');
     return { gEl, arm, knob };
   });
   const shaft = upper.append('g');
@@ -475,8 +475,9 @@ function Intro(svg, tipEl) {
 
   function resize(layout) {
     L = layout; k = L.R / SCENE_R;
-    sceneG.attr('transform', `translate(${L.cx},${L.cy}) scale(${k})`);
-    P = toPx(40, -40);
+    // the grinder sits a little low so the tall knob clears the top of the stage
+    sceneG.attr('transform', `translate(${L.cx},${L.cy + GRINDER_DROP * k}) scale(${k})`);
+    P = toPx(40, -40 + GRINDER_DROP);
 
     // scatterplot: price per cup × rating
     const pw = Math.min(L.W - 84, 640), ph = Math.min(L.H - 80, pw * 0.8);
@@ -533,7 +534,7 @@ function Intro(svg, tipEl) {
       .attr('transform', d => { const t = clamp((g - 0.25 - 0.5 * d.u) / 0.2); return `translate(${d.x * (1 - t * 0.6)},${lerp(d.y0, -168, t * t)}) rotate(${d.rot + d.spin * t})`; });
     hopper.style('opacity', 1 - clamp((g - 0.9) / 0.1));
     const crankOn = clamp((g - 0.9) / 0.15), theta = clamp(g - 1, 0, 1) * TAU * 5;
-    const lx = 150 * Math.cos(theta), behind = Math.sin(theta) < 0;
+    const lx = 210 * Math.cos(theta), behind = Math.sin(theta) < 0;
     crank.forEach((c, i) => {
       c.gEl.style('opacity', ((i === 0) === behind) ? crankOn : 0);
       c.arm.attr('x1', 0).attr('x2', lx);
