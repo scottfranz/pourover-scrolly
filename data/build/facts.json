@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T17:04:44.637Z",
+  "generated_at": "2026-10-27T17:21:12.719Z",
   "source": "data/raw/bags.csv",
   "dose_g": 15,
   "n_bags": 122,
@@ -296,9 +296,14 @@
       "mean": 7.4,
       "median": 7.4
     },
+    "Ethiopian Landraces": {
+      "n": 25,
+      "mean": 7.75,
+      "median": 7.8
+    },
     "Multiple varieties": {
-      "n": 14,
-      "mean": 7.47,
+      "n": 8,
+      "mean": 7.34,
       "median": 7.35
     },
     "Pacamara": {
@@ -315,11 +320,6 @@
       "n": 7,
       "mean": 7.5,
       "median": 7.5
-    },
-    "Ethiopian Landraces": {
-      "n": 19,
-      "mean": 7.78,
-      "median": 7.8
     },
     "Pink Bourbon": {
       "n": 12,

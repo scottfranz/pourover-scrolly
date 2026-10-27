@@ -68,8 +68,9 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
   Roaster/variety sentences are generated from facts (`by_roaster`, `by_variety`, `n_repeat_roasters`).
 - Varieties are cleaned in schema.js (`VARIETY_ALIASES`, `NOT_A_VARIETY`; Heirloom Landraces → Ethiopian Landraces,
   Walega/74158 → "Walega (74158)", per Scott); split on "," and "&". `variety_group` (schema `varietyGroup`):
-  bags whose varieties all fall in one VARIETY_GROUPS entry (Kenyan Landraces = SL28, SL34, Ruiru 11, Batian)
-  count as that group; other multi-variety bags → "Multiple varieties". facts.by_variety uses it;
+  bags whose varieties all fall in one VARIETY_GROUPS entry count as that group (Kenyan Landraces = SL28,
+  SL34, Ruiru 11, Batian; Ethiopian Landraces = named Ethiopian selections, mixes only, so a lone
+  Walega (74158) keeps its row); other multi-variety bags → "Multiple varieties". facts.by_variety uses it;
   raw text kept in `variety_raw`.
 - Then: scroll-scrubbed top view of a gooseneck kettle pouring over a V60
   (approach → bloom → spiral main pour → drawdown) with a brew timer (`facts.dose_g` g coffee, 250 g water).

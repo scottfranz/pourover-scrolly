@@ -94,14 +94,21 @@ export function canonicalVariety(v) {
 }
 export const MULTI_VARIETY = 'Multiple varieties';
 
-// Chart groups for variety stats: a bag whose varieties all fall in one group counts as that group
-// (Kenyan lots usually list several of these together). Other multi-variety bags → MULTI_VARIETY.
+// Chart groups for variety stats. A bag whose varieties all fall in one group counts as that group.
+// `mixesOnly`: single named varieties keep their own name (e.g. Walega (74158) stays its own row);
+// only lots that list several of them together become the group. Other multi-variety bags → MULTI_VARIETY.
 export const VARIETY_GROUPS = {
-  'Kenyan Landraces': ['SL28', 'SL34', 'Ruiru 11', 'Batian'],
+  'Kenyan Landraces': { members: ['SL28', 'SL34', 'Ruiru 11', 'Batian'] },
+  // Scott: Ethiopian lots that list several named selections are Ethiopian landraces.
+  'Ethiopian Landraces': { members: ['Ethiopian Landraces', '74110', '74112', '74165', 'Walega (74158)', 'Mikicho', 'Kurume', 'Wolisho', 'Dega'], mixesOnly: true },
 };
 export function varietyGroup(varieties) {
   if (!varieties.length) return null;
-  const groups = varieties.map(v => Object.keys(VARIETY_GROUPS).find(g => VARIETY_GROUPS[g].includes(v)) ?? v);
-  const unique = [...new Set(groups)];
+  const groupOf = v => Object.keys(VARIETY_GROUPS).find(g => VARIETY_GROUPS[g].members.includes(v));
+  if (varieties.length === 1) {
+    const g = groupOf(varieties[0]);
+    return g && !VARIETY_GROUPS[g].mixesOnly ? g : varieties[0];
+  }
+  const unique = [...new Set(varieties.map(v => groupOf(v) ?? v))];
   return unique.length === 1 ? unique[0] : MULTI_VARIETY;
 }
