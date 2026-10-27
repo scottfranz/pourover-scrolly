@@ -258,7 +258,7 @@ p { margin: 0; }
 .bag-card dt { color: var(--muted); }
 .bag-card dd { margin: 0; overflow-wrap: anywhere; }
 .table-wrap { overflow-x: auto; }
-.map-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 18rem; gap: 1.5rem; align-items: start; }
+.map-wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; }
 .map-stage { position: relative; min-width: 0; }
 .map-stage svg { display: block; width: 100%; height: auto; overflow: hidden; }
 .land { fill: var(--land); stroke: var(--bg); stroke-width: 0.6; }
@@ -271,7 +271,8 @@ p { margin: 0; }
 .origin-dot:focus-visible { outline: none; stroke: var(--s1); stroke-width: 3; }
 .map-label { fill: var(--fg); font: 600 12px var(--font-body); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round; pointer-events: none; }
 .map-label .n { fill: var(--muted); font: 400 11px var(--font-data); }
-.map-panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 1rem 1.1rem; display: grid; gap: 0.6rem; min-width: 0; }
+.map-panel { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 1.1rem 1.25rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 0.6rem 2rem; align-items: start; min-width: 0; }
+.panel-head, .panel-body { display: grid; gap: 0.6rem; min-width: 0; }
 .map-panel h3 { margin: 0; font: 400 1.4rem/1.2 var(--font-display); }
 .map-panel .stat { font-family: var(--font-data); font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.85rem; }
 .map-panel .stat b { color: var(--fg); font-weight: 500; font-size: 1.05rem; }
@@ -302,7 +303,7 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
   .step, .step:first-child { align-items: flex-end; padding-block: 0 5vh; }
   .card { pointer-events: auto; background: var(--card); padding: 1.1rem 1.2rem; border-radius: 10px; border: 1px solid var(--rule); }
   .step:first-child .card { margin-top: 0; }
-  .pickers, .bag-cards, .map-wrap { grid-template-columns: minmax(0, 1fr); }
+  .pickers, .bag-cards, .map-wrap, .map-panel { grid-template-columns: minmax(0, 1fr); }
   .timer { gap: 1rem; }
   .timer b { font-size: 1.1rem; }
 }
@@ -457,9 +458,9 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
       <svg id="map" role="img" aria-label="Map of coffee origin countries, sized by bags and colored by average rating"></svg>
       <div class="tip" id="map-tip" hidden></div>
     </div>
+    <div class="map-legend" id="map-legend"></div>
     <aside class="map-panel" id="map-panel" aria-live="polite"></aside>
   </div>
-  <div class="map-legend" id="map-legend"></div>
 </section>
 
 <footer id="footer">Data: my coffee log.</footer>

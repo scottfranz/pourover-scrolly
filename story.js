@@ -875,13 +875,13 @@ if (world) {
       .sort((a, b) => b.n - a.n || b.mean - a.mean);
     const best = d3.greatest(o.bags, b => b.rating);
     const singles = regions.filter(r => r.n === 1);
-    panel.html(`<span class="kicker">Selected</span><h3>${o.name}</h3>
+    panel.html(`<div class="panel-head"><span class="kicker">Selected</span><h3>${o.name}</h3>
       <div class="stat"><b>${o.n}</b> bags · avg <b>${o.n >= 3 ? f2(o.mean) : '—'}</b></div>
-      <p class="best">Best bag: <strong>${bagName(best)}</strong>, rated <span class="num">${best.rating}</span></p>
-      <table><thead><tr><th>Region</th><th class="n">Bags</th><th class="n">Avg</th></tr></thead><tbody>${
+      <p class="best">Best bag: <strong>${bagName(best)}</strong>, rated <span class="num">${best.rating}</span></p></div>
+      <div class="panel-body"><table><thead><tr><th>Region</th><th class="n">Bags</th><th class="n">Avg</th></tr></thead><tbody>${
         regions.filter(r => r.n >= 2).map(r => `<tr><td>${r.r}</td><td class="n">${r.n}</td><td class="n">${r.n >= 3 ? f2(r.mean) : '—'}</td></tr>`).join('')
       }${singles.length ? `<tr><td colspan="3" class="muted" title="${singles.map(r => r.r).join(', ')}">${singles.length === 1 ? singles[0].r : `${singles.length} more regions`} with 1 bag${singles.length === 1 ? '' : ' each'}</td></tr>` : ''}</tbody></table>
-      ${unmapped.length ? `<p class="muted">Not on the map: ${unmapped.join(', ')}</p>` : ''}`);
+      ${unmapped.length ? `<p class="muted">Not on the map: ${unmapped.join(', ')}</p>` : ''}</div>`);
   }
 
   function select(o) {
@@ -907,7 +907,7 @@ if (world) {
     const css = getComputedStyle(document.documentElement);
     const color = d3.scaleLinear().domain(ratingDomain)
       .range([css.getPropertyValue('--seq-lo').trim(), css.getPropertyValue('--seq-hi').trim()]).interpolate(d3.interpolateLab);
-    const size = d3.scaleSqrt().domain([0, d3.max(origins, o => o.n)]).range([0, narrow ? 20 : 30]);
+    const size = d3.scaleSqrt().domain([0, d3.max(origins, o => o.n)]).range([0, Math.max(18, Math.min(42, W / 28))]);
 
     mapSvg.append('g').selectAll('path').data(land).join('path')
       .attr('class', f => `land${originFeatures.has(f) ? ' origin' : ''}`).attr('d', path)
