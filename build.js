@@ -8,7 +8,7 @@ import { join } from 'node:path';
 import { parse } from 'csv-parse/sync';
 import {
   COLUMNS, REQUIRED_COLUMNS, IGNORED_COLUMNS, DOSE_G, MIN_DATE, RANGES,
-  ROAST_LEVELS, ROAST_ORDER, processGroup, PROCESS_GROUPS, HOME_ROAST, canonicalVariety, MULTI_VARIETY,
+  ROAST_LEVELS, ROAST_ORDER, processGroup, PROCESS_GROUPS, HOME_ROAST, canonicalVariety, varietyGroup,
 } from './schema.js';
 import claims from './claims.js';
 
@@ -152,6 +152,7 @@ for (const { record, info } of records) {
   if (seenIds.has(bag_id)) err('bag_id', `duplicate id "${bag_id}" (also line ${seenIds.get(bag_id)})`);
   seenIds.set(bag_id, line);
 
+  const varieties = [...new Set(splitList(r.variety, /\s*[,&]\s*/).map(canonicalVariety).filter(Boolean))];
   bags.push({
     _line: line,
     bag_id,
@@ -164,7 +165,9 @@ for (const { record, info } of records) {
     region: r.region, producer: r.producer, farm: r.farm,
     harvest_raw: r.harvest, harvest_year,
     variety_raw: r.variety,
-    varieties: [...new Set(splitList(r.variety, /\s*[,&]\s*/).map(canonicalVariety).filter(Boolean))],
+    varieties,
+    variety_group: varietyGroup(varieties),
+
     altitude_m: nums.altitude_m,
     process: r.process, process_group: process_group ?? null,
     roast_level, roast_rank: roast_level ? ROAST_ORDER.indexOf(roast_level) : null,
@@ -250,8 +253,8 @@ const facts = {
   by_process: groupBy(rated, 'process_group'),
   by_country: groupBy(rated, 'country_primary'),
   by_roaster: groupBy(rated, 'roaster'),
-  // A bag that lists several varieties can't be credited to any one of them, so it goes in its own group.
-  by_variety: groupBy(rated.map(b => ({ ...b, variety: b.varieties.length > 1 ? MULTI_VARIETY : b.varieties[0] ?? null })), 'variety'),
+  // A bag that lists several varieties can't be credited to any one of them (see varietyGroup in schema.js).
+  by_variety: groupBy(rated, 'variety_group'),
   n_repeat_roasters: Object.entries(Object.groupBy(kept.filter(b => !b.home_roast), b => b.roaster)).filter(([, v]) => v.length >= 2).length,
   by_quarter: groupBy(rated, 'opened_quarter'),
   funk_cliff: { low: summarize(funkLow), high: summarize(funkHigh) },

@@ -18,6 +18,7 @@
   "harvest_year": null,
   "variety_raw": "Various",
   "varieties": [],
+  "variety_group": null,
   "altitude_m": 1500,
   "process": "Washed",
   "process_group": "Washed",
@@ -58,6 +59,7 @@
    "74110",
    "74112"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 1730,
   "process": "Washed",
   "process_group": "Washed",
@@ -98,6 +100,7 @@
    "Tabi",
    "Pink Bourbon"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 1730,
   "process": "Washed",
   "process_group": "Washed",
@@ -137,6 +140,7 @@
   "varieties": [
    "Pacamara"
   ],
+  "variety_group": "Pacamara",
   "altitude_m": 1750,
   "process": "Washed Thermal Shock",
   "process_group": "Experimental",
@@ -177,6 +181,7 @@
    "SL28",
    "SL34"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1564,
   "process": "Washed",
   "process_group": "Washed",
@@ -214,8 +219,9 @@
   "harvest_year": 2024,
   "variety_raw": "74158",
   "varieties": [
-   "74158"
+   "Walega (74158)"
   ],
+  "variety_group": "Walega (74158)",
   "altitude_m": 2200,
   "process": "Natural",
   "process_group": "Natural",
@@ -256,6 +262,7 @@
    "Caturra",
    "Catuai"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": null,
   "process": "Natural",
   "process_group": "Natural",
@@ -295,6 +302,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -332,8 +340,9 @@
   "harvest_year": null,
   "variety_raw": "74158",
   "varieties": [
-   "74158"
+   "Walega (74158)"
   ],
+  "variety_group": "Walega (74158)",
   "altitude_m": 2250,
   "process": "Natural",
   "process_group": "Natural",
@@ -373,6 +382,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 1750,
   "process": "Washed",
   "process_group": "Washed",
@@ -415,6 +425,7 @@
    "Caturra",
    "Pink Bourbon"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -454,6 +465,7 @@
   "varieties": [
    "Guji Landrace"
   ],
+  "variety_group": "Guji Landrace",
   "altitude_m": 2200,
   "process": "Natural",
   "process_group": "Natural",
@@ -493,6 +505,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 1840,
   "process": "Leachate Anaerobic Natural",
   "process_group": "Experimental",
@@ -532,6 +545,7 @@
   "varieties": [
    "Guji Landrace"
   ],
+  "variety_group": "Guji Landrace",
   "altitude_m": 1640,
   "process": "Carbonic Maceration Washed",
   "process_group": "Experimental",
@@ -571,6 +585,7 @@
   "varieties": [
    "Purple Caturra"
   ],
+  "variety_group": "Purple Caturra",
   "altitude_m": 1730,
   "process": "Tropical Washed",
   "process_group": "Experimental",
@@ -610,6 +625,7 @@
   "varieties": [
    "Maracaturra"
   ],
+  "variety_group": "Maracaturra",
   "altitude_m": 1500,
   "process": "Natural",
   "process_group": "Natural",
@@ -650,6 +666,7 @@
    "Caturra",
    "Yellow Bourbon"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -689,6 +706,7 @@
   "varieties": [
    "Typica Mejorado"
   ],
+  "variety_group": "Typica Mejorado",
   "altitude_m": 1500,
   "process": "Anaerobic Honey",
   "process_group": "Experimental",
@@ -728,6 +746,7 @@
   "varieties": [
    "Gesha"
   ],
+  "variety_group": "Gesha",
   "altitude_m": 1800,
   "process": "Washed",
   "process_group": "Washed",
@@ -767,6 +786,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 1900,
   "process": "Washed Thermal Shock",
   "process_group": "Experimental",
@@ -806,6 +826,7 @@
   "varieties": [
    "Gesha"
   ],
+  "variety_group": "Gesha",
   "altitude_m": 1560,
   "process": "Washed",
   "process_group": "Washed",
@@ -845,6 +866,7 @@
   "varieties": [
    "Caturra"
   ],
+  "variety_group": "Caturra",
   "altitude_m": 1750,
   "process": "Washed",
   "process_group": "Washed",
@@ -884,6 +906,7 @@
   "varieties": [
    "Bourbon"
   ],
+  "variety_group": "Bourbon",
   "altitude_m": 2000,
   "process": "Natural",
   "process_group": "Natural",
@@ -924,6 +947,7 @@
    "Bourbon",
    "Hybrido de Timor"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 1650,
   "process": "Natural",
   "process_group": "Natural",
@@ -963,6 +987,7 @@
   "varieties": [
    "Castillo"
   ],
+  "variety_group": "Castillo",
   "altitude_m": 1500,
   "process": "Honey Process Lychee Coferment",
   "process_group": "Experimental",
@@ -1002,6 +1027,7 @@
   "varieties": [
    "Mejorado"
   ],
+  "variety_group": "Mejorado",
   "altitude_m": 1800,
   "process": "Washed",
   "process_group": "Washed",
@@ -1041,6 +1067,7 @@
   "varieties": [
    "Mejorado"
   ],
+  "variety_group": "Mejorado",
   "altitude_m": 1700,
   "process": "Washed",
   "process_group": "Washed",
@@ -1080,6 +1107,7 @@
   "varieties": [
    "Mejorado"
   ],
+  "variety_group": "Mejorado",
   "altitude_m": 1890,
   "process": "Washed",
   "process_group": "Washed",
@@ -1119,6 +1147,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 1500,
   "process": "Strawberry Coferment",
   "process_group": "Experimental",
@@ -1156,8 +1185,9 @@
   "harvest_year": 2024,
   "variety_raw": "74158",
   "varieties": [
-   "74158"
+   "Walega (74158)"
   ],
+  "variety_group": "Walega (74158)",
   "altitude_m": 2300,
   "process": "Natural",
   "process_group": "Natural",
@@ -1197,6 +1227,7 @@
   "varieties": [
    "74110"
   ],
+  "variety_group": "74110",
   "altitude_m": 2400,
   "process": "Washed",
   "process_group": "Washed",
@@ -1236,6 +1267,7 @@
   "varieties": [
    "Caturra"
   ],
+  "variety_group": "Caturra",
   "altitude_m": 1500,
   "process": "Fruit Fermented EA Sugercane Decaf",
   "process_group": "Experimental",
@@ -1275,6 +1307,7 @@
   "varieties": [
    "Chiroso"
   ],
+  "variety_group": "Chiroso",
   "altitude_m": 2200,
   "process": "Washed",
   "process_group": "Washed",
@@ -1314,6 +1347,7 @@
   "varieties": [
    "Enepei"
   ],
+  "variety_group": "Enepei",
   "altitude_m": 2080,
   "process": "Washed",
   "process_group": "Washed",
@@ -1353,6 +1387,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": null,
   "process": "Anaerobic Natural",
   "process_group": "Experimental",
@@ -1392,6 +1427,7 @@
   "varieties": [
    "Gesha"
   ],
+  "variety_group": "Gesha",
   "altitude_m": 1900,
   "process": "Washed",
   "process_group": "Washed",
@@ -1433,6 +1469,7 @@
    "SL34",
    "SL28"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1700,
   "process": "Washed",
   "process_group": "Washed",
@@ -1472,6 +1509,7 @@
   "varieties": [
    "Bourbon"
   ],
+  "variety_group": "Bourbon",
   "altitude_m": 1750,
   "process": "Experimental",
   "process_group": "Experimental",
@@ -1509,6 +1547,7 @@
   "harvest_year": null,
   "variety_raw": "Blend",
   "varieties": [],
+  "variety_group": null,
   "altitude_m": 1700,
   "process": "Natural",
   "process_group": "Natural",
@@ -1548,6 +1587,7 @@
   "varieties": [
    "Red Catui"
   ],
+  "variety_group": "Red Catui",
   "altitude_m": 2000,
   "process": "Natural",
   "process_group": "Natural",
@@ -1587,6 +1627,7 @@
   "varieties": [
    "Castillo"
   ],
+  "variety_group": "Castillo",
   "altitude_m": 1960,
   "process": "Advanced Fermentation",
   "process_group": "Experimental",
@@ -1626,6 +1667,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2000,
   "process": "Washed",
   "process_group": "Washed",
@@ -1664,9 +1706,10 @@
   "variety_raw": "74112, 74158, Mikicho",
   "varieties": [
    "74112",
-   "74158",
+   "Walega (74158)",
    "Mikicho"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 2226,
   "process": "Natural",
   "process_group": "Natural",
@@ -1707,6 +1750,7 @@
    "SL28",
    "Ruiru 11"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1900,
   "process": "Washed",
   "process_group": "Washed",
@@ -1746,6 +1790,7 @@
   "varieties": [
    "Red Bourbon"
   ],
+  "variety_group": "Red Bourbon",
   "altitude_m": 2000,
   "process": "Natural EA Decaf",
   "process_group": "Natural",
@@ -1785,6 +1830,7 @@
   "varieties": [
    "Caturra"
   ],
+  "variety_group": "Caturra",
   "altitude_m": 2100,
   "process": "Anaerobic Washed",
   "process_group": "Experimental",
@@ -1824,6 +1870,7 @@
   "varieties": [
    "Chiroso"
   ],
+  "variety_group": "Chiroso",
   "altitude_m": 1840,
   "process": "Washed",
   "process_group": "Washed",
@@ -1866,6 +1913,7 @@
    "Caturra",
    "Gesha"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 2148,
   "process": "Washed",
   "process_group": "Washed",
@@ -1905,6 +1953,7 @@
   "varieties": [
    "Gesha"
   ],
+  "variety_group": "Gesha",
   "altitude_m": 1800,
   "process": "Carbonic Maceration Washed",
   "process_group": "Experimental",
@@ -1947,6 +1996,7 @@
    "Ruiru 11",
    "Batian"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1800,
   "process": "Washed",
   "process_group": "Washed",
@@ -1986,6 +2036,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 1850,
   "process": "Washed",
   "process_group": "Washed",
@@ -2025,6 +2076,7 @@
   "varieties": [
    "Chiroso"
   ],
+  "variety_group": "Chiroso",
   "altitude_m": 1950,
   "process": "Washed",
   "process_group": "Washed",
@@ -2065,6 +2117,7 @@
    "74110",
    "74112"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 2300,
   "process": "Washed",
   "process_group": "Washed",
@@ -2105,6 +2158,7 @@
    "SL28",
    "SL34"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1750,
   "process": "Washed",
   "process_group": "Washed",
@@ -2144,6 +2198,7 @@
   "varieties": [
    "74110"
   ],
+  "variety_group": "74110",
   "altitude_m": 2342,
   "process": "Washed",
   "process_group": "Washed",
@@ -2183,6 +2238,7 @@
   "varieties": [
    "Chiroso"
   ],
+  "variety_group": "Chiroso",
   "altitude_m": 1950,
   "process": "Washed",
   "process_group": "Washed",
@@ -2224,6 +2280,7 @@
    "Wolisho",
    "Ethiopian Landraces"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 2050,
   "process": "Yellow Honey",
   "process_group": "Honey",
@@ -2263,6 +2320,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 1875,
   "process": "Washed",
   "process_group": "Washed",
@@ -2305,6 +2363,7 @@
    "Batian",
    "Ruiru 11"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1600,
   "process": "Washed",
   "process_group": "Washed",
@@ -2344,6 +2403,7 @@
   "varieties": [
    "Chiroso"
   ],
+  "variety_group": "Chiroso",
   "altitude_m": 1930,
   "process": "Washed",
   "process_group": "Washed",
@@ -2383,6 +2443,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2340,
   "process": "Washed",
   "process_group": "Washed",
@@ -2422,6 +2483,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2375,
   "process": "Washed",
   "process_group": "Washed",
@@ -2462,6 +2524,7 @@
    "Dega",
    "Kurume"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 1900,
   "process": "Washed",
   "process_group": "Washed",
@@ -2501,6 +2564,7 @@
   "varieties": [
    "Laurina"
   ],
+  "variety_group": "Laurina",
   "altitude_m": 1700,
   "process": "Washed",
   "process_group": "Washed",
@@ -2540,6 +2604,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2300,
   "process": "Natural",
   "process_group": "Natural",
@@ -2579,6 +2644,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 1800,
   "process": "Washed",
   "process_group": "Washed",
@@ -2619,6 +2685,7 @@
    "SL28",
    "SL34"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1720,
   "process": "Washed",
   "process_group": "Washed",
@@ -2658,6 +2725,7 @@
   "varieties": [
    "Gesha"
   ],
+  "variety_group": "Gesha",
   "altitude_m": 1600,
   "process": "Washed",
   "process_group": "Washed",
@@ -2698,6 +2766,7 @@
    "74110",
    "74165"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 2100,
   "process": "Natural",
   "process_group": "Natural",
@@ -2740,6 +2809,7 @@
    "Pink Bourbon",
    "Pacamara"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 1780,
   "process": "Washed",
   "process_group": "Washed",
@@ -2779,6 +2849,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -2818,6 +2889,7 @@
   "varieties": [
    "Red Bourbon"
   ],
+  "variety_group": "Red Bourbon",
   "altitude_m": 1672,
   "process": "Washed",
   "process_group": "Washed",
@@ -2857,6 +2929,7 @@
   "varieties": [
    "Typica Mejorado"
   ],
+  "variety_group": "Typica Mejorado",
   "altitude_m": 1850,
   "process": "Double Washed",
   "process_group": "Washed",
@@ -2896,6 +2969,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -2935,6 +3009,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 1750,
   "process": "Thermal Shock EA Decaf",
   "process_group": "Experimental",
@@ -2972,8 +3047,9 @@
   "harvest_year": null,
   "variety_raw": "74158",
   "varieties": [
-   "74158"
+   "Walega (74158)"
   ],
+  "variety_group": "Walega (74158)",
   "altitude_m": 2420,
   "process": "Anaerobic Natural",
   "process_group": "Experimental",
@@ -3013,6 +3089,7 @@
   "varieties": [
    "SL9"
   ],
+  "variety_group": "SL9",
   "altitude_m": null,
   "process": "Honey",
   "process_group": "Honey",
@@ -3050,8 +3127,9 @@
   "harvest_year": 2025,
   "variety_raw": "74158",
   "varieties": [
-   "74158"
+   "Walega (74158)"
   ],
+  "variety_group": "Walega (74158)",
   "altitude_m": 2350,
   "process": "White Honey Washed",
   "process_group": "Honey",
@@ -3091,6 +3169,7 @@
   "varieties": [
    "Batian"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 2200,
   "process": "Kenya Washed",
   "process_group": "Washed",
@@ -3130,6 +3209,7 @@
   "varieties": [
    "Maragogype"
   ],
+  "variety_group": "Maragogype",
   "altitude_m": 1500,
   "process": "Natural",
   "process_group": "Natural",
@@ -3169,6 +3249,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2100,
   "process": "Washed",
   "process_group": "Washed",
@@ -3208,6 +3289,7 @@
   "varieties": [
    "Caturra"
   ],
+  "variety_group": "Caturra",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -3247,6 +3329,7 @@
   "varieties": [
    "Catuai"
   ],
+  "variety_group": "Catuai",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -3286,6 +3369,7 @@
   "varieties": [
    "Chiroso"
   ],
+  "variety_group": "Chiroso",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -3325,6 +3409,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": null,
   "process": "Dry Ferment Washed",
   "process_group": "Experimental",
@@ -3364,6 +3449,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2000,
   "process": "Washed",
   "process_group": "Washed",
@@ -3403,6 +3489,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2250,
   "process": "Washed",
   "process_group": "Washed",
@@ -3442,6 +3529,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2350,
   "process": "Washed",
   "process_group": "Washed",
@@ -3481,6 +3569,7 @@
   "varieties": [
    "SL9"
   ],
+  "variety_group": "SL9",
   "altitude_m": 2260,
   "process": "Washed",
   "process_group": "Washed",
@@ -3520,6 +3609,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 2000,
   "process": "Washed",
   "process_group": "Washed",
@@ -3557,6 +3647,7 @@
   "harvest_year": null,
   "variety_raw": "Field Blend",
   "varieties": [],
+  "variety_group": null,
   "altitude_m": 2000,
   "process": "Washed",
   "process_group": "Washed",
@@ -3596,6 +3687,7 @@
   "varieties": [
    "Mejorado"
   ],
+  "variety_group": "Mejorado",
   "altitude_m": 1794,
   "process": "Washed",
   "process_group": "Washed",
@@ -3637,6 +3729,7 @@
    "Caturra",
    "Catucai"
   ],
+  "variety_group": "Multiple varieties",
   "altitude_m": 1850,
   "process": "Extended Fermentation Washed",
   "process_group": "Experimental",
@@ -3676,6 +3769,7 @@
   "varieties": [
    "Red Bourbon"
   ],
+  "variety_group": "Red Bourbon",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -3715,6 +3809,7 @@
   "varieties": [
    "Bourbon"
   ],
+  "variety_group": "Bourbon",
   "altitude_m": 1800,
   "process": "Honey",
   "process_group": "Honey",
@@ -3754,6 +3849,7 @@
   "varieties": [
    "Papayo Amarillo"
   ],
+  "variety_group": "Papayo Amarillo",
   "altitude_m": 1550,
   "process": "Multi-Stage Thermal Shock Washed",
   "process_group": "Experimental",
@@ -3793,6 +3889,7 @@
   "varieties": [
    "Bourbon"
   ],
+  "variety_group": "Bourbon",
   "altitude_m": 1800,
   "process": "Natural",
   "process_group": "Natural",
@@ -3832,6 +3929,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 1500,
   "process": "Washed",
   "process_group": "Washed",
@@ -3871,6 +3969,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 1600,
   "process": "Low O2 Washed",
   "process_group": "Washed",
@@ -3910,6 +4009,7 @@
   "varieties": [
    "Bourbon Aji"
   ],
+  "variety_group": "Bourbon Aji",
   "altitude_m": 1650,
   "process": "Washed",
   "process_group": "Washed",
@@ -3949,6 +4049,7 @@
   "varieties": [
    "Gesha"
   ],
+  "variety_group": "Gesha",
   "altitude_m": 2100,
   "process": "Washed",
   "process_group": "Washed",
@@ -3988,6 +4089,7 @@
   "varieties": [
    "Heirloom Bourbon"
   ],
+  "variety_group": "Heirloom Bourbon",
   "altitude_m": 1900,
   "process": "Washed",
   "process_group": "Washed",
@@ -4028,6 +4130,7 @@
    "SL34",
    "Ruiru 11"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1725,
   "process": "Washed",
   "process_group": "Washed",
@@ -4067,6 +4170,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2150,
   "process": "Washed",
   "process_group": "Washed",
@@ -4106,6 +4210,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2000,
   "process": "Washed",
   "process_group": "Washed",
@@ -4145,6 +4250,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2140,
   "process": "Washed",
   "process_group": "Washed",
@@ -4184,6 +4290,7 @@
   "varieties": [
    "Gesha"
   ],
+  "variety_group": "Gesha",
   "altitude_m": 2350,
   "process": "Washed",
   "process_group": "Washed",
@@ -4221,6 +4328,7 @@
   "harvest_year": null,
   "variety_raw": null,
   "varieties": [],
+  "variety_group": null,
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -4260,6 +4368,7 @@
   "varieties": [
    "Java"
   ],
+  "variety_group": "Java",
   "altitude_m": 1650,
   "process": "Washed",
   "process_group": "Washed",
@@ -4299,6 +4408,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2050,
   "process": "Washed",
   "process_group": "Washed",
@@ -4339,6 +4449,7 @@
    "SL28",
    "SL34"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1725,
   "process": "Washed",
   "process_group": "Washed",
@@ -4379,6 +4490,7 @@
    "SL28",
    "SL34"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -4418,6 +4530,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": null,
   "process": "Washed",
   "process_group": "Washed",
@@ -4457,6 +4570,7 @@
   "varieties": [
    "Ethiopian Landraces"
   ],
+  "variety_group": "Ethiopian Landraces",
   "altitude_m": 2000,
   "process": "Honey",
   "process_group": "Honey",
@@ -4496,6 +4610,7 @@
   "varieties": [
    "Wush Wush"
   ],
+  "variety_group": "Wush Wush",
   "altitude_m": null,
   "process": "Natural",
   "process_group": "Natural",
@@ -4537,6 +4652,7 @@
    "SL34",
    "Ruiru 11"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1800,
   "process": "Washed",
   "process_group": "Washed",
@@ -4576,6 +4692,7 @@
   "varieties": [
    "SL28"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1950,
   "process": "Washed",
   "process_group": "Washed",
@@ -4615,6 +4732,7 @@
   "varieties": [
    "Pink Bourbon"
   ],
+  "variety_group": "Pink Bourbon",
   "altitude_m": 1700,
   "process": "Washed",
   "process_group": "Washed",
@@ -4652,8 +4770,9 @@
   "harvest_year": 2026,
   "variety_raw": "Walega",
   "varieties": [
-   "74158"
+   "Walega (74158)"
   ],
+  "variety_group": "Walega (74158)",
   "altitude_m": 2230,
   "process": "Anaerobic Natural",
   "process_group": "Experimental",
@@ -4691,8 +4810,9 @@
   "harvest_year": 2026,
   "variety_raw": "Walega",
   "varieties": [
-   "74158"
+   "Walega (74158)"
   ],
+  "variety_group": "Walega (74158)",
   "altitude_m": 2200,
   "process": "Anaerobic Washed",
   "process_group": "Experimental",
@@ -4732,6 +4852,7 @@
   "varieties": [
    "S-795"
   ],
+  "variety_group": "S-795",
   "altitude_m": 1000,
   "process": "Yeast Inoculated Washed",
   "process_group": "Experimental",
@@ -4774,6 +4895,7 @@
    "Ruiru 11",
    "Batian"
   ],
+  "variety_group": "Kenyan Landraces",
   "altitude_m": 1900,
   "process": "Washed",
   "process_group": "Washed",

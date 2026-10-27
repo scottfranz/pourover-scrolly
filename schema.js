@@ -83,7 +83,8 @@ export const VARIETY_ALIASES = {
   'ruiru11': 'Ruiru 11',
   'heirloom landraces': 'Ethiopian Landraces', // Scott: same thing
   'and other heirloom varieties': 'Ethiopian Landraces',
-  'walega': '74158', // Scott: same selection
+  'walega': 'Walega (74158)', // Scott: same selection
+  '74158': 'Walega (74158)',
 };
 // Values that say "several/unknown" rather than naming a variety. Kept in variety_raw, left out of variety stats.
 export const NOT_A_VARIETY = /^(various|blend|field blend|typica varietals)$/i;
@@ -92,3 +93,15 @@ export function canonicalVariety(v) {
   return VARIETY_ALIASES[v.toLowerCase()] ?? v;
 }
 export const MULTI_VARIETY = 'Multiple varieties';
+
+// Chart groups for variety stats: a bag whose varieties all fall in one group counts as that group
+// (Kenyan lots usually list several of these together). Other multi-variety bags → MULTI_VARIETY.
+export const VARIETY_GROUPS = {
+  'Kenyan Landraces': ['SL28', 'SL34', 'Ruiru 11', 'Batian'],
+};
+export function varietyGroup(varieties) {
+  if (!varieties.length) return null;
+  const groups = varieties.map(v => Object.keys(VARIETY_GROUPS).find(g => VARIETY_GROUPS[g].includes(v)) ?? v);
+  const unique = [...new Set(groups)];
+  return unique.length === 1 ? unique[0] : MULTI_VARIETY;
+}

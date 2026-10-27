@@ -198,11 +198,11 @@ p { margin: 0; }
 .knob { fill: var(--wood); }
 .bean { fill: var(--bean); }
 .bean-crease { fill: none; stroke: var(--bean-crease); stroke-width: 1.4; }
-.fine { fill: var(--muted); stroke: var(--bg); stroke-width: 1.5; }
-.fine.c-1, .swatch.dot.c-1 { fill: var(--s1); background: var(--s1); }
-.fine.c-2, .swatch.dot.c-2 { fill: var(--s2); background: var(--s2); }
-.fine.c-3, .swatch.dot.c-3 { fill: var(--s3); background: var(--s3); }
-.swatch.dot { border: 0; border-radius: 50%; width: 11px; height: 11px; background: var(--muted); }
+.fine { fill: color-mix(in srgb, var(--muted) 45%, white); stroke: var(--bg); stroke-width: 1.5; }
+.fine.c-1, .swatch.dot.c-1 { fill: color-mix(in srgb, var(--s1) 45%, white); background: color-mix(in srgb, var(--s1) 45%, white); }
+.fine.c-2, .swatch.dot.c-2 { fill: color-mix(in srgb, var(--s2) 45%, white); background: color-mix(in srgb, var(--s2) 45%, white); }
+.fine.c-3, .swatch.dot.c-3 { fill: color-mix(in srgb, var(--s3) 45%, white); background: color-mix(in srgb, var(--s3) 45%, white); }
+.swatch.dot { border: 0; border-radius: 50%; width: 11px; height: 11px; background: color-mix(in srgb, var(--muted) 45%, white); }
 .row-rule { stroke: var(--rule); stroke-width: 1; }
 .mean-tick { stroke: var(--fg); stroke-width: 2.5; stroke-linecap: round; }
 .caption { font: 400 0.8rem var(--font-data); color: var(--muted); text-align: center; letter-spacing: 0.02em; }
@@ -342,9 +342,9 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
       <div class="card">
         <span class="kicker">The fines</span>
         <h2>Every dot is a bag</h2>
-        <p>The color shows how the coffee was processed, in the same colors as the process chart further down.</p>
+        <p>The color shows where the coffee grew.</p>
         <p data-claim="price-weak-positive">Paying more is only weakly linked to a higher rating. Across <span data-fact="correlations.price_per_g_vs_rating.n">114</span> bags with a price and a rating, Spearman's ρ is <span class="num" data-fact="correlations.price_per_g_vs_rating.rho" data-fmt="2">0.34</span>.</p>
-        <p class="aside">My median bag cost $<span class="num" data-fact="price_per_cup.median" data-fmt="2">1.02</span> a cup. Gifts and bags with no price are left out of this view.</p>
+        <p class="aside">My median bag cost $<span class="num" data-fact="price_per_cup.median" data-fmt="2">1.02</span> a cup. Gifts are left out of this view.</p>
       </div>
     </div>
     <div class="step">
@@ -360,7 +360,7 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
         <span class="kicker">Varieties</span>
         <h2>The plants behind the beans</h2>
         <p id="variety-text">Varieties I've bought most.</p>
-        <p class="aside">A bag that lists more than one variety can't be split between them, so those bags share the Multiple varieties row. Varieties with fewer than three bags share the Other row.</p>
+        <p class="aside">Kenyan Landraces groups SL28, SL34, Ruiru 11 and Batian, which Kenyan lots often list together. Any other bag that lists more than one variety can't be split between them, so those bags share the Multiple varieties row. Varieties with fewer than three bags share the Other row.</p>
       </div>
     </div>
     <div class="step">

@@ -317,10 +317,17 @@ function Scene(svg) {
 // Five scroll steps before the pour. The pour scene runs on g - INTRO.
 const INTRO = 5;
 
-// Dots are colored by process, with the same colors as the radar's process step (Washed, Natural, Experimental).
-// Honey and unknown stay neutral gray: three hues is the most the palette supports for overlapping dots.
-const PROCESS_SLOTS = ['Washed', 'Natural', 'Experimental'];
-const processSlot = b => PROCESS_SLOTS.indexOf(b.process_group) + 1; // 0 = gray
+// Dots are colored by where the coffee grew (3 categories: the most the palette supports for overlapping dots).
+const CONTINENT = {
+  Americas: ['Colombia', 'Ecuador', 'Guatemala', 'Costa Rica', 'Nicaragua', 'Peru', 'Mexico', 'Honduras', 'El Salvador', 'Panama', 'Brazil', 'Bolivia'],
+  Africa: ['Ethiopia', 'Kenya', 'Burundi', 'Rwanda', 'Uganda', 'Tanzania', 'Malawi', 'Zambia', 'Congo', 'DR Congo'],
+  'Asia & Pacific': ['India', 'East Timor', 'Indonesia', 'Yemen', 'China', 'Papua New Guinea', 'Vietnam', 'Thailand', 'Myanmar', 'Laos'],
+};
+const CONT_ORDER = Object.keys(CONTINENT);
+const contSlot = b => {
+  const cs = [...new Set(b.countries.map(c => CONT_ORDER.find(k => CONTINENT[k].includes(c)) ?? 'Unknown'))];
+  return cs.length === 1 && cs[0] !== 'Unknown' ? CONT_ORDER.indexOf(cs[0]) + 1 : 0; // 0 = blend/unknown, neutral gray
+};
 const MULTI = 'Multiple varieties';
 const GRIND = '4.0–5.5'; // Scott's usual ZP6 dial range for pour-over
 
@@ -414,12 +421,12 @@ function Intro(svg, tipEl) {
       .sort((a, b) => a.other - b.other || b.mean - a.mean);
     return { rows, rowName };
   };
-  const fines = rated.map(b => ({ b, u: r1(), j: r1() - 0.5, br: Math.sqrt(r1()) * 135, bth: r1() * TAU, slot: processSlot(b) }));
+  const fines = rated.map(b => ({ b, u: r1(), j: r1() - 0.5, br: Math.sqrt(r1()) * 135, bth: r1() * TAU, slot: contSlot(b) }));
   const roasterRowsP = rowsOf(fines, f => f.b.roaster, 'Other roasters');
   fines.forEach(f => { f.rRow = roasterRowsP.rowName(f); });
   // a bag that lists several varieties can't be split between them; it goes in the Multiple varieties row
   const withVariety = fines.filter(f => f.b.varieties.length);
-  withVariety.forEach(f => { f.v = f.b.varieties.length > 1 ? MULTI : f.b.varieties[0]; });
+  withVariety.forEach(f => { f.v = f.b.variety_group; });
   const varietyRowsP = rowsOf(withVariety, f => f.v, 'Other varieties');
   varietyRowsP.rows.sort((a, b) => (a.other || a.name === MULTI) - (b.other || b.name === MULTI) || (a.name === MULTI) - (b.name === MULTI) || b.mean - a.mean);
   withVariety.forEach(f => { f.vRow = varietyRowsP.rowName(f); });
@@ -431,7 +438,7 @@ function Intro(svg, tipEl) {
   dotSel.on('pointerenter pointerdown', (ev, d) => {
     const b = d.b;
     tip(ev, bagName(b), d.slot, [['Rating', b.rating], ['Price per cup', b.price_per_cup == null ? '—' : d3.format('$.2f')(b.price_per_cup)],
-      ['Process', b.process ?? '—'], ['Variety', b.varieties.join(', ') || '—']]);
+      ['Origin', b.countries.join(', ') || '—'], ['Variety', b.varieties.join(', ') || '—']]);
   }).on('pointerleave', () => { tipEl.hidden = true; });
 
   const priceMax = AXES.find(a => a.key === 'price_per_cup').max;
@@ -564,7 +571,7 @@ function Intro(svg, tipEl) {
   function readout(g) {
     if (g < 2) return `<div class="timer"><span>Coffee<b>${facts.dose_g} g</b></span><span>Grinder<b>1Zpresso ZP6</b></span><span>Dial<b>${GRIND}</b></span></div>`;
     const present = [...new Set(fines.map(f => f.slot))].sort((a, b) => (a || 9) - (b || 9)); // neutral gray last
-    return `<div class="legend">${present.map(s => `<span class="legend-item"><span class="swatch dot c-${s}"></span><span class="label">${s ? PROCESS_SLOTS[s - 1] : 'Honey or other'}</span></span>`).join('')}</div>`;
+    return `<div class="legend">${present.map(s => `<span class="legend-item"><span class="swatch dot c-${s}"></span><span class="label">${s ? CONT_ORDER[s - 1] : 'Blend or unknown'}</span></span>`).join('')}</div>`;
   }
 
   return { update, resize, readout };

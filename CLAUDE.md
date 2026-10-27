@@ -59,12 +59,15 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
   re-sort into roaster rows (rating on x, tick = row average) → variety rows → dots drop into the V60.
   Bags listing several varieties can't be credited to one (Scott), so they form a "Multiple varieties"
   row/group (`MULTI_VARIETY`, also in facts.by_variety). Grind text: ZP6 dial 4.0–5.5 (`GRIND`, Scott's range).
-  Dots are colored by process with the radar's process-step colors (Washed s1, Natural s2,
-  Experimental s3; Honey/unknown gray), the 3-series cap for overlapping marks. The roaster/variety
+  Dots are colored by continent (Americas / Africa / Asia & Pacific = s1–s3; blends/unknown gray),
+  the 3-series cap for overlapping marks. Dot fills are the lighter tint (series color mixed 45% with
+  white, like the radar fills), never the full outline color (Scott's preference). The roaster/variety
   views are jittered strip plots (dot plots), not true beeswarms. Rows: n ≥ 3, sorted by average, the rest in Other (last).
   Roaster/variety sentences are generated from facts (`by_roaster`, `by_variety`, `n_repeat_roasters`).
 - Varieties are cleaned in schema.js (`VARIETY_ALIASES`, `NOT_A_VARIETY`; Heirloom Landraces → Ethiopian Landraces,
-  Walega → 74158, per Scott); split on "," and "&";
+  Walega/74158 → "Walega (74158)", per Scott); split on "," and "&". `variety_group` (schema `varietyGroup`):
+  bags whose varieties all fall in one VARIETY_GROUPS entry (Kenyan Landraces = SL28, SL34, Ruiru 11, Batian)
+  count as that group; other multi-variety bags → "Multiple varieties". facts.by_variety uses it;
   raw text kept in `variety_raw`.
 - Then: scroll-scrubbed top view of a gooseneck kettle pouring over a V60
   (approach → bloom → spiral main pour → drawdown) with a brew timer (`facts.dose_g` g coffee, 250 g water).
