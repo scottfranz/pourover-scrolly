@@ -435,6 +435,7 @@ function Intro(svg, tipEl) {
   const dotSel = dotsG.selectAll('g').data(dots).join('g').style('opacity', 0);
   dotSel.append('circle').attr('class', 'hit').attr('r', 9);
   dotSel.append('circle').attr('class', d => `fine c-${d.slot}`);
+  dotSel.append('circle').attr('class', 'fine-bed'); // brown copy that fades in as the dots drop into the V60
   dotSel.on('pointerenter pointerdown', (ev, d) => {
     const b = d.b;
     tip(ev, bagName(b), d.slot, [['Rating', b.rating], ['Price per cup', b.price_per_cup == null ? '—' : d3.format('$.2f')(b.price_per_cup)],
@@ -564,12 +565,14 @@ function Intro(svg, tipEl) {
       d3.select(this).style('opacity', op * gone)
         .attr('transform', `translate(${lerp(x0, d.bx, drop)},${lerp(y0, d.by, drop)})`)
         .style('pointer-events', g > 2.45 && g < INTRO && op > 0.5 ? null : 'none')
-        .select('.fine').attr('r', lerp(lerp(2, 3.5, fly), 2, drop));
+        .selectAll('.fine, .fine-bed').attr('r', lerp(lerp(2, 3.5, fly), 2, drop));
+      d3.select(this).select('.fine-bed').style('opacity', clamp(drop * 1.6));
     });
   }
 
   function readout(g) {
     if (g < 2) return `<div class="timer"><span>Coffee<b>${facts.dose_g} g</b></span><span>Grinder<b>1Zpresso ZP6</b></span><span>Dial<b>${GRIND}</b></span></div>`;
+    if (g >= INTRO) return `<div class="timer"><span>Time<b>0:00</b></span><span>Water<b>0 g</b></span><span>Coffee<b>${facts.dose_g} g</b></span></div>`; // dots are brown grounds now
     const present = [...new Set(fines.map(f => f.slot))].sort((a, b) => (a || 9) - (b || 9)); // neutral gray last
     return `<div class="legend">${present.map(s => `<span class="legend-item"><span class="swatch dot c-${s}"></span><span class="label">${s ? CONT_ORDER[s - 1] : 'Blend or unknown'}</span></span>`).join('')}</div>`;
   }
