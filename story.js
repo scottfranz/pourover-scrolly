@@ -470,12 +470,18 @@ pickers.append('select').attr('id', i => `pick-${i}`).on('change', () => updateE
 
 function fillPickers() {
   const list = pool();
-  const top = list.filter(b => b.rating != null).slice(0, 3).map(b => b.bag_id);
+  // Presets: favorite, the median-rated bag, least favorite. Ties go to the bag with more facets logged.
+  const facetsLogged = b => AXES.filter(a => val(b, a.key) != null).length;
+  const ranked = list.filter(b => b.rating != null).sort((a, b) => b.rating - a.rating || facetsLogged(b) - facetsLogged(a));
+  const n = ranked.length;
+  const lowest = ranked.filter(b => b.rating === ranked[n - 1]?.rating).sort((a, b) => facetsLogged(b) - facetsLogged(a))[0];
+  const top = n >= 3 ? [ranked[0], ranked[Math.floor((n - 1) / 2)], lowest] : n === 2 ? [ranked[0], null, lowest] : [ranked[0]];
+  const presets = top.map(b => b?.bag_id ?? '');
   originBar.attr('aria-pressed', o => String(o.id === origin));
   pickers.select('select')
     .call(sel => sel.selectAll('option').data([null, ...list], b => b?.bag_id ?? '').join('option')
       .attr('value', b => b?.bag_id ?? '').text(b => b ? `${b.rating ?? '–'} · ${bagName(b)}` : 'None').order())
-    .property('value', i => top[i - 1] ?? '');
+    .property('value', i => presets[i - 1] ?? '');
 }
 fillPickers();
 

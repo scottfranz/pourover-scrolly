@@ -64,8 +64,8 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
 - Steps: average bag → top 3 complete bags → Washed/Natural/Experimental → funk cliff (≤6 vs ≥8).
 - Prose numbers use `data-fact="path.in.facts"`; sentences with `data-claim="<id>"` get flagged
   on the page if that claim stops holding.
-- Ends with a "compare any three bags" explorer: origin chips (n < 3 → Other) pick that origin's
-  top 3 and swap the dashed reference to the origin's average; table below.
+- Ends with a "compare any three bags" explorer: origin chips (n < 3 → Other) preset that origin's
+  favorite, median-rated and least favorite bag (ties → more facets logged) and swap the dashed reference to the origin's average; table below.
 - Bags are labelled "Name (Roaster)", never with a dash between them.
 - Explorer bag cards: roaster's notes as chips, plus origin, variety, process, producer and altitude.
   Notes are grouped into flavor families (`FAMILIES` in story.js); chips whose family appears in
