@@ -24,8 +24,8 @@ My Rating,Roast Date,Opened Bag Date,Roaster,Name,Country,Region,Producer,Farm/W
 7.1,01/09/2025,1/24/2025,S&W,Rwanda Dukorere Kawa Bukure Natural,Rwanda,Bukure ,Dukorere Kawa Bukure Cooperative,,,Bourbon,2000,Natural,3,Light,2,"Stonefruit, Bluberries, and Blackberry Jam",,300,$14.25,0.71
 7.1,01/09/2025,3/8/2025,S&W,East Timor Letefoho Natural,East Timor,Letefoho,,,,"Bourbon, Hybrido de Timor, Typica Varietals",1650,Natural,3,Light,3,"Peach, Plum, and Lemongrass",,50,$0.01,0.00
 4,01/09/2025,1/29/2025,S&W,Colombia Santa Monica Lychee Honey Process,Colombia,Quindío,Jairo Arcila,Santa Monica,,Castillo,1500,Honey Process Lychee Coferment,10,Light,3,"lychee, cherry, white grape, rose tea",,300,$14.25,0.71
-8.4,1/13/2025,1/30/2025,Ilse,Lugmapata Lot 2,Ecuador,Pallatanga,Merino family,Lugmapata,6/26/24,Mejorado,1800,Washed,3,Light,2,"Cantaloupe, Strawberry, Pineapple",,250,$30.51,1.83
-8.9,1/14/2025,1/28/2025,Subtext,Juan Pablo Malacatos Mayo,Ecuador,"Palanda, Zamora-Chinchipe",Juan Pablo Malacatos Mayo,Finca Nueva Esperanza,Summer-Fall 2024,Mejorado,1700,Washed,1,Light,4,"Pear, Stone Fruit, Cane Sugar, Sweet, Complex",,250,$22.69,1.36
+8.1,1/13/2025,1/30/2025,Ilse,Lugmapata Lot 2,Ecuador,Pallatanga,Merino family,Lugmapata,6/26/24,Mejorado,1800,Washed,3,Light,2,"Cantaloupe, Strawberry, Pineapple",,250,$30.51,1.83
+8.9,1/14/2025,1/28/2025,Subtext,Juan Pablo Malacatos Mayo,Ecuador,"Palanda, Zamora-Chinchipe",Juan Pablo Malacatos Mayo,Finca Nueva Esperanza,Summer-Fall 2024,Mejorado,1700,Washed,1,Light,3,"Pear, Stone Fruit, Cane Sugar, Sweet, Complex",,250,$22.69,1.36
 8.1,1/14/2025,1/28/2025,Subtext,Abel Salinas,Ecuador,"Saragura, Loja",Abel Salinas,Finca Arashi,Summer-Fall 2024,Mejorado,1890,Washed,2,Light,5,"Blood Orange, Apricot, Floral, Elegant, Complex",,250,$22.69,1.36
 4,1/20/2025,2/8/2025,Curious Coffee,Jairo Arcila - Strawberry Pink Bourbon,Colombia,Quindio,Jairo Arcila,Santa Monica,,Pink Bourbon,1500,Strawberry Coferment,10,Light,4,"Strawberry, Figs, Lime",,170,$27.00,2.38
 7.5,02/07/25,2/28/2025,Rogue Wave,Ethiopia Nguisse Nare,Ethiopia,Bensa,Nguisse Nare,Setame,2024,74158,2300,Natural,2,Light,3,"Peach, Cherry, Blueberry, Lime, Iced Tea",,40,$3.00,1.13
@@ -82,7 +82,7 @@ My Rating,Roast Date,Opened Bag Date,Roaster,Name,Country,Region,Producer,Farm/W
 8.2,12/07/2025,12/29/2025,Hydrangea,Landrace Washed Getachew Zeleke,Ethiopia,Guji,Getachew Zeleke,Tero Farm,,Ethiopian Landraces,2100,Washed,1,Light,2,"White Peach, Iced Tea, Citrus","Sweet tea, Peach, Citrus",227,$24.80,1.64
 7.9,12/08/2025,12/29/2025,Prodigal,Buenos Aires Caturra,Colombia,Tolima,Luis Angel Mendez,Buenos Aires,,Caturra,,Washed,1,Light,3,"Pomegranate, Citrus, Floral",,250,$22.50,1.35
 7.7,12/08/2025,12/29/2025,Prodigal,Cup of Excellence #7 Granja Tempixque - Washed Catuai,Guatemala,Antigua,Sebastian Falla,Granja El Tempixque,,Catuai,,Washed,2,Light,4,"Cherry, Citrus, Floral",,250,$24.50,1.47
-8.9,12/10/2025,12/28/2025,Sweet Bloom,Stiven Rojas,Colombia,Tolima,Stiven Rojas,,,Chiroso,,Washed,2,LIght,3,"Plum Syrup, Strawberry, Mango","Plum, Red Berry, and Vanilla Bean",283,$21.00,1.11
+8.9,12/10/2025,12/28/2025,Sweet Bloom,Stiven Rojas,Colombia,Tolima,Stiven Rojas,,,Chiroso,,Washed,2,LIght,4,"Plum Syrup, Strawberry, Mango","Plum, Red Berry, and Vanilla Bean",283,$21.00,1.11
 7.2,12/30/2025,1/11/2026,Regalia,Hamasho Dry Ferment Washed,Ethiopia,Sidama,Daye Bensa,Hamasho,,Ethiopian Landraces,,Dry Ferment Washed,3,Medium Light,5,,,300,$19.00,0.95
 7.5,1/28/2026,2/6/2026,Color,Ethiopia Nano Challa,Ethiopia,Agaro,,Nano Challa,,Ethiopian Landraces,2000,Washed,2,Light,4,"Yellow Peach, Apricot, Orange Peel, Honey",Sweet and citrus,283,$14.00,0.74
 7.7,2/1/2026,2/6/2026,Sweet Maria's,Ethiopia Uraga Raro Boda,Ethiopia,Guji,,Raro Boda,2025,Ethiopian Landraces,2250,Washed,2,Light,3,"star jasmine, simple syrup, Earl Grey tea, limeade, and a honeyed finish",Sweet and Floral,410,$14.25,0.52
@@ -119,7 +119,7 @@ My Rating,Roast Date,Opened Bag Date,Roaster,Name,Country,Region,Producer,Farm/W
 8,9/29/2026,10/10/2026,Subtext,Rogelio Santiz,Mexico,Oaxaca,Rogelio Santiz,,Spring 2026,Pink Bourbon,1700,Washed,,Light,,"Floral, Green Grape, Yellow Plum, Sweet & Vibrant","Yellow Plum, Juicy Grape, Marshmallow, ",250,$23.66,1.42
 8.4,10/2/2026,10/13/2026,Subtext,Mullugeta Muntasha,Ethiopia,Sidama,Mullugeta Muntasha,Arbegona,January 2026,Walega,2230,Anaerobic Natural,,Light,,"Blue Raspberry, Violet, Mango",,250,$22.69,1.36
 8,10/2/2026,10/14/2026,Subtext,Arbegona Rumudamo,Ethiopia,Sidama,Arbegona Rumudamo,Rumudamo Station,January 2026,Walega,2200,Anaerobic Washed,,Light,,"Yuzu, Mango, Orange","Bergmamot, Orange, Punchy",250,$22.69,1.36
-,10/15/2026,,Hex,GINIMAO S-795 • YEAST INOCULATED WASHED,India,Karnataka,Steven Rebello,,,S-795,1000,Yeast Inoculated Washed,,,,"Tangerine, Coriander, White Tea",,283,$24.00,1.27
+,10/15/2026,,Hex,Ginimao S-795 // Yeast Inoculated Washed,India,Karnataka,Steven Rebello,,,S-795,1000,Yeast Inoculated Washed,,,,"Tangerine, Coriander, White Tea",,283,$24.00,1.27
 ,10/15/2026,,Hex,Gachatha // Washed,Kenya,Nyeri,,Gachatha Coffee Factory,,"SL28, SL34, Ruiru 11, Batian",1900,Washed,,,,"Hibiscus, Strawberry Jam, Jasmine",,283,$26.00,1.38
 ,,,,,,,,,,,,,,,,,,,,#DIV/0!
 ,,,,,,,,,,,,,,,,,,,,#DIV/0!

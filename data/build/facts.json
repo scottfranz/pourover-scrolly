@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-27T17:29:52.320Z",
+  "generated_at": "2026-10-27T17:43:33.708Z",
   "source": "data/raw/bags.csv",
   "dose_g": 15,
   "n_bags": 122,
@@ -27,7 +27,7 @@
   "by_process": {
     "Washed": {
       "n": 77,
-      "mean": 7.71,
+      "mean": 7.7,
       "median": 7.8
     },
     "Experimental": {
@@ -84,7 +84,7 @@
     },
     "Ecuador": {
       "n": 8,
-      "mean": 7.9,
+      "mean": 7.86,
       "median": 7.85
     },
     "Rwanda": {
@@ -201,8 +201,8 @@
     },
     "Ilse": {
       "n": 1,
-      "mean": 8.4,
-      "median": 8.4
+      "mean": 8.1,
+      "median": 8.1
     },
     "Curious Coffee": {
       "n": 1,
@@ -368,8 +368,8 @@
     },
     "Mejorado": {
       "n": 4,
-      "mean": 8.13,
-      "median": 8.25
+      "mean": 8.05,
+      "median": 8.1
     },
     "Chiroso": {
       "n": 6,
@@ -451,7 +451,7 @@
     },
     "2025-Q1": {
       "n": 15,
-      "mean": 7.29,
+      "mean": 7.27,
       "median": 7.6
     },
     "2025-Q2": {
@@ -504,23 +504,23 @@
   },
   "correlations": {
     "price_per_g_vs_rating": {
-      "rho": 0.339,
+      "rho": 0.334,
       "n": 114
     },
     "rest_days_vs_rating": {
-      "rho": -0.12,
+      "rho": -0.122,
       "n": 120
     },
     "funk_vs_rating": {
-      "rho": -0.253,
+      "rho": -0.257,
       "n": 114
     },
     "development_vs_rating": {
-      "rho": -0.203,
+      "rho": -0.196,
       "n": 114
     },
     "altitude_vs_rating": {
-      "rho": 0.15,
+      "rho": 0.153,
       "n": 103
     }
   },
