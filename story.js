@@ -397,9 +397,9 @@ function Intro(svg, tipEl) {
     const arm = gEl.append('line').attr('class', 'crank-arm').attr('y1', -196).attr('y2', -196);
     // ZP6 knob: a round wooden ball on a short stem at the end of the arm
     const knob = gEl.append('g');
-    knob.append('rect').attr('class', 'steel-dark').attr('x', -4).attr('y', -212).attr('width', 8).attr('height', 16).attr('rx', 2);
-    knob.append('circle').attr('class', 'knob').attr('cy', -228).attr('r', 19);
-    knob.append('circle').attr('class', 'knob-shine').attr('cx', -6).attr('cy', -235).attr('r', 6);
+    knob.append('rect').attr('class', 'steel-dark').attr('x', -5).attr('y', -216).attr('width', 10).attr('height', 20).attr('rx', 2);
+    knob.append('circle').attr('class', 'knob').attr('cy', -242).attr('r', 28);
+    knob.append('circle').attr('class', 'knob-shine').attr('cx', -9).attr('cy', -252).attr('r', 8);
     return { gEl, arm, knob };
   });
   const shaft = upper.append('g');
