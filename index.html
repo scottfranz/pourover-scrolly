@@ -198,7 +198,13 @@ p { margin: 0; }
 .knob { fill: var(--wood); }
 .bean { fill: var(--bean); }
 .bean-crease { fill: none; stroke: var(--bean-crease); stroke-width: 1.4; }
-.fine { fill: var(--coffee); stroke: var(--bg); stroke-width: 1.5; }
+.fine { fill: var(--muted); stroke: var(--bg); stroke-width: 1.5; }
+.fine.c-1, .swatch.dot.c-1 { fill: var(--s1); background: var(--s1); }
+.fine.c-2, .swatch.dot.c-2 { fill: var(--s2); background: var(--s2); }
+.fine.c-3, .swatch.dot.c-3 { fill: var(--s3); background: var(--s3); }
+.swatch.dot { border: 0; border-radius: 50%; width: 11px; height: 11px; background: var(--muted); }
+.row-rule { stroke: var(--rule); stroke-width: 1; }
+.mean-tick { stroke: var(--fg); stroke-width: 2.5; stroke-linecap: round; }
 .caption { font: 400 0.8rem var(--font-data); color: var(--muted); text-align: center; letter-spacing: 0.02em; }
 
 /* ---------- explore ---------- */
@@ -321,23 +327,8 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
         <span class="kicker">A pour-over log</span>
         <h1><span data-fact="n_bags">122</span> bags through a V60</h1>
         <p>Since <span data-fact="first_opened" data-fmt="month">July 2024</span> I've logged every bag of filter coffee I've brewed: roaster, origin, process, how funky it tasted, and a rating out of ten.</p>
-        <p id="roaster-text">I've bought from many roasters.</p>
-        <p class="aside">Each bar is a roaster, sized by how many bags I've rated. Scroll to brew.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="card">
-        <span class="kicker">Varieties</span>
-        <h2>The plants behind the beans</h2>
-        <p id="variety-text">Varieties I've bought most.</p>
-        <p class="aside">A bag with two varieties counts toward both. Varieties with fewer than three bags are grouped as Other.</p>
-      </div>
-    </div>
-    <div class="step">
-      <div class="card">
-        <span class="kicker">Grind</span>
-        <h2>Stack the bars and you get a grinder</h2>
-        <p>Mine is a 1Zpresso ZP6, a hand grinder made for pour-over. <span class="num" data-fact="dose_g">15</span> g of beans go in for one cup. Each bean here stands for one bag in the log.</p>
+        <p>Every cup starts at my grinder, a 1Zpresso ZP6, with <span class="num" data-fact="dose_g">15</span> g of beans. Here each bean stands for one bag in the log.</p>
+        <p class="aside">Scroll to brew.</p>
       </div>
     </div>
     <div class="step">
@@ -351,8 +342,25 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
       <div class="card">
         <span class="kicker">The fines</span>
         <h2>Every dot is a bag</h2>
+        <p>The color shows where the coffee grew.</p>
         <p data-claim="price-weak-positive">Paying more is only weakly linked to a higher rating. Across <span data-fact="correlations.price_per_g_vs_rating.n">114</span> bags with a price and a rating, Spearman's ρ is <span class="num" data-fact="correlations.price_per_g_vs_rating.rho" data-fmt="2">0.34</span>.</p>
-        <p class="aside">My median bag cost $<span class="num" data-fact="price_per_cup.median" data-fmt="2">1.02</span> a cup. Gifts and bags with no price are left out.</p>
+        <p class="aside">My median bag cost $<span class="num" data-fact="price_per_cup.median" data-fmt="2">1.02</span> a cup. Gifts and bags with no price are left out of this view.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="card">
+        <span class="kicker">Roasters</span>
+        <h2>Who roasted them</h2>
+        <p id="roaster-text">I've bought from many roasters.</p>
+        <p class="aside">Each row is a roaster with at least three bags, sorted by average rating. The tick marks the average. Smaller roasters share the Other row.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="card">
+        <span class="kicker">Varieties</span>
+        <h2>The plants behind the beans</h2>
+        <p id="variety-text">Varieties I've bought most.</p>
+        <p class="aside">A bag with two varieties shows up in both rows. Varieties with fewer than three bags share the Other row.</p>
       </div>
     </div>
     <div class="step">

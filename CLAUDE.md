@@ -53,11 +53,13 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
 - `index.html` + `story.js` at the project root; D3 7.9.0 from CDN. Scroll progress is computed
   from step positions each frame (Scrollama dropped: its events arrive out of order on fast jumps).
   Reads `data/build/bags.json` and `facts.json`, so serve the folder (`npm run dev`), don't open the file.
-- Intro (5 steps, `Intro()` in story.js; the pour scene runs on g − INTRO):
-  roasters bar chart (hero) → varieties bar chart (same bars re-sort) → bars stack into a
-  1Zpresso ZP6 (side view) and one bean per bag pours in → crank turns → catch cup tips, coarse
-  grounds fall away and the fines become a price-per-cup vs rating scatter (one dot per bag)
-  → dots drop into the V60 as the coffee bed. Bar rows: groups with n ≥ 3, the rest lumped into Other (last).
+- Intro (5 steps, `Intro()` in story.js; the pour scene runs on g − INTRO): the ZP6 grinder is the hero
+  (side view, tall catch cup) and one bean per bag pours in → crank turns → catch cup tips, coarse grounds
+  fall away and the fines become one dot per rated bag: price-per-cup × rating scatter → the same dots
+  re-sort into roaster rows (dot plot, rating on x, tick = row average) → variety rows (a bag with two
+  varieties gets a second dot) → dots drop into the V60 as the coffee bed.
+  Dots are colored by continent (Americas / Africa / Asia & Pacific = s1–s3; blends/unknown gray), the
+  3-series cap for overlapping marks. Rows: n ≥ 3, sorted by average, the rest in Other (last).
   Roaster/variety sentences are generated from facts (`by_roaster`, `by_variety`, `n_repeat_roasters`).
 - Varieties are cleaned in schema.js (`VARIETY_ALIASES`, `NOT_A_VARIETY`); split on "," and "&";
   raw text kept in `variety_raw`.

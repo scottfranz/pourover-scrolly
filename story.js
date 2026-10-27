@@ -347,36 +347,51 @@ const f2 = v => v.toFixed(2);
     (top && top !== most ? ` ${top.name} has the highest average of any variety I've had at least four times: <span class="num">${f2(top.mean)}</span> (n=${top.n}).` : '');
 }
 
+// Dots are colored by where the coffee grew (3 categories: the most the palette supports for overlapping dots).
+const CONTINENT = {
+  Americas: ['Colombia', 'Ecuador', 'Guatemala', 'Costa Rica', 'Nicaragua', 'Peru', 'Mexico', 'Honduras', 'El Salvador', 'Panama', 'Brazil', 'Bolivia'],
+  Africa: ['Ethiopia', 'Kenya', 'Burundi', 'Rwanda', 'Uganda', 'Tanzania', 'Malawi', 'Zambia', 'Congo', 'DR Congo'],
+  'Asia & Pacific': ['India', 'East Timor', 'Indonesia', 'Yemen', 'China', 'Papua New Guinea', 'Vietnam', 'Thailand', 'Myanmar', 'Laos'],
+};
+const CONT_ORDER = Object.keys(CONTINENT);
+const continentOf = b => {
+  const cs = [...new Set(b.countries.map(c => CONT_ORDER.find(k => CONTINENT[k].includes(c)) ?? 'Unknown'))];
+  return cs.length === 1 && cs[0] !== 'Unknown' ? cs[0] : cs.length ? 'Blend or unknown' : 'Blend or unknown';
+};
+const contSlot = c => CONT_ORDER.indexOf(c) + 1; // 0 = neutral gray
+
 function Intro(svg, tipEl) {
   const defs = svg.select('defs');
   const cyl = defs.append('linearGradient').attr('id', 'cyl');
   [[0, '--steel-lo'], [0.22, '--steel-hi'], [0.55, '--steel'], [1, '--steel-lo']]
     .forEach(([o, c]) => cyl.append('stop').attr('offset', o).attr('style', `stop-color: var(${c})`));
 
-  // pixel-space layers (crisp text) and a scene-space layer (same scale as the V60)
   const px = svg.append('g').attr('class', 'intro');
   const sceneG = svg.append('g');
-  const barsG = px.append('g');
-  const axesG = px.append('g');
+  const scatterAxes = px.append('g');
+  const stripGrid = px.append('g');
+  const rowsR = px.append('g');
+  const rowsV = px.append('g');
   const coarseG = px.append('g');
   const dotsG = px.append('g');
 
-  // --- the ZP6, side view, scene units (body −58..58 × −150..170)
+  // --- the ZP6, side view, scene units: upper body −150..80, catch cup 80..172
+  const CUP_TOP = 80;
   const grinder = sceneG.append('g');
   const upper = grinder.append('g');
   const crankBack = upper.append('g');
-  upper.append('rect').attr('x', -58).attr('y', -150).attr('width', 116).attr('height', 262).attr('rx', 4).attr('fill', 'url(#cyl)');
-  upper.append('rect').attr('class', 'grip').attr('x', -59).attr('y', -30).attr('width', 118).attr('height', 120).attr('rx', 3);
+  upper.append('rect').attr('x', -58).attr('y', -150).attr('width', 116).attr('height', CUP_TOP + 152).attr('rx', 4).attr('fill', 'url(#cyl)');
+  upper.append('rect').attr('class', 'grip').attr('x', -59).attr('y', -64).attr('width', 118).attr('height', 120).attr('rx', 3);
   upper.append('g').selectAll('line').data(d3.range(-52, 53, 6)).join('line').attr('class', 'knurl')
-    .attr('x1', d => d).attr('x2', d => d).attr('y1', -26).attr('y2', 86);
+    .attr('x1', d => d).attr('x2', d => d).attr('y1', -60).attr('y2', 52);
   upper.append('rect').attr('x', -64).attr('y', -172).attr('width', 128).attr('height', 22).attr('rx', 3).attr('fill', 'url(#cyl)');
   upper.append('g').selectAll('line').data(d3.range(-56, 57, 7)).join('line').attr('class', 'tick-mark')
     .attr('x1', d => d).attr('x2', d => d).attr('y1', -168).attr('y2', (d, i) => i % 2 ? -160 : -155);
   const hopper = upper.append('ellipse').attr('class', 'steel-dark').attr('cy', -172).attr('rx', 54).attr('ry', 7);
   const crankFront = upper.append('g');
   const cup = grinder.append('g');
-  cup.append('rect').attr('x', -58).attr('y', 110).attr('width', 116).attr('height', 62).attr('rx', 6).attr('fill', 'url(#cyl)');
-  cup.append('line').attr('class', 'seam').attr('x1', -58).attr('x2', 58).attr('y1', 111).attr('y2', 111);
+  cup.append('rect').attr('x', -58).attr('y', CUP_TOP).attr('width', 116).attr('height', 172 - CUP_TOP).attr('rx', 6).attr('fill', 'url(#cyl)');
+  cup.append('line').attr('class', 'seam').attr('x1', -58).attr('x2', 58).attr('y1', CUP_TOP + 1).attr('y2', CUP_TOP + 1);
   const crank = [crankBack, crankFront].map(gEl => {
     const arm = gEl.append('line').attr('class', 'crank-arm').attr('y1', -196).attr('y2', -196);
     const knob = gEl.append('rect').attr('class', 'knob').attr('width', 24).attr('height', 52).attr('rx', 11).attr('y', -250);
@@ -393,157 +408,181 @@ function Intro(svg, tipEl) {
   beanSel.append('ellipse').attr('class', 'bean').attr('rx', 7.5).attr('ry', 5.2);
   beanSel.append('path').attr('class', 'bean-crease').attr('d', 'M-6,0 C-2,-2 2,2 6,0');
 
-  // --- grounds: coarse particles fall away, fines become one dot per bag
+  // --- grounds: coarse particles fall away; fines are one dot per rated bag
   const coarse = d3.range(150).map(() => ({ u: r1(), dx: (r1() - 0.5) * 2, r: 1.2 + r1() * 1.6 }));
   const coarseSel = coarseG.selectAll('circle').data(coarse).join('circle').attr('class', 'grain-a').attr('r', d => d.r);
-  const fines = rated.filter(b => b.price_per_cup != null).map(b => ({ b, u: r1(), br: Math.sqrt(r1()) * 135, bth: r1() * TAU }));
+
+  // rows: groups with ≥ 3 bags, sorted by average rating, the rest lumped into one Other row (last)
+  const rowsOf = (items, key, otherLabel) => {
+    const counts = d3.rollup(items, v => v.length, key);
+    const rowName = it => counts.get(key(it)) >= 3 ? key(it) : otherLabel;
+    const rows = d3.groups(items, rowName).map(([name, v]) => ({ name, n: v.length, mean: d3.mean(v, it => it.b.rating), other: name === otherLabel }))
+      .sort((a, b) => a.other - b.other || b.mean - a.mean);
+    return { rows, rowName };
+  };
+  const fines = rated.map(b => ({ b, u: r1(), j: r1() - 0.5, br: Math.sqrt(r1()) * 135, bth: r1() * TAU, slot: contSlot(continentOf(b)) }));
+  const roasterRowsP = rowsOf(fines, f => f.b.roaster, 'Other roasters');
+  fines.forEach(f => { f.rRow = roasterRowsP.rowName(f); });
+  // a bag with two varieties gets a second dot in the variety view
+  const placements = fines.flatMap(f => f.b.varieties.map(v => ({ b: f.b, f, v })));
+  const varietyRowsP = rowsOf(placements, p => p.v, 'Other varieties');
+  const seen = new Set();
+  placements.forEach(p => { p.vRow = varietyRowsP.rowName(p); });
+  const vPlace = placements.filter(p => { const k = p.f.b.bag_id + '|' + p.vRow; if (seen.has(k)) return false; seen.add(k); return true; });
+  fines.forEach(f => { f.vPlace = vPlace.find(p => p.f === f) ?? null; });
+  const copies = vPlace.filter(p => p.f.vPlace !== p).map(p => ({ ...p, j: r1() - 0.5, copy: true, slot: p.f.slot }));
+  fines.forEach(f => { if (f.vPlace) f.vRow = f.vPlace.vRow; });
+
+  const dots = [...fines, ...copies];
+  const dotSel = dotsG.selectAll('g').data(dots).join('g').style('opacity', 0);
+  dotSel.append('circle').attr('class', 'hit').attr('r', 9);
+  dotSel.append('circle').attr('class', d => `fine c-${d.slot}`);
+  dotSel.on('pointerenter pointerdown', (ev, d) => {
+    const b = d.b;
+    tip(ev, bagName(b), d.slot, [['Rating', b.rating], ['Price per cup', b.price_per_cup == null ? '—' : d3.format('$.2f')(b.price_per_cup)],
+      ['Origin', b.countries.join(', ') || '—'], ['Variety', b.varieties.join(', ') || '—']]);
+  }).on('pointerleave', () => { tipEl.hidden = true; });
+
   const priceMax = AXES.find(a => a.key === 'price_per_cup').max;
   const x = d3.scaleLinear().domain([0, priceMax]);
-  const y = d3.scaleLinear().domain(d3.extent(fines, d => d.b.rating)).nice();
-  const dotSel = dotsG.selectAll('g').data(fines).join('g').style('opacity', 0);
-  dotSel.append('circle').attr('class', 'hit').attr('r', 9);
-  dotSel.append('circle').attr('class', 'fine');
-  dotSel.on('pointerenter pointerdown', (ev, d) => tip(ev, d.b, [['Price per cup', d3.format('$.2f')(d.b.price_per_cup)], ['Rating', d.b.rating]]))
-    .on('pointerleave', () => { tipEl.hidden = true; });
+  const rate = d3.scaleLinear().domain(d3.extent(fines, d => d.b.rating)).nice();
+  const y = rate.copy();
 
-  const barSel = barsG.selectAll('g').data(d3.range(Math.max(roasterRows.length, varietyRows.length))).join('g');
-  barSel.append('rect').attr('class', 'bar').attr('rx', 3);
-  const nameR = barSel.append('text').attr('class', 'bar-name').attr('text-anchor', 'end').attr('dy', '0.35em');
-  const nameV = barSel.append('text').attr('class', 'bar-name').attr('text-anchor', 'end').attr('dy', '0.35em');
-  const valR = barSel.append('text').attr('class', 'bar-val').attr('dy', '0.35em');
-  const valV = barSel.append('text').attr('class', 'bar-val').attr('dy', '0.35em');
-  const hitSel = barSel.append('rect').attr('class', 'hit');
-  const valHtml = r => r ? `<tspan class="bar-n">${r.n}</tspan> · avg ${f2(r.mean)}` : '';
-  nameR.text(i => roasterRows[i]?.name ?? ''); valR.html(i => valHtml(roasterRows[i]));
-  nameV.text(i => varietyRows[i]?.name ?? ''); valV.html(i => valHtml(varietyRows[i]));
-
-  function tip(ev, b, rows) {
+  function tip(ev, title, slot, rows) {
     const [tx, ty] = d3.pointer(ev, tipEl.parentElement);
-    tipEl.innerHTML = `<div class="tip-name"><strong>${b.name}</strong></div>` +
+    tipEl.innerHTML = `<div class="tip-name">${slot != null ? `<span class="swatch dot c-${slot}"></span>` : ''}<strong>${title}</strong></div>` +
       rows.map(([k, v]) => `<div class="tip-row"><span>${k}</span><span class="v">${v}</span></div>`).join('');
     tipEl.style.left = `${tx}px`; tipEl.style.top = `${ty}px`; tipEl.hidden = false;
   }
 
-  let L, k = 1, rects = {}, P = [0, 0];
+  let L, k = 1, P = [0, 0];
   const toPx = (sx, sy) => [L.cx + sx * k, L.cy + sy * k];
+
+  function drawRows(gEl, rows, layout) {
+    gEl.selectAll('*').remove();
+    const { yOf, rowH, x0, x1, labelX, narrow } = layout;
+    const row = gEl.selectAll('g').data(rows).join('g').attr('transform', r => `translate(0,${yOf(r.name)})`);
+    row.append('text').attr('class', 'bar-name').attr('x', labelX).attr('text-anchor', 'end').attr('dy', '0.35em')
+      .text(r => narrow && r.name.length > 15 ? r.name.slice(0, 14) + '…' : r.name).append('title').text(r => r.name);
+    row.append('line').attr('class', 'row-rule').attr('x1', x0).attr('x2', x1).attr('y1', rowH / 2).attr('y2', rowH / 2);
+    row.append('line').attr('class', 'mean-tick').attr('x1', r => rate(r.mean)).attr('x2', r => rate(r.mean)).attr('y1', -rowH * 0.38).attr('y2', rowH * 0.38);
+    row.append('text').attr('class', 'bar-val').attr('x', x1 + 10).attr('dy', '0.35em')
+      .html(r => `${f2(r.mean)} <tspan class="bar-n">· ${r.n}</tspan>`);
+  }
 
   function resize(layout) {
     L = layout; k = L.R / SCENE_R;
     sceneG.attr('transform', `translate(${L.cx},${L.cy}) scale(${k})`);
-    // bar charts: rows centered vertically, names left of the bars, counts at the ends
-    const cw = Math.min(L.W - 8, 640), labelW = L.narrow ? 112 : 160, valW = L.narrow ? 74 : 92;
-    const left = L.cx - cw / 2, barX = left + labelW + 8, barMax = cw - labelW - valW - 16;
-    const maxN = d3.max([...roasterRows, ...varietyRows], r => r.n);
-    const chart = rows => {
-      const rowH = Math.min(30, (L.H * 0.86) / rows.length), y0 = L.cy - rowH * rows.length / 2;
-      return d3.range(barSel.size()).map(i => {
-        const r = rows[i], yy = y0 + Math.min(i, rows.length - 1) * rowH;
-        return { x: barX, y: yy + rowH * 0.2, w: r ? Math.max(2, r.n / maxN * barMax) : 0, h: rowH * 0.6, cy: yy + rowH / 2 };
-      });
-    };
-    const [bx, by] = toPx(-58, -150), bw = 116 * k, bh = 262 * k;
-    rects = {
-      roast: chart(roasterRows), vari: chart(varietyRows),
-      body: d3.range(barSel.size()).map(i => {
-        const n = varietyRows.length, j = Math.min(i, n - 1);
-        return { x: bx, y: by + j * bh / n, w: i < n ? bw : 0, h: bh / n + 0.6 };
-      }),
-    };
-    nameR.attr('x', barX - 8); nameV.attr('x', barX - 8);
-    hitSel.attr('x', left).attr('width', cw);
-    // scatterplot box
+    P = toPx(40, -40);
+
+    // scatterplot: price per cup × rating
     const pw = Math.min(L.W - 84, 640), ph = Math.min(L.H - 80, pw * 0.8);
     const ox = L.cx - pw / 2 + 24, oy = L.cy - ph / 2 - 6;
     x.range([ox, ox + pw]); y.range([oy + ph, oy]);
-    axesG.selectAll('*').remove();
-    axesG.append('g').selectAll('line').data(y.ticks(5)).join('line').attr('class', 'ring')
+    scatterAxes.selectAll('*').remove();
+    scatterAxes.append('g').selectAll('line').data(y.ticks(5)).join('line').attr('class', 'ring')
       .attr('x1', ox).attr('x2', ox + pw).attr('y1', d => y(d)).attr('y2', d => y(d));
-    axesG.append('g').selectAll('text').data(y.ticks(5)).join('text').attr('class', 'axis-end').attr('text-anchor', 'end')
+    scatterAxes.append('g').selectAll('text').data(y.ticks(5)).join('text').attr('class', 'axis-end').attr('text-anchor', 'end')
       .attr('x', ox - 8).attr('y', d => y(d)).attr('dy', '0.32em').text(d => d);
-    axesG.append('g').selectAll('text').data(x.ticks(L.narrow ? 4 : 6)).join('text').attr('class', 'axis-end').attr('text-anchor', 'middle')
+    scatterAxes.append('g').selectAll('text').data(x.ticks(L.narrow ? 4 : 6)).join('text').attr('class', 'axis-end').attr('text-anchor', 'middle')
       .attr('x', d => x(d)).attr('y', oy + ph + 18).text(d3.format('$.2f'));
-    axesG.append('line').attr('class', 'ring outer').attr('x1', ox).attr('x2', ox + pw).attr('y1', oy + ph).attr('y2', oy + ph);
-    axesG.append('text').attr('class', 'axis-label').attr('x', ox + pw).attr('y', oy + ph + 38).attr('text-anchor', 'end').text('Price per cup →');
-    axesG.append('text').attr('class', 'axis-label').attr('x', ox - 8).attr('y', oy - 12).attr('text-anchor', 'start').text('↑ Rating');
-    fines.forEach(d => { d.tx = x(d.b.price_per_cup); d.ty = y(d.b.rating); [d.bx, d.by] = toPx(d.br * Math.cos(d.bth), d.br * Math.sin(d.bth)); });
-    P = toPx(40, -40);
-  }
+    scatterAxes.append('line').attr('class', 'ring outer').attr('x1', ox).attr('x2', ox + pw).attr('y1', oy + ph).attr('y2', oy + ph);
+    scatterAxes.append('text').attr('class', 'axis-label').attr('x', ox + pw).attr('y', oy + ph + 38).attr('text-anchor', 'end').text('Price per cup →');
+    scatterAxes.append('text').attr('class', 'axis-label').attr('x', ox - 8).attr('y', oy - 12).attr('text-anchor', 'start').text('↑ Rating');
 
-  const mix = (a, b, t) => ({ x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t), w: lerp(a.w, b.w, t), h: lerp(a.h, b.h, t) });
+    // dot plots: one row per roaster / variety, rating along x, a tick at each row's average
+    const cw = Math.min(L.W - 8, 700), labelW = L.narrow ? 96 : 156, rightW = L.narrow ? 74 : 84;
+    const left = L.cx - cw / 2, x0 = left + labelW + 10, x1 = left + cw - rightW;
+    rate.range([x0, x1]);
+    const stripLayout = rows => {
+      const rowH = Math.min(34, (L.H - 60) / rows.length), top = L.cy - rowH * rows.length / 2 - 10;
+      const idx = new Map(rows.map((r, i) => [r.name, i]));
+      return { rowH, x0, x1, labelX: x0 - 10, narrow: L.narrow, yOf: name => top + idx.get(name) * rowH + rowH / 2, bottom: top + rows.length * rowH };
+    };
+    const lr = stripLayout(roasterRowsP.rows), lv = stripLayout(varietyRowsP.rows);
+    drawRows(rowsR, roasterRowsP.rows, lr);
+    drawRows(rowsV, varietyRowsP.rows, lv);
+    stripGrid.selectAll('*').remove();
+    const ticks = rate.ticks(L.narrow ? 4 : 6);
+    stripGrid.append('g').selectAll('line').data(ticks).join('line').attr('class', 'ring')
+      .attr('x1', d => rate(d)).attr('x2', d => rate(d)).attr('y1', L.cy - (L.H - 60) / 2 - 10).attr('y2', L.cy + (L.H - 60) / 2 - 10);
+    stripGrid.append('g').selectAll('text').data(ticks).join('text').attr('class', 'axis-end').attr('text-anchor', 'middle')
+      .attr('x', d => rate(d)).attr('y', L.cy + (L.H - 60) / 2 + 6).text(d => d);
+    stripGrid.append('text').attr('class', 'axis-label').attr('x', x1).attr('y', L.cy + (L.H - 60) / 2 + 24).attr('text-anchor', 'end').text('Rating →');
+
+    const place = (lay, name, j) => [0, lay.yOf(name) + j * lay.rowH * 0.56];
+    dots.forEach(d => {
+      const f = d.copy ? d.f : d;
+      d.sx = f.b.price_per_cup != null ? x(f.b.price_per_cup) : null; d.sy = y(f.b.rating);
+      d.rx = rate(f.b.rating); d.ry = place(lr, f.rRow, f.j)[1];
+      const vRow = d.copy ? d.vRow : f.vRow;
+      d.vx = rate(f.b.rating); d.vy = vRow ? place(lv, vRow, d.j)[1] : null;
+      [d.bx, d.by] = toPx(f.br * Math.cos(f.bth), f.br * Math.sin(f.bth));
+    });
+  }
 
   function update(g) {
     if (!L) return; // not measured yet; resize() draws again
     px.style('display', g >= INTRO + 0.6 ? 'none' : null);
-    sceneG.style('display', g >= INTRO ? 'none' : null);
+    sceneG.style('display', g >= 3 ? 'none' : null);
     if (g >= INTRO + 0.6) return;
 
-    // bars: roasters → varieties (step 1) → grinder body slices (step 2)
-    const t1 = ease(clamp((g - 1) / 0.35)), t2 = ease(clamp((g - 2) / 0.4));
-    barSel.each(function (i) {
-      const a = mix(rects.roast[i], rects.vari[i], t1), r = mix(a, rects.body[i], t2);
-      const el = d3.select(this);
-      el.select('.bar').attr('x', r.x).attr('y', r.y).attr('width', r.w).attr('height', r.h).attr('rx', 3 * (1 - t2));
-      const ty = lerp(rects.roast[i].cy, rects.vari[i].cy, t1), tx = r.x + r.w + 8, fade = 1 - clamp(t2 * 3);
-      el.selectAll('.bar-name').attr('y', ty);
-      el.selectAll('.bar-val').attr('x', tx).attr('y', ty);
-      nameR.filter(j => j === i).style('opacity', (1 - clamp(t1 * 2)) * fade);
-      valR.filter(j => j === i).style('opacity', (1 - clamp(t1 * 2)) * fade);
-      nameV.filter(j => j === i).style('opacity', clamp(t1 * 2 - 1) * fade);
-      valV.filter(j => j === i).style('opacity', clamp(t1 * 2 - 1) * fade);
-      el.select('.hit').attr('y', ty - (rects.vari[i].h / 0.6) / 2).attr('height', rects.vari[i].h / 0.6);
-    });
-    barsG.style('opacity', 1 - clamp((t2 - 0.8) / 0.2)).style('pointer-events', g < 1.9 ? null : 'none');
-    hitSel.on('pointerenter pointerdown', (ev, i) => {
-      const row = (g < 1.5 ? roasterRows : varietyRows)[i];
-      if (row) tip(ev, { name: row.name }, [['Bags rated', row.n], ['Average rating', f2(row.mean)], ...(row.other ? [['Grouped', `${row.other} with fewer than 3 bags`]] : [])]);
-    }).on('pointerleave', () => { tipEl.hidden = true; });
-
-    // grinder appears as the bars lock together; beans pour in; crank goes on and turns
-    grinder.style('opacity', clamp((t2 - 0.6) / 0.4));
-    beanSel.style('opacity', d => { const t = (g - 2.3 - 0.45 * d.u) / 0.2; return t > 0 && t < 1 ? 1 : 0; })
-      .attr('transform', d => { const t = clamp((g - 2.3 - 0.45 * d.u) / 0.2); return `translate(${d.x * (1 - t * 0.6)},${lerp(d.y0, -168, t * t)}) rotate(${d.rot + d.spin * t})`; });
-    hopper.style('opacity', 1 - clamp((g - 2.85) / 0.1));
-    const crankOn = clamp((g - 2.85) / 0.15), theta = clamp(g - 3, 0, 1) * TAU * 5;
+    // step 0: beans pour into the open hopper; step 1: crank goes on and turns
+    beanSel.style('opacity', d => { const t = (g - 0.25 - 0.5 * d.u) / 0.2; return t > 0 && t < 1 ? 1 : 0; })
+      .attr('transform', d => { const t = clamp((g - 0.25 - 0.5 * d.u) / 0.2); return `translate(${d.x * (1 - t * 0.6)},${lerp(d.y0, -168, t * t)}) rotate(${d.rot + d.spin * t})`; });
+    hopper.style('opacity', 1 - clamp((g - 0.9) / 0.1));
+    const crankOn = clamp((g - 0.9) / 0.15), theta = clamp(g - 1, 0, 1) * TAU * 5;
     const lx = 150 * Math.cos(theta), behind = Math.sin(theta) < 0;
     crank.forEach((c, i) => {
-      const show = (i === 0) === behind;
-      c.gEl.style('opacity', show ? crankOn : 0);
+      c.gEl.style('opacity', ((i === 0) === behind) ? crankOn : 0);
       c.arm.attr('x1', 0).attr('x2', lx);
       c.knob.attr('x', lx - 12);
     });
     shaft.style('opacity', crankOn);
 
-    // step 4: body lifts away, catch cup tips, grounds fall; fines fly to the scatterplot
-    const p = g - 4, e = ease(clamp(p / 0.2));
+    // step 2: body lifts away, catch cup tips, coarse grounds fall; fines fly to the scatterplot
+    const p = g - 2, e = ease(clamp(p / 0.2));
     upper.attr('transform', `translate(0,${-80 * e})`).style('opacity', 1 - clamp(p / 0.2));
-    cup.attr('transform', `translate(${40 * e},${lerp(110, -40, e)}) rotate(${-135 * e}) translate(0,-110)`)
+    cup.attr('transform', `translate(${40 * e},${lerp(CUP_TOP, -40, e)}) rotate(${-135 * e}) translate(0,${-CUP_TOP})`)
       .style('opacity', 1 - clamp((p - 0.4) / 0.12));
+    const ct = d => clamp((p - 0.12 - 0.15 * d.u) / 0.2);
     coarseSel.style('opacity', d => { const t = (p - 0.12 - 0.15 * d.u) / 0.2; return t > 0 && t < 1 ? 1 - t : 0; })
-      .attr('cx', d => P[0] + d.dx * clamp((p - 0.12 - 0.15 * d.u) / 0.2) * 60 * k)
-      .attr('cy', d => P[1] + clamp((p - 0.12 - 0.15 * d.u) / 0.2) ** 2 * 420 * k);
-    axesG.style('opacity', g < INTRO ? clamp((p - 0.35) / 0.15) : 1 - clamp((g - INTRO) / 0.15));
+      .attr('cx', d => P[0] + d.dx * ct(d) * 60 * k).attr('cy', d => P[1] + ct(d) ** 2 * 420 * k);
 
-    // step 5 (pour scene 0..0.5): dots drop into the V60 and become the coffee bed
-    const q = g - INTRO, dropT = ease(clamp(q / 0.35));
-    dotSel.style('opacity', d => {
-      if (p < 0) return 0;
-      const t = clamp((p - 0.15 - 0.2 * d.u) / 0.25);
-      return t <= 0 ? 0 : 1 - clamp((q - 0.3) / 0.15);
-    }).attr('transform', d => {
-      const t = d3.easeCubicOut(clamp((p - 0.15 - 0.2 * d.u) / 0.25));
-      const sx = lerp(P[0], d.tx, t), sy = lerp(P[1], d.ty, t);
-      return `translate(${lerp(sx, d.bx, dropT)},${lerp(sy, d.by, dropT)})`;
-    }).style('pointer-events', g > 4.45 && g < INTRO ? null : 'none');
-    dotSel.select('.fine').attr('r', d => lerp(lerp(2, 4.5, clamp((p - 0.15 - 0.2 * d.u) / 0.25)), 2, dropT));
+    // steps 3–4: same dots re-sort into roaster rows, then variety rows; step 5: into the V60
+    const t3 = ease(clamp((g - 3) / 0.35)), t4 = ease(clamp((g - 4) / 0.35)), q = g - INTRO, drop = ease(clamp(q / 0.35));
+    const gone = 1 - clamp((q - 0.3) / 0.15);
+    scatterAxes.style('opacity', clamp((p - 0.35) / 0.15) * (1 - t3));
+    stripGrid.style('opacity', t3 * (1 - clamp(q / 0.15)));
+    rowsR.style('opacity', t3 * (1 - t4));
+    rowsV.style('opacity', t4 * (1 - clamp(q / 0.15)));
+
+    dotSel.each(function (d) {
+      const f = d.copy ? d.f : d;
+      const fly = clamp((p - 0.15 - 0.2 * f.u) / 0.25), flyE = d3.easeCubicOut(fly);
+      let x0, y0, op;
+      if (d.copy) { // appears out of its bag's roaster dot
+        x0 = lerp(f.rx, d.vx, t4); y0 = lerp(f.ry, d.vy, t4);
+        op = t4 * (1 - clamp(drop * 3));
+      } else {
+        const sx = d.sx ?? d.rx, sy = d.sx != null ? d.sy : d.ry;
+        const ax = lerp(P[0], sx, flyE), ay = lerp(P[1], sy, flyE);
+        const bx = lerp(ax, d.rx, t3), by = lerp(ay, d.ry, t3);
+        x0 = d.vy != null ? lerp(bx, d.vx, t4) : bx; y0 = d.vy != null ? lerp(by, d.vy, t4) : by;
+        op = p < 0 || fly <= 0 ? 0 : (d.sx != null ? 1 : t3);
+        if (d.vy == null) op *= 1 - t4;
+      }
+      d3.select(this).style('opacity', op * gone)
+        .attr('transform', `translate(${lerp(x0, d.bx, drop)},${lerp(y0, d.by, drop)})`)
+        .style('pointer-events', g > 2.45 && g < INTRO && op > 0.5 ? null : 'none')
+        .select('.fine').attr('r', lerp(lerp(2, 4.5, fly), 2, drop));
+    });
   }
 
   function readout(g) {
-    if (g < 2) {
-      const what = g < 1.5 ? 'roaster' : 'variety';
-      return `<div class="caption">Bags rated per ${what} · bar ends show the count and average rating</div>`;
-    }
-    if (g < 4) return `<div class="timer"><span>Coffee<b>${facts.dose_g} g</b></span><span>Grinder<b>1Zpresso ZP6</b></span></div>`;
-    return `<div class="caption">Each dot is one bag · ${fines.length} bags with a price and a rating</div>`;
+    if (g < 2) return `<div class="timer"><span>Coffee<b>${facts.dose_g} g</b></span><span>Grinder<b>1Zpresso ZP6</b></span></div>`;
+    const present = [...new Set(fines.map(f => f.slot))].sort((a, b) => (a || 9) - (b || 9)); // neutral gray last
+    return `<div class="legend">${present.map(s => `<span class="legend-item"><span class="swatch dot c-${s}"></span><span class="label">${s ? CONT_ORDER[s - 1] : 'Blend or unknown'}</span></span>`).join('')}</div>`;
   }
 
   return { update, resize, readout };
