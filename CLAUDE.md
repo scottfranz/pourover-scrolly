@@ -117,6 +117,7 @@ Maybe a timeline of bags opened. build.js merges producer/farm/region spellings 
 
 ## Live site (GitHub Pages)
 
+- Repo: https://github.com/scottfranz/pourover-scrolly (branch `main`); site: https://scottfranz.github.io/pourover-scrolly/
 - `.github/workflows/deploy.yml` runs on the 1st of each month (08:37 UTC), on every push to main,
   and from the Actions tab ("Run workflow"): fetch sheet → strict build → commit `data/` → deploy.
 - A failed build deploys nothing; the last good site stays live and GitHub emails the repo owner.
