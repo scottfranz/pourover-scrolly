@@ -59,6 +59,7 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
 - Radar: five spokes (rating, clean→funk, development, altitude, price/cup), each from 0 at
   the center to the top of its scale; altitude and price maxima are computed from the data.
   Roast was dropped as a spoke (nearly all Light; nothing past Medium) and lives in the explorer table.
+  Shapes are closed cardinal splines (like Plot's cardinal-closed), clipped to the rim.
   Max 3 colored series + dashed average (palette validated for 3 overlapping series only).
 - Steps: average bag → top 3 complete bags → Washed/Natural/Experimental → funk cliff (≤6 vs ≥8).
 - Prose numbers use `data-fact="path.in.facts"`; sentences with `data-claim="<id>"` get flagged

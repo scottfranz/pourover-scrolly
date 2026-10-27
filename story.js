@@ -80,22 +80,27 @@ const STEP_SERIES = {
 };
 
 // ---------- radar ----------
-const SEG = 10; // points per edge, so every shape has the same number of points and morphs cleanly
+const SEG = 16; // points per edge, so every shape has the same number of points and morphs cleanly
 const ang = i => -Math.PI / 2 + i * TAU / AXES.length;
 const radius = (a, v) => v == null ? 0 : clamp(a.scale(v));
 
+// Closed cardinal spline through the vertices (tension 0, like Plot's "cardinal-closed"),
+// sampled at fixed steps instead of drawn with a d3 curve, so shapes can still morph point-for-point.
 function shapeUnits(s) { // [x, y, cos, sin] in unit radius, plus the matching circle direction
-  const r = AXES.map(a => radius(a, s.values[a.key]));
+  const n = AXES.length;
+  const v = AXES.map((a, i) => { const r = radius(a, s.values[a.key]); return [r * Math.cos(ang(i)), r * Math.sin(ang(i))]; });
   const out = [];
-  for (let i = 0; i < AXES.length; i++) {
-    const j = (i + 1) % AXES.length;
+  for (let i = 0; i < n; i++) {
+    const p0 = v[(i - 1 + n) % n], p1 = v[i], p2 = v[(i + 1) % n], p3 = v[(i + 2) % n];
     for (let t = 0; t < SEG; t++) {
-      const u = t / SEG, ca = ang(i) + u * TAU / AXES.length;
-      out.push([
-        lerp(r[i] * Math.cos(ang(i)), r[j] * Math.cos(ang(j)), u),
-        lerp(r[i] * Math.sin(ang(i)), r[j] * Math.sin(ang(j)), u),
-        Math.cos(ca), Math.sin(ca),
-      ]);
+      const u = t / SEG, u2 = u * u, u3 = u2 * u, ca = ang(i) + u * TAU / n;
+      const h00 = 2 * u3 - 3 * u2 + 1, h10 = u3 - 2 * u2 + u, h01 = -2 * u3 + 3 * u2, h11 = u3 - u2;
+      const at = k => h00 * p1[k] + h10 * (p2[k] - p0[k]) / 2 + h01 * p2[k] + h11 * (p3[k] - p1[k]) / 2;
+      // The spline can bulge past the rim between two high vertices; keep it inside the top of the scale.
+      let x = at(0), y = at(1);
+      const r = Math.hypot(x, y);
+      if (r > 1) { x /= r; y /= r; }
+      out.push([x, y, Math.cos(ca), Math.sin(ca)]);
     }
   }
   return out;
