@@ -663,6 +663,7 @@ function draw() {
     const idx = Math.min(7, Math.floor(gp));
     if (mode !== idx) {
       mode = idx;
+      if (readout.dataset.intro) { readout.innerHTML = ''; readout.dataset.intro = ''; } // jumped straight from the intro
       radar.set(STEP_SERIES[idx], { duration: 900 });
       if (!readout.querySelector('.legend')) readout.innerHTML = '<div class="legend"></div>';
       renderLegend(readout.querySelector('.legend'), STEP_SERIES[idx]);
