@@ -352,7 +352,7 @@ const f2 = v => v.toFixed(2);
   document.getElementById('roaster-text').innerHTML =
     `I've bought from <span class="num">${facts.n_roasters}</span> roasters and gone back to <span class="num">${facts.n_repeat_roasters}</span> of them for another bag.` +
     (best ? ` ${best.name} has my best average among roasters I've bought from at least five times: <span class="num">${f2(best.mean)}</span> over ${best.n} bags.` : '') +
-    (home ? ` My own home roasts average <span class="num">${f2(home.mean)}</span> (n=${home.n}).` : '');
+    (home ? ` My own home roasts average <span class="num">${f2(home.mean)}</span> (n=${home.n}). I attribute two of the poor ratings to the quality of the green beans when I received them.` : '');
   const named = varietyRows.filter(r => !r.other && r.name !== MULTI);
   const most = named[0];
   const top = d3.greatest(named.filter(r => r.n >= 4), r => r.mean);

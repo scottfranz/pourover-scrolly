@@ -198,11 +198,11 @@ p { margin: 0; }
 .knob { fill: var(--wood); }
 .bean { fill: var(--bean); }
 .bean-crease { fill: none; stroke: var(--bean-crease); stroke-width: 1.4; }
-.fine { fill: color-mix(in srgb, var(--muted) 45%, white); stroke: var(--bg); stroke-width: 1.5; }
-.fine.c-1, .swatch.dot.c-1 { fill: color-mix(in srgb, var(--s1) 45%, white); background: color-mix(in srgb, var(--s1) 45%, white); }
-.fine.c-2, .swatch.dot.c-2 { fill: color-mix(in srgb, var(--s2) 45%, white); background: color-mix(in srgb, var(--s2) 45%, white); }
-.fine.c-3, .swatch.dot.c-3 { fill: color-mix(in srgb, var(--s3) 45%, white); background: color-mix(in srgb, var(--s3) 45%, white); }
-.swatch.dot { border: 0; border-radius: 50%; width: 11px; height: 11px; background: color-mix(in srgb, var(--muted) 45%, white); }
+.fine { fill: color-mix(in srgb, var(--muted) 45%, white); stroke: var(--muted); stroke-width: 1.5; }
+.fine.c-1, .swatch.dot.c-1 { fill: color-mix(in srgb, var(--s1) 45%, white); background: color-mix(in srgb, var(--s1) 45%, white); stroke: var(--s1); border-color: var(--s1); }
+.fine.c-2, .swatch.dot.c-2 { fill: color-mix(in srgb, var(--s2) 45%, white); background: color-mix(in srgb, var(--s2) 45%, white); stroke: var(--s2); border-color: var(--s2); }
+.fine.c-3, .swatch.dot.c-3 { fill: color-mix(in srgb, var(--s3) 45%, white); background: color-mix(in srgb, var(--s3) 45%, white); stroke: var(--s3); border-color: var(--s3); }
+.swatch.dot { border: 1.5px solid var(--muted); border-radius: 50%; width: 11px; height: 11px; background: color-mix(in srgb, var(--muted) 45%, white); }
 .row-rule { stroke: var(--rule); stroke-width: 1; }
 .mean-tick { stroke: var(--fg); stroke-width: 2.5; stroke-linecap: round; }
 .caption { font: 400 0.8rem var(--font-data); color: var(--muted); text-align: center; letter-spacing: 0.02em; }

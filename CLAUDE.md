@@ -61,7 +61,8 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
   row/group (`MULTI_VARIETY`, also in facts.by_variety). Grind text: ZP6 dial 4.0–5.5 (`GRIND`, Scott's range).
   Dots are colored by continent (Americas / Africa / Asia & Pacific = s1–s3; blends/unknown gray),
   the 3-series cap for overlapping marks. Dot fills are the lighter tint (series color mixed 45% with
-  white, like the radar fills), never the full outline color (Scott's preference). The roaster/variety
+  white, like the radar fills) with a solid outline in the full series color (Scott's preference).
+  Home-roast sentence includes Scott's note: two poor ratings were due to green bean quality. The roaster/variety
   views are jittered strip plots (dot plots), not true beeswarms. Rows: n ≥ 3, sorted by average, the rest in Other (last).
   Roaster/variety sentences are generated from facts (`by_roaster`, `by_variety`, `n_repeat_roasters`).
 - Varieties are cleaned in schema.js (`VARIETY_ALIASES`, `NOT_A_VARIETY`; Heirloom Landraces → Ethiopian Landraces,
