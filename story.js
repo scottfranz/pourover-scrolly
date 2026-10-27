@@ -869,22 +869,59 @@ if (world) {
   const panel = d3.select('#map-panel');
   let selected = first;
 
+  let panelView = 'regions', showAll = false;
+  const PRODUCER_LIMIT = 8;
+
+  // Producers & farms: one row per producer (or farm when no producer was logged). Most producers appear
+  // once, so a row shows that bag's rating; repeat producers list each rating (an average needs n ≥ 3).
+  function producerRows(o) {
+    const rows = d3.groups(o.bags.filter(b => b.producer || b.farm), b => b.producer ?? `farm:${b.farm}`)
+      .map(([, bs]) => ({
+        name: bs[0].producer ?? bs[0].farm,
+        sub: [bs[0].producer ? bs[0].farm : null, bs[0].region].filter(Boolean).join(' · '),
+        bags: bs, n: bs.length, mean: d3.mean(bs, b => b.rating), top: d3.max(bs, b => b.rating),
+      }))
+      .sort((a, b) => b.n - a.n || b.top - a.top);
+    return { rows, missing: o.bags.length - d3.sum(rows, r => r.n) };
+  }
+
   function renderPanel(o) {
-    const regions = d3.groups(o.bags, b => b.region ?? 'Region not logged')
-      .map(([r, bs]) => ({ r, n: bs.length, mean: d3.mean(bs, b => b.rating) }))
-      .sort((a, b) => b.n - a.n || b.mean - a.mean);
     const best = d3.greatest(o.bags, b => b.rating);
-    const singles = regions.filter(r => r.n === 1);
-    panel.html(`<div class="panel-head"><span class="kicker">Selected</span><h3>${o.name}</h3>
+    const { rows: producers, missing } = producerRows(o);
+    const repeats = producers.filter(p => p.n >= 2);
+    const head = `<div class="panel-head"><span class="kicker">Selected</span><h3>${o.name}</h3>
       <div class="stat"><b>${o.n}</b> bags · avg <b>${o.n >= 3 ? f2(o.mean) : '—'}</b></div>
-      <p class="best">Best bag: <strong>${bagName(best)}</strong>, rated <span class="num">${best.rating}</span></p></div>
-      <div class="panel-body"><table><thead><tr><th>Region</th><th class="n">Bags</th><th class="n">Avg</th></tr></thead><tbody>${
+      <p class="best">Best bag: <strong>${bagName(best)}</strong>, rated <span class="num">${best.rating}</span></p>
+      <p class="muted">${producers.length ? `${producers.length} producer${producers.length === 1 ? '' : 's'} or farms logged.` : 'No producers or farms logged.'}${
+        repeats.length ? ` Bought more than once: ${repeats.map(p => `${p.name} (${p.n})`).join(', ')}.` : ''}</p>
+      <div class="view-toggle" role="group" aria-label="Table">${[['regions', 'Regions'], ['producers', 'Producers & farms']]
+        .map(([id, label]) => `<button type="button" class="chip" data-view="${id}" aria-pressed="${panelView === id}">${label}</button>`).join('')}</div></div>`;
+
+    let body;
+    if (panelView === 'regions') {
+      const regions = d3.groups(o.bags, b => b.region ?? 'Region not logged')
+        .map(([r, bs]) => ({ r, n: bs.length, mean: d3.mean(bs, b => b.rating) }))
+        .sort((a, b) => b.n - a.n || b.mean - a.mean);
+      const singles = regions.filter(r => r.n === 1);
+      body = `<table><thead><tr><th>Region</th><th class="n">Bags</th><th class="n">Avg</th></tr></thead><tbody>${
         regions.filter(r => r.n >= 2).map(r => `<tr><td>${r.r}</td><td class="n">${r.n}</td><td class="n">${r.n >= 3 ? f2(r.mean) : '—'}</td></tr>`).join('')
-      }${singles.length ? `<tr><td colspan="3" class="muted" title="${singles.map(r => r.r).join(', ')}">${singles.length === 1 ? singles[0].r : `${singles.length} more regions`} with 1 bag${singles.length === 1 ? '' : ' each'}</td></tr>` : ''}</tbody></table>
-      ${unmapped.length ? `<p class="muted">Not on the map: ${unmapped.join(', ')}</p>` : ''}</div>`);
+      }${singles.length ? `<tr><td colspan="3" class="muted" title="${singles.map(r => r.r).join(', ')}">${singles.length === 1 ? singles[0].r : `${singles.length} more regions`} with 1 bag${singles.length === 1 ? '' : ' each'}</td></tr>` : ''}</tbody></table>`;
+    } else {
+      const shown = showAll ? producers : producers.slice(0, PRODUCER_LIMIT);
+      body = `<table><thead><tr><th>Producer · farm · region</th><th class="n">Bags</th><th class="n">Rating</th></tr></thead><tbody>${
+        shown.map(p => `<tr><td><strong>${p.name}</strong>${p.n >= 2 ? ' <span class="repeat">repeat</span>' : ''}${p.sub ? `<div class="muted small">${p.sub}</div>` : ''}</td>
+          <td class="n">${p.n}</td><td class="n">${p.n >= 3 ? `avg ${f2(p.mean)}` : p.bags.map(b => b.rating).join(', ')}</td></tr>`).join('')
+      }</tbody></table>
+      ${producers.length > PRODUCER_LIMIT ? `<button type="button" class="link-button" data-more>${showAll ? 'Show fewer' : `Show all ${producers.length}`}</button>` : ''}
+      ${missing ? `<p class="muted small">${missing} bag${missing === 1 ? '' : 's'} with no producer or farm logged.</p>` : ''}`;
+    }
+    panel.html(head + `<div class="panel-body">${body}${unmapped.length ? `<p class="muted">Not on the map: ${unmapped.join(', ')}</p>` : ''}</div>`);
+    panel.selectAll('[data-view]').on('click', function () { panelView = this.dataset.view; showAll = false; renderPanel(o); });
+    panel.select('[data-more]').on('click', () => { showAll = !showAll; renderPanel(o); });
   }
 
   function select(o) {
+    if (o !== selected) showAll = false;
     selected = o;
     mapSvg.selectAll('.land').classed('selected', f => f === o.feature);
     mapSvg.selectAll('.origin-dot').classed('selected', d => d === o);

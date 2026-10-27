@@ -95,7 +95,8 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
   `data/geo/` because the preview can't fetch from CDNs; topojson-client from jsDelivr). Size = bags rated,
   color = average rating (sequential ramp, `--seq-lo`/`--seq-hi`), n < 3 shown dashed with no average.
   Map spans the section's full width; bubble size scales with width. Click/Enter selects a country →
-  panel below the map (summary left, region table right) with best bag and regions (n ≥ 2 listed, singles collapsed).
+  panel below the map (summary left, table right): best bag, producer/farm count and repeat producers;
+  a toggle switches the table between Regions and Producers & farms (first 8, "Show all"); regions (n ≥ 2 listed, singles collapsed).
   `COUNTRY_ALIASES` maps log names to map names (East Timor → Timor-Leste).
 - Watch for CSS class collisions between sections (`.origins` chips vs the map, `.bubble` foam vs map dots).
 
