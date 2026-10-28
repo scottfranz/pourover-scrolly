@@ -310,8 +310,14 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
   .stage { flex: 0 0 58%; }
   .readout { order: -1; min-height: 3.5rem; }
   .steps { grid-column: 1; position: relative; z-index: 2; pointer-events: none; }
-  .step, .step:first-child { align-items: flex-end; padding-block: 0 5vh; }
-  .card { pointer-events: auto; background: var(--card); padding: 1.1rem 1.2rem; border-radius: 10px; border: 1px solid var(--rule); }
+  /* Taller steps leave a stretch between cards where the chart is fully uncovered;
+     compact cards cover less of it while you read. The first card stays on the first screen. */
+  .step { align-items: flex-end; padding-block: 0 4vh; min-height: 170vh; min-height: 170svh; }
+  .step:first-child { min-height: 100vh; min-height: 100svh; align-items: flex-end; padding-block: 0 4vh; }
+  .card { pointer-events: auto; background: var(--card); padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid var(--rule);
+    gap: 0.6rem; font-size: 0.94rem; line-height: 1.5; }
+  .card h2 { font-size: 1.3rem; }
+  .card .aside { font-size: 0.85rem; }
   .step:first-child .card { margin-top: 0; }
   .pickers, .bag-cards, .map-wrap, .map-panel { grid-template-columns: minmax(0, 1fr); }
   .timer { gap: 1rem; }
