@@ -408,7 +408,7 @@ function Intro(svg, tipEl) {
 
   // --- beans: one per bag
   const r1 = rng(11);
-  const beans = d3.range(facts.n_bags).map(() => ({ x: (r1() - 0.5) * 80, y0: -330 - r1() * 260, u: r1(), rot: r1() * 180, spin: (r1() - 0.5) * 540 }));
+  const beans = d3.range(facts.n_rated) // one bean per brewed (rated) bag; unopened bags wait in the sheet.map(() => ({ x: (r1() - 0.5) * 80, y0: -330 - r1() * 260, u: r1(), rot: r1() * 180, spin: (r1() - 0.5) * 540 }));
   const beanSel = sceneG.append('g').selectAll('g').data(beans).join('g').style('opacity', 0);
   beanSel.append('ellipse').attr('class', 'bean').attr('rx', 7.5).attr('ry', 5.2);
   beanSel.append('path').attr('class', 'bean-crease').attr('d', 'M-6,0 C-2,-2 2,2 6,0');

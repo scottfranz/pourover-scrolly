@@ -31,7 +31,8 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
 - Six bags at $0 → treated as gift/unknown price, excluded from price stats.
 - Three 40 g bags are sample bags (weight floor set to 20 g).
 - Two newest bags (Ginimao S-795, Gachatha) not yet rated.
-- New bags often have no roast date yet: warning only (rest days null). Altitude ranges ("1600-1700") use the midpoint.
+- Scott logs bags via a form when bought; unopened bags have no roast date or rating: warning only
+  (rest days null), kept in n_bags but the headline and beans use n_rated. Altitude ranges ("1600-1700") use the midpoint.
 
 ## Open decisions (confirm with Scott)
 
