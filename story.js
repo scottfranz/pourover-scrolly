@@ -446,10 +446,9 @@ function Intro(svg, tipEl) {
       ['Origin', b.countries.join(', ') || '—'], ['Variety', b.varieties.join(', ') || '—']]);
   }).on('pointerleave', () => { tipEl.hidden = true; });
 
-  const priceMax = AXES.find(a => a.key === 'price_per_cup').max;
-  const x = d3.scaleLinear().domain([0, priceMax]);
   const rate = d3.scaleLinear().domain(d3.extent(fines, d => d.b.rating)).nice();
-  const y = rate.copy();
+  const swarmX = d3.scaleLinear();
+  let swarmR = 5.5;
 
   function tip(ev, title, slot, rows) {
     const [tx, ty] = d3.pointer(ev, tipEl.parentElement);
@@ -479,21 +478,6 @@ function Intro(svg, tipEl) {
     sceneG.attr('transform', `translate(${L.cx},${L.cy + GRINDER_DROP * k}) scale(${k})`);
     P = toPx(40, -40 + GRINDER_DROP);
 
-    // scatterplot: price per cup × rating
-    const pw = Math.min(L.W - 84, 640), ph = Math.min(L.H - 80, pw * 0.8);
-    const ox = L.cx - pw / 2 + 24, oy = L.cy - ph / 2 - 6;
-    x.range([ox, ox + pw]); y.range([oy + ph, oy]);
-    scatterAxes.selectAll('*').remove();
-    scatterAxes.append('g').selectAll('line').data(y.ticks(5)).join('line').attr('class', 'ring')
-      .attr('x1', ox).attr('x2', ox + pw).attr('y1', d => y(d)).attr('y2', d => y(d));
-    scatterAxes.append('g').selectAll('text').data(y.ticks(5)).join('text').attr('class', 'axis-end').attr('text-anchor', 'end')
-      .attr('x', ox - 8).attr('y', d => y(d)).attr('dy', '0.32em').text(d => d);
-    scatterAxes.append('g').selectAll('text').data(x.ticks(L.narrow ? 4 : 6)).join('text').attr('class', 'axis-end').attr('text-anchor', 'middle')
-      .attr('x', d => x(d)).attr('y', oy + ph + 18).text(d3.format('$.2f'));
-    scatterAxes.append('line').attr('class', 'ring outer').attr('x1', ox).attr('x2', ox + pw).attr('y1', oy + ph).attr('y2', oy + ph);
-    scatterAxes.append('text').attr('class', 'axis-label').attr('x', ox + pw).attr('y', oy + ph + 38).attr('text-anchor', 'end').text('Price per cup →');
-    scatterAxes.append('text').attr('class', 'axis-label').attr('x', ox - 8).attr('y', oy - 12).attr('text-anchor', 'start').text('↑ Rating');
-
     // dot plots: one row per roaster / variety, rating along x, a tick at each row's average
     const cw = Math.min(L.W - 8, 700), labelW = L.narrow ? 96 : 156, rightW = L.narrow ? 74 : 84;
     const left = L.cx - cw / 2, x0 = left + labelW + 10, x1 = left + cw - rightW;
@@ -514,9 +498,29 @@ function Intro(svg, tipEl) {
       .attr('x', d => rate(d)).attr('y', L.cy + (L.H - 60) / 2 + 6).text(d => d);
     stripGrid.append('text').attr('class', 'axis-label').attr('x', x1).attr('y', L.cy + (L.H - 60) / 2 + 24).attr('text-anchor', 'end').text('Rating →');
 
+    // beeswarm: every rated bag along the full stage width, packed so no dots overlap
+    const sw = Math.min(L.W - 56, 760), sx0 = L.cx - sw / 2, sx1 = L.cx + sw / 2;
+    swarmX.domain(rate.domain()).range([sx0, sx1]);
+    swarmR = L.narrow ? 4 : 5.5;
+    const sim = d3.forceSimulation(fines.map(d => ({ d, x: swarmX(d.b.rating), y: L.cy })))
+      .force('x', d3.forceX(n => swarmX(n.d.b.rating)).strength(1))
+      .force('y', d3.forceY(L.cy).strength(0.05))
+      .force('collide', d3.forceCollide(swarmR + 1)).stop();
+    for (let i = 0; i < 240; i++) sim.tick();
+    sim.nodes().forEach(n => { n.d.sx = n.x; n.d.sy = n.y; });
+    const swarmBottom = d3.max(sim.nodes(), n => n.y) + 16, swarmTop = d3.min(sim.nodes(), n => n.y) - 16;
+    scatterAxes.selectAll('*').remove();
+    scatterAxes.append('line').attr('class', 'ring outer').attr('x1', sx0).attr('x2', sx1).attr('y1', swarmBottom).attr('y2', swarmBottom);
+    scatterAxes.append('g').selectAll('text').data(swarmX.ticks(L.narrow ? 6 : 12)).join('text').attr('class', 'axis-end').attr('text-anchor', 'middle')
+      .attr('x', d => swarmX(d)).attr('y', swarmBottom + 16).text(d => d);
+    scatterAxes.append('text').attr('class', 'axis-label').attr('x', sx1).attr('y', swarmBottom + 34).attr('text-anchor', 'end').text('Rating →');
+    const med = swarmX(facts.rating.median);
+    scatterAxes.append('line').attr('class', 'mean-tick').attr('x1', med).attr('x2', med).attr('y1', swarmTop).attr('y2', swarmBottom);
+    scatterAxes.append('text').attr('class', 'bar-val').attr('x', med).attr('y', swarmTop - 8).attr('text-anchor', 'middle')
+      .text(`median ${facts.rating.median}`);
+
     const place = (lay, name, j) => [0, lay.yOf(name) + j * lay.rowH * 0.56];
     dots.forEach(d => {
-      d.sx = d.b.price_per_cup != null ? x(d.b.price_per_cup) : null; d.sy = y(d.b.rating);
       d.rx = rate(d.b.rating); d.ry = place(lr, d.rRow, d.j)[1];
       d.vx = rate(d.b.rating); d.vy = d.vRow ? place(lv, d.vRow, d.j)[1] : null;
       [d.bx, d.by] = toPx(d.br * Math.cos(d.bth), d.br * Math.sin(d.bth));
@@ -570,7 +574,7 @@ function Intro(svg, tipEl) {
       d3.select(this).style('opacity', op * gone)
         .attr('transform', `translate(${lerp(x0, d.bx, drop)},${lerp(y0, d.by, drop)})`)
         .style('pointer-events', g > 2.45 && g < INTRO && op > 0.5 ? null : 'none')
-        .selectAll('.fine, .fine-bed').attr('r', lerp(lerp(2, 3.5, fly), 2, drop));
+        .selectAll('.fine, .fine-bed').attr('r', lerp(lerp(lerp(2, swarmR, fly), 3.5, t3), 2, drop));
       d3.select(this).select('.fine-bed').style('opacity', clamp(drop * 1.6));
     });
   }

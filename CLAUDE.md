@@ -55,10 +55,12 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
   Reads `data/build/bags.json` and `facts.json`, so serve the folder (`npm run dev`), don't open the file.
 - Intro (5 steps, `Intro()` in story.js; the pour scene runs on g − INTRO): the ZP6 grinder is the hero
   (side view, tall catch cup) and one bean per bag pours in → crank turns → catch cup tips, coarse grounds
-  fall away and the fines become one dot per rated bag: price-per-cup × rating scatter → the same dots
+  fall away and the fines become one dot per rated bag: a rating beeswarm (full stage width, d3 force
+  collide, median tick; bigger dots that shrink into the rows) → the same dots
   re-sort into roaster rows (rating on x, tick = row average) → variety rows → dots drop into the V60.
   Bags listing several varieties can't be credited to one (Scott), so they form a "Multiple varieties"
   row/group (`MULTI_VARIETY`, also in facts.by_variety). Grind text: ZP6 dial 4.0–5.5 (`GRIND`, Scott's range).
+  The price-vs-rating sentence (claim price-weak-positive) lives on the main-pour step card.
   Dots are colored by continent (Americas / Africa / Asia & Pacific = s1–s3; blends/unknown gray),
   the 3-series cap for overlapping marks. Dot fills are the lighter tint (series color mixed 45% with
   white, like the radar fills) with a solid outline in the full series color (Scott's preference).

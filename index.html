@@ -361,8 +361,8 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
         <span class="kicker">The fines</span>
         <h2>Every dot is a bag</h2>
         <p>The color shows where the coffee grew.</p>
-        <p data-claim="price-weak-positive">Paying more is only weakly linked to a higher rating. Across <span data-fact="correlations.price_per_g_vs_rating.n">114</span> bags with a price and a rating, Spearman's ρ is <span class="num" data-fact="correlations.price_per_g_vs_rating.rho" data-fmt="2">0.34</span>.</p>
-        <p class="aside">My median bag cost $<span class="num" data-fact="price_per_cup.median" data-fmt="2">1.02</span> a cup. Gifts are left out of this view.</p>
+        <p>Every bag got a rating once it was finished. The median is <span class="num" data-fact="rating.median" data-fmt="1">7.7</span>, and half of all ratings land between <span class="num" data-fact="rating.q1" data-fmt="1">7.3</span> and <span class="num" data-fact="rating.q3" data-fmt="1">8.1</span>.</p>
+        <p class="aside">Each dot sits at its rating; dots stack up where ratings are common. The tick marks the median.</p>
       </div>
     </div>
     <div class="step">
@@ -400,7 +400,8 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
       <div class="card">
         <span class="kicker" data-phase="1">0:45–2:00 · Main pour</span>
         <h2>Slow spirals, out and back</h2>
-        <p>Every bag got a rating once it was finished. The median is <span class="num" data-fact="rating.median" data-fmt="1">7.7</span>, and half of all ratings land between <span class="num" data-fact="rating.q1" data-fmt="1">7.3</span> and <span class="num" data-fact="rating.q3" data-fmt="1">8.1</span>.</p>
+        <p data-claim="price-weak-positive">Paying more is only weakly linked to a higher rating. Across <span data-fact="correlations.price_per_g_vs_rating.n">114</span> bags with a price and a rating, Spearman's ρ is <span class="num" data-fact="correlations.price_per_g_vs_rating.rho" data-fmt="2">0.34</span>.</p>
+        <p class="aside">My median bag cost $<span class="num" data-fact="price_per_cup.median" data-fmt="2">1.02</span> a cup, not counting gifts.</p>
       </div>
     </div>
     <div class="step">
