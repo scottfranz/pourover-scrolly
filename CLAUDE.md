@@ -58,7 +58,8 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
 - Intro (5 steps, `Intro()` in story.js; the pour scene runs on g − INTRO): the ZP6 grinder is the hero
   (side view, tall catch cup) and one bean per bag pours in → crank turns → catch cup tips, coarse grounds
   fall away and the fines become one dot per rated bag: a rating beeswarm (full stage width, d3 force
-  collide, median tick; dot size = price per cup (sqrt scale, gifts hollow), shrinking to 3.5 px in the rows) → the same dots
+  collide, median tick; dot size = price per cup (sqrt scale, gifts hollow); the roaster/variety rows keep
+  price-as-size on a smaller scale (`rowPriceR`, max ≈ 0.3 × row height, capped 8 px / 6 px on phones); the legend size key follows the active scale) → the same dots
   re-sort into roaster rows (rating on x, tick = row average) → variety rows → dots drop into the V60.
   Bags listing several varieties can't be credited to one (Scott), so they form a "Multiple varieties"
   row/group (`MULTI_VARIETY`, also in facts.by_variety). Grind text: ZP6 dial 4.0–5.5 (`GRIND`, Scott's range).
@@ -102,6 +103,7 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
   panel below the map (summary left, table right): best bag, producer/farm count and repeat producers;
   a toggle switches the table between Regions and Producers & farms (first 8, "Show all"); regions (n ≥ 2 listed, singles collapsed).
   `COUNTRY_ALIASES` maps log names to map names (East Timor → Timor-Leste).
+- The intro's illustration layer has pointer-events: none so it never blocks dot tooltips.
 - Watch for CSS class collisions between sections (`.origins` chips vs the map, `.bubble` foam vs map dots).
 
 ## Next step

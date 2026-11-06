@@ -368,7 +368,7 @@ function Intro(svg, tipEl) {
     .forEach(([o, c]) => cyl.append('stop').attr('offset', o).attr('style', `stop-color: var(${c})`));
 
   const px = svg.append('g').attr('class', 'intro');
-  const sceneG = svg.append('g');
+  const sceneG = svg.append('g').style('pointer-events', 'none');
   const scatterAxes = px.append('g');
   const stripGrid = px.append('g');
   const rowsR = px.append('g');
@@ -408,7 +408,8 @@ function Intro(svg, tipEl) {
 
   // --- beans: one per bag
   const r1 = rng(11);
-  const beans = d3.range(facts.n_rated) // one bean per brewed (rated) bag; unopened bags wait in the sheet.map(() => ({ x: (r1() - 0.5) * 80, y0: -330 - r1() * 260, u: r1(), rot: r1() * 180, spin: (r1() - 0.5) * 540 }));
+  // one bean per brewed (rated) bag; unopened bags wait in the sheet
+  const beans = d3.range(facts.n_rated).map(() => ({ x: (r1() - 0.5) * 80, y0: -330 - r1() * 260, u: r1(), rot: r1() * 180, spin: (r1() - 0.5) * 540 }));
   const beanSel = sceneG.append('g').selectAll('g').data(beans).join('g').style('opacity', 0);
   beanSel.append('ellipse').attr('class', 'bean').attr('rx', 7.5).attr('ry', 5.2);
   beanSel.append('path').attr('class', 'bean-crease').attr('d', 'M-6,0 C-2,-2 2,2 6,0');
@@ -447,7 +448,7 @@ function Intro(svg, tipEl) {
   }).on('pointerleave', () => { tipEl.hidden = true; });
 
   const rate = d3.scaleLinear().domain(d3.extent(fines, d => d.b.rating)).nice();
-  const swarmX = d3.scaleLinear(), priceR = d3.scaleSqrt();
+  const swarmX = d3.scaleLinear(), priceR = d3.scaleSqrt(), rowPriceR = d3.scaleSqrt();
 
   function tip(ev, title, slot, rows) {
     const [tx, ty] = d3.pointer(ev, tipEl.parentElement);
@@ -487,6 +488,9 @@ function Intro(svg, tipEl) {
       return { rowH, x0, x1, labelX: x0 - 10, narrow: L.narrow, yOf: name => top + idx.get(name) * rowH + rowH / 2, bottom: top + rows.length * rowH };
     };
     const lr = stripLayout(roasterRowsP.rows), lv = stripLayout(varietyRowsP.rows);
+    // rows are short, so price-as-size gets its own smaller scale that keeps dots inside their row
+    rowPriceR.domain(priceR.domain()).range([0, Math.max(4, Math.min(Math.min(lr.rowH, lv.rowH) * 0.3, L.narrow ? 6 : 8))]);
+    fines.forEach(d => { d.rr = d.b.price_per_cup == null ? 2.2 : Math.max(1.8, rowPriceR(d.b.price_per_cup)); });
     drawRows(rowsR, roasterRowsP.rows, lr);
     drawRows(rowsV, varietyRowsP.rows, lv);
     stripGrid.selectAll('*').remove();
@@ -575,7 +579,8 @@ function Intro(svg, tipEl) {
       d3.select(this).style('opacity', op * gone)
         .attr('transform', `translate(${lerp(x0, d.bx, drop)},${lerp(y0, d.by, drop)})`)
         .style('pointer-events', g > 2.45 && g < INTRO && op > 0.5 ? null : 'none')
-        .selectAll('.fine, .fine-bed').attr('r', lerp(lerp(lerp(2, d.sr, fly), 3.5, t3), 2, drop));
+        .selectAll('.fine, .fine-bed').attr('r', lerp(lerp(lerp(2, d.sr, fly), d.rr, t3), 2, drop));
+      d3.select(this).select('.hit').attr('r', Math.max(7, lerp(lerp(d.sr, d.rr, t3), 2, drop) + 2));
       d3.select(this).select('.fine-bed').style('opacity', clamp(drop * 1.6));
     });
   }
@@ -583,8 +588,9 @@ function Intro(svg, tipEl) {
   function readout(g) {
     if (g < 2) return `<div class="timer"><span>Coffee<b>${facts.dose_g} g</b></span><span>Grinder<b>1Zpresso ZP6</b></span><span>Dial<b>${GRIND}</b></span></div>`;
     if (g >= INTRO) return `<div class="timer"><span>Time<b>0:00</b></span><span>Water<b>0 g</b></span><span>Coffee<b>${facts.dose_g} g</b></span></div>`; // dots are brown grounds now
-    const sizeKey = g < 3 ? `<span class="legend-item size-key"><svg width="${2 * priceR(2) + 2 * priceR(0.5) + 10}" height="${2 * priceR(2) + 2}">` +
-      `<circle cx="${priceR(0.5) + 1}" cy="${priceR(2) + 1}" r="${priceR(0.5)}"></circle><circle cx="${2 * priceR(0.5) + 6 + priceR(2)}" cy="${priceR(2) + 1}" r="${priceR(2)}"></circle></svg>` +
+    const sr = g < 3.2 ? priceR : rowPriceR; // the swarm and the rows use different size scales
+    const sizeKey = g < INTRO ? `<span class="legend-item size-key"><svg width="${2 * sr(2) + 2 * sr(0.5) + 10}" height="${2 * sr(2) + 2}">` +
+      `<circle cx="${sr(0.5) + 1}" cy="${sr(2) + 1}" r="${sr(0.5)}"></circle><circle cx="${2 * sr(0.5) + 6 + sr(2)}" cy="${sr(2) + 1}" r="${sr(2)}"></circle></svg>` +
       `<span class="label">$0.50 and $2.00 a cup</span></span>` : '';
     const present = [...new Set(fines.map(f => f.slot))].sort((a, b) => (a || 9) - (b || 9)); // neutral gray last
     return `<div class="legend">${present.map(s => `<span class="legend-item"><span class="swatch dot c-${s}"></span><span class="label">${s ? CONT_ORDER[s - 1] : 'Blend or unknown'}</span></span>`).join('')}${sizeKey}</div>`;
