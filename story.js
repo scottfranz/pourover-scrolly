@@ -438,7 +438,7 @@ function Intro(svg, tipEl) {
   const dots = fines;
   const dotSel = dotsG.selectAll('g').data(dots).join('g').style('opacity', 0);
   dotSel.append('circle').attr('class', 'hit').attr('r', 9);
-  dotSel.append('circle').attr('class', d => `fine c-${d.slot}`);
+  dotSel.append('circle').attr('class', d => `fine c-${d.slot}${d.b.price_per_cup == null ? ' gift' : ''}`);
   dotSel.append('circle').attr('class', 'fine-bed'); // brown copy that fades in as the dots drop into the V60
   dotSel.on('pointerenter pointerdown', (ev, d) => {
     const b = d.b;
@@ -447,8 +447,7 @@ function Intro(svg, tipEl) {
   }).on('pointerleave', () => { tipEl.hidden = true; });
 
   const rate = d3.scaleLinear().domain(d3.extent(fines, d => d.b.rating)).nice();
-  const swarmX = d3.scaleLinear();
-  let swarmR = 5.5;
+  const swarmX = d3.scaleLinear(), priceR = d3.scaleSqrt();
 
   function tip(ev, title, slot, rows) {
     const [tx, ty] = d3.pointer(ev, tipEl.parentElement);
@@ -501,11 +500,13 @@ function Intro(svg, tipEl) {
     // beeswarm: every rated bag along the full stage width, packed so no dots overlap
     const sw = Math.min(L.W - 56, 760), sx0 = L.cx - sw / 2, sx1 = L.cx + sw / 2;
     swarmX.domain(rate.domain()).range([sx0, sx1]);
-    swarmR = L.narrow ? 4 : 5.5;
+    // dot size = price per cup (area ∝ price); gifts have no price and stay small and hollow
+    priceR.domain([0, d3.max(fines, d => d.b.price_per_cup)]).range([0, L.narrow ? 7 : 10]);
+    fines.forEach(d => { d.sr = d.b.price_per_cup == null ? 2.5 : Math.max(2, priceR(d.b.price_per_cup)); });
     const sim = d3.forceSimulation(fines.map(d => ({ d, x: swarmX(d.b.rating), y: L.cy })))
       .force('x', d3.forceX(n => swarmX(n.d.b.rating)).strength(1))
       .force('y', d3.forceY(L.cy).strength(0.05))
-      .force('collide', d3.forceCollide(swarmR + 1)).stop();
+      .force('collide', d3.forceCollide(n => n.d.sr + 1)).stop();
     for (let i = 0; i < 240; i++) sim.tick();
     sim.nodes().forEach(n => { n.d.sx = n.x; n.d.sy = n.y; });
     const swarmBottom = d3.max(sim.nodes(), n => n.y) + 16, swarmTop = d3.min(sim.nodes(), n => n.y) - 16;
@@ -574,7 +575,7 @@ function Intro(svg, tipEl) {
       d3.select(this).style('opacity', op * gone)
         .attr('transform', `translate(${lerp(x0, d.bx, drop)},${lerp(y0, d.by, drop)})`)
         .style('pointer-events', g > 2.45 && g < INTRO && op > 0.5 ? null : 'none')
-        .selectAll('.fine, .fine-bed').attr('r', lerp(lerp(lerp(2, swarmR, fly), 3.5, t3), 2, drop));
+        .selectAll('.fine, .fine-bed').attr('r', lerp(lerp(lerp(2, d.sr, fly), 3.5, t3), 2, drop));
       d3.select(this).select('.fine-bed').style('opacity', clamp(drop * 1.6));
     });
   }
@@ -582,8 +583,11 @@ function Intro(svg, tipEl) {
   function readout(g) {
     if (g < 2) return `<div class="timer"><span>Coffee<b>${facts.dose_g} g</b></span><span>Grinder<b>1Zpresso ZP6</b></span><span>Dial<b>${GRIND}</b></span></div>`;
     if (g >= INTRO) return `<div class="timer"><span>Time<b>0:00</b></span><span>Water<b>0 g</b></span><span>Coffee<b>${facts.dose_g} g</b></span></div>`; // dots are brown grounds now
+    const sizeKey = g < 3 ? `<span class="legend-item size-key"><svg width="${2 * priceR(2) + 2 * priceR(0.5) + 10}" height="${2 * priceR(2) + 2}">` +
+      `<circle cx="${priceR(0.5) + 1}" cy="${priceR(2) + 1}" r="${priceR(0.5)}"></circle><circle cx="${2 * priceR(0.5) + 6 + priceR(2)}" cy="${priceR(2) + 1}" r="${priceR(2)}"></circle></svg>` +
+      `<span class="label">$0.50 and $2.00 a cup</span></span>` : '';
     const present = [...new Set(fines.map(f => f.slot))].sort((a, b) => (a || 9) - (b || 9)); // neutral gray last
-    return `<div class="legend">${present.map(s => `<span class="legend-item"><span class="swatch dot c-${s}"></span><span class="label">${s ? CONT_ORDER[s - 1] : 'Blend or unknown'}</span></span>`).join('')}</div>`;
+    return `<div class="legend">${present.map(s => `<span class="legend-item"><span class="swatch dot c-${s}"></span><span class="label">${s ? CONT_ORDER[s - 1] : 'Blend or unknown'}</span></span>`).join('')}${sizeKey}</div>`;
   }
 
   return { update, resize, readout };

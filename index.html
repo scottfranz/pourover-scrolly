@@ -205,6 +205,9 @@ p { margin: 0; }
 .fine.c-2, .swatch.dot.c-2 { fill: color-mix(in srgb, var(--s2) 45%, white); background: color-mix(in srgb, var(--s2) 45%, white); stroke: var(--s2); border-color: var(--s2); }
 .fine.c-3, .swatch.dot.c-3 { fill: color-mix(in srgb, var(--s3) 45%, white); background: color-mix(in srgb, var(--s3) 45%, white); stroke: var(--s3); border-color: var(--s3); }
 .swatch.dot { border: 1.5px solid var(--muted); border-radius: 50%; width: 11px; height: 11px; background: color-mix(in srgb, var(--muted) 45%, white); }
+.fine.gift { fill: var(--bg); }
+.size-key svg { overflow: visible; }
+.size-key circle { fill: none; stroke: var(--muted); stroke-width: 1.2; }
 .fine-bed { fill: var(--grounds); stroke: var(--grain-a); stroke-width: 1.2; pointer-events: none; opacity: 0; }
 .row-rule { stroke: var(--rule); stroke-width: 1; }
 .mean-tick { stroke: var(--fg); stroke-width: 2.5; stroke-linecap: round; }
@@ -362,7 +365,8 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
         <h2>Every dot is a bag</h2>
         <p>The color shows where the coffee grew.</p>
         <p>Every bag got a rating once it was finished. The median is <span class="num" data-fact="rating.median" data-fmt="1">7.7</span>, and half of all ratings land between <span class="num" data-fact="rating.q1" data-fmt="1">7.3</span> and <span class="num" data-fact="rating.q3" data-fmt="1">8.1</span>.</p>
-        <p class="aside">Each dot sits at its rating; dots stack up where ratings are common. The tick marks the median.</p>
+        <p data-claim="price-weak-positive">Bigger dots cost more per cup, and they don't cluster at the top: paying more is only weakly linked to a higher rating (Spearman's ρ = <span class="num" data-fact="correlations.price_per_g_vs_rating.rho" data-fmt="2">0.34</span>, n=<span data-fact="correlations.price_per_g_vs_rating.n">114</span>).</p>
+        <p class="aside">Each dot sits at its rating and stacks up where ratings are common. The tick marks the median. Hollow dots are gifts, with no price.</p>
       </div>
     </div>
     <div class="step">
@@ -400,8 +404,7 @@ footer { max-width: 70rem; margin: 0 auto; padding-block: 2rem 4rem; color: var(
       <div class="card">
         <span class="kicker" data-phase="1">0:45–2:00 · Main pour</span>
         <h2>Slow spirals, out and back</h2>
-        <p data-claim="price-weak-positive">Paying more is only weakly linked to a higher rating. Across <span data-fact="correlations.price_per_g_vs_rating.n">114</span> bags with a price and a rating, Spearman's ρ is <span class="num" data-fact="correlations.price_per_g_vs_rating.rho" data-fmt="2">0.34</span>.</p>
-        <p class="aside">My median bag cost $<span class="num" data-fact="price_per_cup.median" data-fmt="2">1.02</span> a cup, not counting gifts.</p>
+        <p>A <span class="num" data-fact="dose_g">15</span> g dose of a typical bag costs me $<span class="num" data-fact="price_per_cup.median" data-fmt="2">1.02</span>, the median price per cup, not counting gifts.</p>
       </div>
     </div>
     <div class="step">
