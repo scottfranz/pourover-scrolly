@@ -103,6 +103,7 @@ weekly/monthly, so everything must rebuild from the sheet without hand edits.
   panel below the map (summary left, table right): best bag, producer/farm count and repeat producers;
   a toggle switches the table between Regions and Producers & farms (first 8, "Show all"); regions (n ≥ 2 listed, singles collapsed).
   `COUNTRY_ALIASES` maps log names to map names (East Timor → Timor-Leste).
+- Median/average ticks draw in `tickLayer` above the dots, with a background-colored halo.
 - The intro's illustration layer has pointer-events: none so it never blocks dot tooltips.
 - Watch for CSS class collisions between sections (`.origins` chips vs the map, `.bubble` foam vs map dots).
 

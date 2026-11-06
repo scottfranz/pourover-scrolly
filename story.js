@@ -375,6 +375,13 @@ function Intro(svg, tipEl) {
   const rowsV = px.append('g');
   const coarseG = px.append('g');
   const dotsG = px.append('g');
+  // median/average ticks sit above the dots so they stay visible through the crowd
+  const tickLayer = px.append('g').style('pointer-events', 'none');
+  const ticksS = tickLayer.append('g'), ticksR = tickLayer.append('g'), ticksV = tickLayer.append('g');
+  const tickLine = (gEl, x, y1, y2) => {
+    gEl.append('line').attr('class', 'mean-halo').attr('x1', x).attr('x2', x).attr('y1', y1).attr('y2', y2);
+    gEl.append('line').attr('class', 'mean-tick').attr('x1', x).attr('x2', x).attr('y1', y1).attr('y2', y2);
+  };
 
   // --- the ZP6, side view, scene units: upper body −150..80, catch cup 80..172
   const CUP_TOP = 80, GRINDER_DROP = 60;
@@ -460,14 +467,15 @@ function Intro(svg, tipEl) {
   let L, k = 1, P = [0, 0];
   const toPx = (sx, sy) => [L.cx + sx * k, L.cy + sy * k];
 
-  function drawRows(gEl, rows, layout) {
+  function drawRows(gEl, rows, layout, ticksEl) {
     gEl.selectAll('*').remove();
     const { yOf, rowH, x0, x1, labelX, narrow } = layout;
     const row = gEl.selectAll('g').data(rows).join('g').attr('transform', r => `translate(0,${yOf(r.name)})`);
     row.append('text').attr('class', 'bar-name').attr('x', labelX).attr('text-anchor', 'end').attr('dy', '0.35em')
       .text(r => narrow && r.name.length > 15 ? r.name.slice(0, 14) + '…' : r.name).append('title').text(r => r.name);
     row.append('line').attr('class', 'row-rule').attr('x1', x0).attr('x2', x1).attr('y1', rowH / 2).attr('y2', rowH / 2);
-    row.append('line').attr('class', 'mean-tick').attr('x1', r => rate(r.mean)).attr('x2', r => rate(r.mean)).attr('y1', -rowH * 0.38).attr('y2', rowH * 0.38);
+    ticksEl.selectAll('*').remove();
+    rows.forEach(r => tickLine(ticksEl, rate(r.mean), layout.yOf(r.name) - rowH * 0.42, layout.yOf(r.name) + rowH * 0.42));
     row.append('text').attr('class', 'bar-val').attr('x', x1 + 10).attr('dy', '0.35em')
       .html(r => `${f2(r.mean)} <tspan class="bar-n">· ${r.n}</tspan>`);
   }
@@ -491,8 +499,8 @@ function Intro(svg, tipEl) {
     // rows are short, so price-as-size gets its own smaller scale that keeps dots inside their row
     rowPriceR.domain(priceR.domain()).range([0, Math.max(4, Math.min(Math.min(lr.rowH, lv.rowH) * 0.3, L.narrow ? 6 : 8))]);
     fines.forEach(d => { d.rr = d.b.price_per_cup == null ? 2.2 : Math.max(1.8, rowPriceR(d.b.price_per_cup)); });
-    drawRows(rowsR, roasterRowsP.rows, lr);
-    drawRows(rowsV, varietyRowsP.rows, lv);
+    drawRows(rowsR, roasterRowsP.rows, lr, ticksR);
+    drawRows(rowsV, varietyRowsP.rows, lv, ticksV);
     stripGrid.selectAll('*').remove();
     const ticks = rate.ticks(L.narrow ? 4 : 6);
     stripGrid.append('g').selectAll('line').data(ticks).join('line').attr('class', 'ring')
@@ -520,7 +528,8 @@ function Intro(svg, tipEl) {
       .attr('x', d => swarmX(d)).attr('y', swarmBottom + 16).text(d => d);
     scatterAxes.append('text').attr('class', 'axis-label').attr('x', sx1).attr('y', swarmBottom + 34).attr('text-anchor', 'end').text('Rating →');
     const med = swarmX(facts.rating.median);
-    scatterAxes.append('line').attr('class', 'mean-tick').attr('x1', med).attr('x2', med).attr('y1', swarmTop).attr('y2', swarmBottom);
+    ticksS.selectAll('*').remove();
+    tickLine(ticksS, med, swarmTop, swarmBottom);
     scatterAxes.append('text').attr('class', 'bar-val').attr('x', med).attr('y', swarmTop - 8).attr('text-anchor', 'middle')
       .text(`median ${facts.rating.median}`);
 
@@ -564,9 +573,10 @@ function Intro(svg, tipEl) {
     const t3 = ease(clamp((g - 3) / 0.35)), t4 = ease(clamp((g - 4) / 0.35)), q = g - INTRO, drop = ease(clamp(q / 0.35));
     const gone = 1 - clamp((q - 0.3) / 0.15);
     scatterAxes.style('opacity', clamp((p - 0.35) / 0.15) * (1 - t3));
+    ticksS.style('opacity', clamp((p - 0.35) / 0.15) * (1 - t3));
     stripGrid.style('opacity', t3 * (1 - clamp(q / 0.15)));
-    rowsR.style('opacity', t3 * (1 - t4));
-    rowsV.style('opacity', t4 * (1 - clamp(q / 0.15)));
+    rowsR.style('opacity', t3 * (1 - t4)); ticksR.style('opacity', t3 * (1 - t4));
+    rowsV.style('opacity', t4 * (1 - clamp(q / 0.15))); ticksV.style('opacity', t4 * (1 - clamp(q / 0.15)));
 
     dotSel.each(function (d) {
       const fly = clamp((p - 0.15 - 0.2 * d.u) / 0.25), flyE = d3.easeCubicOut(fly);
