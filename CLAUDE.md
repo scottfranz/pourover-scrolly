@@ -130,3 +130,5 @@ Maybe a timeline of bags opened. build.js merges producer/farm/region spellings 
 - A failed build deploys nothing; the last good site stays live and GitHub emails the repo owner.
 - Sheet link comes from the `SHEET_URL` repository secret; `sheet.config.json` is gitignored.
 - The repo is public (Pages on a free plan), so `data/raw/bags.csv` and `bags.json` (including My Notes) are public.
+- Making the repo private turns Pages off (free plan). After making it public again, Pages must be re-enabled
+  (Settings → Pages → Source: GitHub Actions); until then deploys fail at configure-pages with "Not Found".
