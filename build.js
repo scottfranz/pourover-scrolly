@@ -96,7 +96,8 @@ for (const { record, info } of records) {
   const rd = parseDate(r.roast_date), od = parseDate(r.opened_date);
   if (rd.error) err('roast_date', rd.error);
   if (od.error) err('opened_date', od.error);
-  if (!rd.error && !rd.value) err('roast_date', 'missing');
+  // New bags often arrive without a roast date yet; keep them, only rest days is lost.
+  if (!rd.error && !rd.value) warn('roast_date', 'missing — rest days unavailable');
   let rest_days = null;
   if (rd.value && od.value) {
     rest_days = daysBetween(rd.value, od.value);
@@ -107,7 +108,9 @@ for (const { record, info } of records) {
   // Numerics
   const nums = {};
   for (const f of ['rating', 'funk', 'development', 'altitude_m', 'weight_g', 'price_usd']) {
-    const p = parseNum(r[f]);
+    // Roasters often give altitude as a range ("1600-1700"); use its midpoint.
+    const range = f === 'altitude_m' && r[f]?.match(/^\s*([\d,.]+)\s*[-–]\s*([\d,.]+)\s*(?:m|masl)?\s*$/i);
+    const p = range ? { value: (+range[1].replace(/,/g, '') + +range[2].replace(/,/g, '')) / 2 } : parseNum(r[f]);
     if (p.error) err(f, p.error);
     nums[f] = p.value ?? null;
   }
