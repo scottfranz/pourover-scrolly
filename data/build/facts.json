@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-11-01T15:25:13.817Z",
+  "generated_at": "2026-11-06T18:59:09.681Z",
   "source": "data/raw/bags.csv",
   "dose_g": 15,
-  "n_bags": 122,
-  "n_rated": 120,
-  "n_roasters": 34,
+  "n_bags": 128,
+  "n_rated": 122,
+  "n_roasters": 35,
   "n_home_roasts": 7,
-  "n_countries": 14,
-  "n_varieties": 45,
+  "n_countries": 15,
+  "n_varieties": 46,
   "first_opened": "2024-07-13",
-  "last_opened": "2026-10-29",
+  "last_opened": "2026-10-31",
   "rating": {
-    "mean": 7.5,
+    "mean": 7.51,
     "median": 7.7,
-    "q1": 7.28,
+    "q1": 7.3,
     "q3": 8.1,
     "min": 3,
     "max": 8.9
@@ -22,17 +22,17 @@
     "median": 14
   },
   "price_per_cup": {
-    "median": 1.02
+    "median": 1.04
   },
   "by_process": {
     "Washed": {
-      "n": 77,
-      "mean": 7.7,
+      "n": 78,
+      "mean": 7.71,
       "median": 7.8
     },
     "Experimental": {
-      "n": 21,
-      "mean": 6.98,
+      "n": 22,
+      "mean": 7.04,
       "median": 7.7
     },
     "Natural": {
@@ -54,7 +54,7 @@
     },
     "Ethiopia": {
       "n": 36,
-      "mean": 7.58,
+      "mean": 7.59,
       "median": 7.7
     },
     "Colombia": {
@@ -63,8 +63,8 @@
       "median": 7.7
     },
     "Kenya": {
-      "n": 14,
-      "mean": 7.59,
+      "n": 15,
+      "mean": 7.62,
       "median": 7.8
     },
     "Costa Rica": {
@@ -108,14 +108,14 @@
       "median": 7.7
     },
     "India": {
-      "n": 1,
-      "mean": 8,
-      "median": 8
+      "n": 2,
+      "mean": 7.9,
+      "median": 7.9
     },
     "Mexico": {
       "n": 1,
-      "mean": 8,
-      "median": 8
+      "mean": 7.9,
+      "median": 7.9
     }
   },
   "by_roaster": {
@@ -171,7 +171,7 @@
     },
     "Subtext": {
       "n": 13,
-      "mean": 8.09,
+      "mean": 8.12,
       "median": 8.1
     },
     "Little Wolf": {
@@ -221,7 +221,7 @@
     },
     "Tandem": {
       "n": 6,
-      "mean": 7.85,
+      "mean": 7.83,
       "median": 7.7
     },
     "Home roast": {
@@ -280,9 +280,9 @@
       "median": 7.5
     },
     "HEX": {
-      "n": 3,
-      "mean": 8.33,
-      "median": 8.4
+      "n": 5,
+      "mean": 8.2,
+      "median": 8.2
     },
     "Field Day": {
       "n": 2,
@@ -312,18 +312,18 @@
       "median": 8.3
     },
     "Kenyan Landraces": {
-      "n": 13,
-      "mean": 7.58,
-      "median": 7.8
+      "n": 14,
+      "mean": 7.62,
+      "median": 7.85
     },
     "Walega (74158)": {
       "n": 7,
-      "mean": 7.5,
+      "mean": 7.56,
       "median": 7.5
     },
     "Pink Bourbon": {
       "n": 12,
-      "mean": 7.23,
+      "mean": 7.22,
       "median": 7.6
     },
     "Guji Landrace": {
@@ -435,9 +435,14 @@
       "n": 1,
       "mean": 6,
       "median": 6
+    },
+    "S-795": {
+      "n": 1,
+      "mean": 7.8,
+      "median": 7.8
     }
   },
-  "n_repeat_roasters": 21,
+  "n_repeat_roasters": 22,
   "by_quarter": {
     "2024-Q3": {
       "n": 7,
@@ -485,9 +490,9 @@
       "median": 7.8
     },
     "2026-Q4": {
-      "n": 4,
-      "mean": 8.18,
-      "median": 8.15
+      "n": 6,
+      "mean": 8.15,
+      "median": 8.2
     }
   },
   "funk_cliff": {
@@ -504,12 +509,12 @@
   },
   "correlations": {
     "price_per_g_vs_rating": {
-      "rho": 0.334,
-      "n": 114
+      "rho": 0.341,
+      "n": 116
     },
     "rest_days_vs_rating": {
-      "rho": -0.121,
-      "n": 120
+      "rho": -0.125,
+      "n": 122
     },
     "funk_vs_rating": {
       "rho": -0.257,
@@ -521,7 +526,7 @@
     },
     "altitude_vs_rating": {
       "rho": 0.152,
-      "n": 103
+      "n": 105
     }
   },
   "claims": [

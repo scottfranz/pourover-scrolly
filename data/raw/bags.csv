@@ -115,12 +115,12 @@ My Rating,Roast Date,Opened Bag Date,Roaster,Name,Country,Region,Producer,Farm/W
 7.7,8/8/2026,9/25/2026,Regalia,Buncho Honey,Ethiopia,Sidama,Daye Bensa,Buncho,,Ethiopian Landraces,2000,Honey,2,Light,3,"Tangerine, White Floral, Peaches & Cream",,300,$19.00,0.95
 6,8/11/2026,9/1/2026,Regalia,Wush Wush,Ethiopia,,Biru Bekele,,,Wush Wush,,Natural,5,Light,2,"Jackfruit, Mangosteen, Shortbread Cookie",,300,$19.00,0.95
 7.9,8/25/2026,9/2/2026,Regalia,Kamwangi AA,Kenya,Kirinyaga,,,,"SL28, SL34, Ruiru 11",1800,Washed,2,Light,3,"Green Mango, Hibiscus, Wildflower Honey",,300,$19.00,0.95
-8.3,9/21/2026,10/9/2026,Tandem,Kambarare - Kenya,Kenya,Kirinyaga,Gerald Njagi,Kambarare,,SL28,1950,Washed,,Light,,"Mango Nectar, Tart Chery, Tangerine","Mango Nectar, Red Currants",226,$23.00,1.53
-8,9/29/2026,10/10/2026,Subtext,Rogelio Santiz,Mexico,Oaxaca,Rogelio Santiz,,Spring 2026,Pink Bourbon,1700,Washed,,Light,,"Floral, Green Grape, Yellow Plum, Sweet & Vibrant","Yellow Plum, Juicy Grape, Marshmallow, ",250,$23.66,1.42
-8,10/2/2026,10/13/2026,Subtext,Mullugeta Muntasha,Ethiopia,Sidama,Mullugeta Muntasha,Arbegona,January 2026,Walega,2230,Anaerobic Natural,,Light,,"Blue Raspberry, Violet, Mango",,250,$22.69,1.36
-8.4,10/2/2026,10/14/2026,Subtext,Arbegona Rumudamo,Ethiopia,Sidama,Arbegona Rumudamo,Rumudamo Station,January 2026,Walega,2200,Anaerobic Washed,,Light,,"Yuzu, Mango, Orange","Bergmamot, Orange, Punchy",250,$22.69,1.36
-,10/15/2026,,Hex,Ginimao S-795 // Yeast Inoculated Washed,India,Karnataka,Steven Rebello,,,S-795,1000,Yeast Inoculated Washed,,,,"Tangerine, Coriander, White Tea",,283,$24.00,1.27
-,10/15/2026,10/29/2026,Hex,Gachatha // Washed,Kenya,Nyeri,,Gachatha Coffee Factory,,"SL28, SL34, Ruiru 11, Batian",1900,Washed,,,,"Hibiscus, Strawberry Jam, Jasmine",,283,$26.00,1.38
+8.2,9/21/2026,10/9/2026,Tandem,Kambarare - Kenya,Kenya,Kirinyaga,Gerald Njagi,Kambarare,,SL28,1950,Washed,,Light,,"Mango Nectar, Tart Chery, Tangerine","Mango Nectar, Red Currants",226,$23.00,1.53
+7.9,9/29/2026,10/10/2026,Subtext,Rogelio Santiz,Mexico,Oaxaca,Rogelio Santiz,,Spring 2026,Pink Bourbon,1700,Washed,,Light,,"Floral, Green Grape, Yellow Plum, Sweet & Vibrant","Yellow Plum, Juicy Grape, Marshmallow, ",250,$23.66,1.42
+8.3,10/2/2026,10/13/2026,Subtext,Mullugeta Muntasha,Ethiopia,Sidama,Mullugeta Muntasha,Arbegona,January 2026,Walega,2230,Anaerobic Natural,,Light,,"Blue Raspberry, Violet, Mango",,250,$22.69,1.36
+8.5,10/2/2026,10/14/2026,Subtext,Arbegona Rumudamo,Ethiopia,Sidama,Arbegona Rumudamo,Rumudamo Station,January 2026,Walega,2200,Anaerobic Washed,,Light,,"Yuzu, Mango, Orange","Bergmamot, Orange, Punchy",250,$22.69,1.36
+7.8,10/15/2026,10/31/2026,HEX,Ginimao S-795 // Yeast Inoculated Washed,India,Karnataka,Steven Rebello,,,S-795,1000,Yeast Inoculated Washed,,,,"Tangerine, Coriander, White Tea",,283,$24.00,1.27
+8.2,10/15/2026,10/29/2026,HEX,Gachatha // Washed,Kenya,Nyeri,,Gachatha Coffee Factory,,"SL28, SL34, Ruiru 11, Batian",1900,Washed,,,,"Hibiscus, Strawberry Jam, Jasmine",,283,$26.00,1.38
 ,,,,,,,,,,,,,,,,,,,,#DIV/0!
 ,,,,,,,,,,,,,,,,,,,,#DIV/0!
 ,,,,,,,,,,,,,,,,,,,,#DIV/0!
@@ -174,3 +174,9 @@ My Rating,Roast Date,Opened Bag Date,Roaster,Name,Country,Region,Producer,Farm/W
 ,,,,,,,,,,,,,,,,,,,,#DIV/0!
 ,,,,,,,,,,,,,,,,,,,,#DIV/0!
 ,,,,,,,,,,,,,,,,,,,,#DIV/0!
+,,,Luna Coffee,"Basha Bekele Natural (minis) | Sidama, Ethiopia",Ethiopia,Sidama,Basha Bekele,,Dec-Jan 2025/26,74158,2300,Natural,,,,"Blue fruits, Dried sweet currants, Lavender honey",,250,$24.00,
+,,,Luna Coffee,"Habtamu Fikadu - Chelbesa site (Kurume, Dega & Wolisho) | Gedeb, Ethiopia",Ethiopia,Gedeb,Habtamu Fikadu Aga,,Dec-Jan 2025/26,"Kurume, Dega & Wolisho",,Washed,,,,"juicy & bright like white champagne peach, floral honey, & sencha tea-like qualities",,250,$24.75,
+,,,Luna Coffee,"Habtamu Fikadu - Danche site (Kurume & Dega) | Gedeb, Ethiopia",Ethiopia,Gedeb,Habtamu Fikadu Aga,,Dec-Jan 2025/26,Kurume & Dega,,Washed,,,,"juicy, nectarous peach, buttery, with a good dose of elderflower florals",,250,$24.75,
+,,,Blendin Coffee Club,Adaura 2-Phase Geisha Washed,Panama,"El Salto, Boquete",Marcus Duran,Adaura Coffee,2026,Geisha,1600-1700,Washed,,Light,,"White floral, Peach, Candied lemon",,100,$35.00,
+,,,Blendin Coffee Club,Finca Soledad Sidra Wave Washed,Ecuador,Imbabura,Pepe Jijon,Finca Soledad Sidra Wave,March 2026,Sidra,1500,Washed,,Light,,"Blackberry, Nectarine, Iris floral",,100,$20.00,
+,,,Regalia,Vinka Washed Sidra,Ecuador,Loja,Carlos Iñiguez & Maria Fernanda,Vinka,,Sidra,1640,Washed,,Light,,,,150,$25.00,
