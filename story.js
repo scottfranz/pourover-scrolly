@@ -501,7 +501,7 @@ function Intro(svg, tipEl) {
     const sw = Math.min(L.W - 56, 760), sx0 = L.cx - sw / 2, sx1 = L.cx + sw / 2;
     swarmX.domain(rate.domain()).range([sx0, sx1]);
     // dot size = price per cup (area ∝ price); gifts have no price and stay small and hollow
-    priceR.domain([0, d3.max(fines, d => d.b.price_per_cup)]).range([0, L.narrow ? 7 : 10]);
+    priceR.domain([0, d3.max(fines, d => d.b.price_per_cup)]).range([0, L.narrow ? 11 : 17]);
     fines.forEach(d => { d.sr = d.b.price_per_cup == null ? 2.5 : Math.max(2, priceR(d.b.price_per_cup)); });
     const sim = d3.forceSimulation(fines.map(d => ({ d, x: swarmX(d.b.rating), y: L.cy })))
       .force('x', d3.forceX(n => swarmX(n.d.b.rating)).strength(1))
