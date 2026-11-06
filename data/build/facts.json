@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-06T19:11:08.617Z",
+  "generated_at": "2026-11-06T20:03:41.061Z",
   "source": "data/raw/bags.csv",
   "dose_g": 15,
-  "n_bags": 128,
+  "n_bags": 129,
   "n_rated": 122,
   "n_roasters": 35,
   "n_home_roasts": 7,
@@ -22,7 +22,7 @@
     "median": 14
   },
   "price_per_cup": {
-    "median": 1.04
+    "median": 1.02
   },
   "by_process": {
     "Washed": {
